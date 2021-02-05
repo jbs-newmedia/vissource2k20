@@ -1,0 +1,22 @@
+{
+  "info": {
+    "name": "VIS2:Manager",
+    "author": "Juergen Schwind",
+    "copyright": "Juergen Schwind",
+    "link": "http:\/\/oswframe.com",
+    "license": "GNU General Public License 3",
+    "package": "vis2project.manager",
+    "version": "",
+    "release": "stable",
+    "group": "project",
+    "unique": false,
+    "serverlist": "vis2k20"
+  },
+  "required": [
+    {
+      "serverlist": "vis2k20",
+      "package": "vis2.core",
+      "release": "stable"
+    }
+  ]
+}

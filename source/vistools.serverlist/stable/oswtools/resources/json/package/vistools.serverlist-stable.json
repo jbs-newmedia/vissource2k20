@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "ServerList",
+    "author": "Juergen Schwind",
+    "copyright": "Juergen Schwind",
+    "link": "http:\/\/oswframe.com",
+    "license": "GNU General Public License 3",
+    "package": "vistools.serverlist",
+    "version": "",
+    "release": "stable",
+    "group": "tool",
+    "unique": false,
+    "serverlist": "vis2k20"
+  },
+  "required": []
+}
