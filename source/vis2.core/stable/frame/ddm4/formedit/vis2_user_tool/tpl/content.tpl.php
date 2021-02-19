@@ -30,13 +30,13 @@
 				<div class="custom-checkbox">
 					<?php if (isset($ar_tool_user[$tool_id])&&($ar_tool_user[$tool_id]==1)): ?>
 
-						<?php echo '#1# '.\osWFrame\Core\HTML::outputString($tool_name) ?>
+						<?php echo $this->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString($tool_name) ?>
 
 						<?php echo $this->getTemplate()->Form()->drawHiddenField($element.'_'.$tool_id, $ar_tool_user[$tool_id]) ?>
 
 					<?php else: ?>
 
-						<?php echo '#0# '.\osWFrame\Core\HTML::outputString($tool_name) ?>
+						<?php echo $this->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString($tool_name) ?>
 
 						<?php echo $this->getTemplate()->Form()->drawHiddenField($element.'_'.$tool_id, 0) ?>
 
@@ -50,13 +50,13 @@
 				<div class="custom-checkbox">
 					<?php if (isset($ar_tool_user[$this->getEditElementOption($element, 'tool_id')])&&($ar_tool_user[$this->getEditElementOption($element, 'tool_id')]==1)): ?>
 
-						<?php echo '#1# '.\osWFrame\Core\HTML::outputString($this->getEditElementOption($element, 'tool_name')) ?>
+						<?php echo $this->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString($this->getEditElementOption($element, 'tool_name')) ?>
 
 						<?php echo $this->getTemplate()->Form()->drawHiddenField($element.'_'.$this->getEditElementOption($element, 'tool_id'), $ar_tool_user[$this->getEditElementOption($element, 'tool_id')]) ?>
 
 					<?php else: ?>
 
-						<?php echo '#0# '.\osWFrame\Core\HTML::outputString($this->getEditElementOption($element, 'tool_name')) ?>
+						<?php echo $this->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString($this->getEditElementOption($element, 'tool_name')) ?>
 
 						<?php echo $this->getTemplate()->Form()->drawHiddenField($element.'_'.$this->getEditElementOption($element, 'tool_id'), 0) ?>
 

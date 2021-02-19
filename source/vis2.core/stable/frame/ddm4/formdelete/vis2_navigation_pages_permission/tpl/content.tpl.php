@@ -30,7 +30,7 @@
 		<?php foreach ($permission_list as $permission_flag=>$permission_text): ?>
 
 			<div class="custom-checkbox">
-				<?php if (isset($ar_navigation_permission[$permission_flag])&&($ar_navigation_permission[$permission_flag]==1)): ?><?php echo '#1# '.\osWFrame\Core\HTML::outputString($permission_text) ?><?php else: ?><?php echo '#0# '.\osWFrame\Core\HTML::outputString($permission_text) ?><?php endif ?><?php echo $this->getTemplate()->Form()->drawHiddenField($element.'_'.$permission_flag, 0) ?>
+				<?php if (isset($ar_navigation_permission[$permission_flag])&&($ar_navigation_permission[$permission_flag]==1)): ?><?php echo $this->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString($permission_text) ?><?php else: ?><?php echo $this->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString($permission_text) ?><?php endif ?><?php echo $this->getTemplate()->Form()->drawHiddenField($element.'_'.$permission_flag, 0) ?>
 			</div>
 
 		<?php endforeach ?>

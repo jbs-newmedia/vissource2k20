@@ -36,7 +36,7 @@
 				<?php foreach (\VIS2\Core\Manager::getGroupsByToolId($tool_id) as $group_id=>$group_name): ?>
 
 					<div class="custom-checkbox">
-						<?php if ((isset($ar_user_group[$tool_id])&&(isset($ar_user_group[$tool_id][$group_id])))&&($ar_user_group[$tool_id][$group_id]==1)): ?><?php echo '#1# '.\osWFrame\Core\HTML::outputString($group_name) ?><?php else: ?><?php echo '#0# '.\osWFrame\Core\HTML::outputString($group_name) ?><?php endif ?>
+						<?php if ((isset($ar_user_group[$tool_id])&&(isset($ar_user_group[$tool_id][$group_id])))&&($ar_user_group[$tool_id][$group_id]==1)): ?><?php echo $this->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString($group_name) ?><?php else: ?><?php echo $this->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString($group_name) ?><?php endif ?>
 					</div>
 
 				<?php endforeach ?>
@@ -50,7 +50,7 @@
 			<?php foreach (\VIS2\Core\Manager::getGroupsByToolId($this->getEditElementOption($element, 'tool_id')) as $group_id=>$group_name): ?>
 
 				<div class="custom-checkbox">
-					<?php if ((isset($ar_user_group[$this->getEditElementOption($element, 'tool_id')])&&(isset($ar_user_group[$this->getEditElementOption($element, 'tool_id')][$group_id])))&&($ar_user_group[$this->getEditElementOption($element, 'tool_id')][$group_id]==1)): ?><?php echo '#1# '.\osWFrame\Core\HTML::outputString($group_name) ?><?php else: ?><?php echo '#0# '.\osWFrame\Core\HTML::outputString($group_name) ?><?php endif ?>
+					<?php if ((isset($ar_user_group[$this->getEditElementOption($element, 'tool_id')])&&(isset($ar_user_group[$this->getEditElementOption($element, 'tool_id')][$group_id])))&&($ar_user_group[$this->getEditElementOption($element, 'tool_id')][$group_id]==1)): ?><?php echo $this->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString($group_name) ?><?php else: ?><?php echo $this->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString($group_name) ?><?php endif ?>
 				</div>
 
 			<?php endforeach ?>

@@ -17,7 +17,7 @@ if (!function_exists('vis2_manager_group_permission')) {
 			<strong><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?></strong>
 			<?php if (count($navigation_element['info']['permission'])>0): ?><?php foreach ($navigation_element['info']['permission'] as $flag): ?><?php if ($ro===true): ?>
 				<div class="custom-checkbox">
-					<?php if (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])): ?><?php echo '#1# '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getDeleteElementOption($element, 'tool_id'))) ?><?php else: ?><?php echo '#0# '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getDeleteElementOption($element, 'tool_id'))) ?><?php endif ?><?php echo $object->getTemplate()->Form()->drawHiddenField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, 0) ?>
+					<?php if (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])): ?><?php echo $object->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getDeleteElementOption($element, 'tool_id'))) ?><?php else: ?><?php echo $object->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getDeleteElementOption($element, 'tool_id'))) ?><?php endif ?><?php echo $object->getTemplate()->Form()->drawHiddenField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, 0) ?>
 				</div>
 			<?php else: ?>
 				<div class="custom-control custom-checkbox">

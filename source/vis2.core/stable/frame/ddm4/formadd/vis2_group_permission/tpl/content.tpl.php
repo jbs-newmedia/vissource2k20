@@ -20,7 +20,7 @@ if (!function_exists('vis2_manager_group_permission')) {
 
 					<?php if ($ro===true): ?>
 						<div class="custom-checkbox">
-							<?php if (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])): ?><?php echo '#1# '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getAddElementOption($element, 'tool_id'))) ?><?php else: ?><?php echo '#0# '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getAddElementOption($element, 'tool_id'))) ?><?php endif ?>
+							<?php if (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])): ?><?php echo $object->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getAddElementOption($element, 'tool_id'))) ?><?php else: ?><?php echo $object->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getAddElementOption($element, 'tool_id'))) ?><?php endif ?>
 
 							<?php echo $object->getTemplate()->Form()->drawHiddenField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, 0) ?>
 						</div>
