@@ -27,7 +27,11 @@ if (\osWFrame\Core\Settings::getAction()=='doedit') {
 	$this->setDoEditElementStorage($element, $ar_tool_user);
 }
 
-$this->getTemplate()->addJSCodeHead('
+$users=\VIS2\Core\Manager::getUsers();
+
+if(count($users)>intval($this->getEditElementOption($element, 'search_mod_counter'))) {
+
+	$this->getTemplate()->addJSCodeHead('
 function ddm4_function_'.$element.'() {
 	$(".ddm_element_'.$element.' .custom-control.custom-checkbox").each(function() {
 		search=$("#'.$element.'_search").val().toLowerCase();
@@ -44,6 +48,8 @@ $(function () {
 	ddm4_function_'.$element.'();
 });'
 );
+
+}
 
 $this->incCounter('form_elements');
 $this->incCounter('form_elements_required');

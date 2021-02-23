@@ -64,9 +64,10 @@ if ($VIS2_User->isLoggedIn()!==true) {
 	}
 }
 
+$VIS2_User->setToolId($VIS2_Main->getToolId());
+
 $VIS2_Navigation=new \VIS2\Core\Navigation($VIS2_Main->getToolId());
 $osW_Template->setVar('VIS2_Navigation', $VIS2_Navigation);
-
 
 /**
  * BreadCrumb erstellen

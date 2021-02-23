@@ -54,7 +54,7 @@
 
 			<?php if (($VIS2_Main->getBoolVar('tool_use_mandant')===true)&&($VIS2_Main->getBoolVar('tool_use_mandantswitch')===true)): ?>
 
-				<?php if (count($VIS2_Mandant->getMandanten())>1): ?>
+				<?php if (count($VIS2_User->getMandantenSelectArray())>1): ?>
 					<hr class="sidebar-divider my-0">
 
 					<li class="nav-item">
@@ -63,8 +63,8 @@
 
 						<div id="vis2_mandant" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
-								<?php foreach ($VIS2_Mandant->getMandanten() as $mandant): ?><?php if ($mandant['mandant_id']>0): ?>
-									<a class="collapse-item<?php if ($VIS2_Mandant->getId()==$mandant['mandant_id']): ?> active<?php endif ?>" href="<?php echo $this->buildhrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage='.$VIS2_Navigation->getPage().'&vis2_mandant_id='.$mandant['mandant_id']) ?>"><?php echo \osWFrame\Core\HTML::outputString($mandant['mandant_name']) ?></a>
+								<?php foreach ($VIS2_User->getMandantenSelectArray() as $mandant_id => $mandant_name): ?><?php if ($mandant_id>0): ?>
+									<a class="collapse-item<?php if ($VIS2_Mandant->getId()==$mandant_id): ?> active<?php endif ?>" href="<?php echo $this->buildhrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage='.$VIS2_Navigation->getPage().'&vis2_mandant_id='.$mandant_id) ?>"><?php echo \osWFrame\Core\HTML::outputString($mandant_name) ?></a>
 								<?php endif ?><?php endforeach ?>
 							</div>
 						</div>

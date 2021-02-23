@@ -41,6 +41,8 @@
 
 		<?php $users=\VIS2\Core\Manager::getUsers(); ?>
 
+		<?php if(count($users)>intval($this->getAddElementOption($element, 'search_mod_counter'))):?>
+
 		<div class="input-group">
 			<?php echo $this->getTemplate()->Form()->drawTextField($element.'_search', '', ['input_class'=>'form-control form-control-rborder', 'input_parameter'=>'placeholder="Suchen ..." oninput="ddm4_function_'.$element.'();"']); ?>
 			<button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100; border:0;" onclick="javascript:$('#<?php echo $element?>_search').val('');ddm4_function_<?php echo $element?>();">
@@ -49,6 +51,8 @@
 		</div>
 
 		<br/>
+
+		<?php endif?>
 
 		<?php foreach ($users as $user_id=>$user_name): ?>
 

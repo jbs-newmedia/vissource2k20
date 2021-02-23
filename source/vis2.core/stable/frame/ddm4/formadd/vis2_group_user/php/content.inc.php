@@ -27,6 +27,10 @@ if (\osWFrame\Core\Settings::getAction()=='doadd') {
 	$this->setDoAddElementStorage($element, $ar_tool_user);
 }
 
+$users=\VIS2\Core\Manager::getUsers();
+
+if(count($users)>intval($this->getAddElementOption($element, 'search_mod_counter'))) {
+
 $this->getTemplate()->addJSCodeHead('
 function ddm4_function_'.$element.'() {
 	$(".ddm_element_'.$element.' .custom-control.custom-checkbox").each(function() {
@@ -44,6 +48,8 @@ $(function () {
 	ddm4_function_'.$element.'();
 });'
 );
+
+}
 
 $this->incCounter('form_elements');
 $this->incCounter('form_elements_required');

@@ -32,10 +32,10 @@ if ($this->getFinishElementOption($element, 'group')!='') {
 	$group=$this->getGroupOption('table', 'database');
 }
 
-$tool_groups=\VIS2\Core\Manager::getGroupsByToolId($this->getFinishElementOption($element, 'tool_id'));
 $ar_user=\VIS2\Core\Manager::getUsers();
 if ($this->getFinishElementOption($element, 'manager')===true) {
 	foreach (\VIS2\Core\Manager::getTools() as $tool_id=>$tool_name) {
+		$tool_groups=\VIS2\Core\Manager::getGroupsByToolId($tool_id);
 		if (isset($ar_tool_user_do[$tool_id])) {
 			foreach ($ar_tool_user_do[$tool_id] as $group_id=>$flag) {
 				if (((!isset($ar_tool_user[$tool_id]))||(!isset($ar_tool_user[$tool_id][$group_id])))||($ar_tool_user[$tool_id][$group_id]!==$flag)) {
@@ -44,10 +44,10 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						if ($this->getGroupOption('enable_log')===true) {
 							if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
 								if (!in_array($element_current, [$this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id', $this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'])) {
-									\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id], '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id], $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'));
+									\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$tool_name.':'.$tool_groups[$group_id], '#1# '.$tool_name.':'.$tool_groups[$group_id], $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'));
 								}
 							} else {
-								\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id], '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id]);
+								\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$tool_name.':'.$tool_groups[$group_id], '#1# '.$tool_name.':'.$tool_groups[$group_id]);
 							}
 							\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
 						}
@@ -66,10 +66,10 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						if ($this->getGroupOption('enable_log')===true) {
 							if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
 								if (!in_array($element_current, [$this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id', $this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'])) {
-									\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id], '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id], $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'));
+									\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$tool_name.':'.$tool_groups[$group_id], '#0# '.$tool_name.':'.$tool_groups[$group_id], $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id'), $this->getDoEditElementStorage($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'));
 								}
 							} else {
-								\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id], '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$group_id]);
+								\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$tool_name.':'.$tool_groups[$group_id], '#0# '.$tool_name.':'.$tool_groups[$group_id]);
 							}
 							\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
 						}
@@ -89,6 +89,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 		}
 	}
 } else {
+	$tool_groups=\VIS2\Core\Manager::getGroupsByToolId($this->getFinishElementOption($element, 'tool_id'));
 	if (isset($ar_tool_user_do[$this->getFinishElementOption($element, 'tool_id')])) {
 		foreach ($ar_tool_user_do[$this->getFinishElementOption($element, 'tool_id')] as $group_id=>$flag) {
 			if (((!isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')]))||(!isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')][$group_id])))||($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')][$group_id]!==$flag)) {

@@ -275,8 +275,6 @@ $ddm4_elements['data']['vis2_user_tool']=[];
 $ddm4_elements['data']['vis2_user_tool']['module']='vis2_user_tool';
 $ddm4_elements['data']['vis2_user_tool']['title']='Tools';
 $ddm4_elements['data']['vis2_user_tool']['options']=[];
-$ddm4_elements['data']['vis2_user_tool']['options']['tool_id']=$VIS2_Main->getToolId();
-$ddm4_elements['data']['vis2_user_tool']['options']['tool_name']=$VIS2_Main->getToolName();
 $ddm4_elements['data']['vis2_user_tool']['options']['manager']=true;
 
 /**
@@ -286,8 +284,16 @@ $ddm4_elements['data']['vis2_user_group']=[];
 $ddm4_elements['data']['vis2_user_group']['module']='vis2_user_group';
 $ddm4_elements['data']['vis2_user_group']['title']='Gruppen';
 $ddm4_elements['data']['vis2_user_group']['options']=[];
-$ddm4_elements['data']['vis2_user_group']['options']['tool_id']=$VIS2_Main->getToolId();
 $ddm4_elements['data']['vis2_user_group']['options']['manager']=true;
+
+/*
+ * Data: Gruppen
+ */
+$ddm4_elements['data']['vis2_user_mandant']=[];
+$ddm4_elements['data']['vis2_user_mandant']['module']='vis2_user_mandant';
+$ddm4_elements['data']['vis2_user_mandant']['title']='Mandanten';
+$ddm4_elements['data']['vis2_user_mandant']['options']=[];
+$ddm4_elements['data']['vis2_user_mandant']['options']['manager']=true;
 
 /**
  * Data: VIS2_CreateUpdate
@@ -330,8 +336,6 @@ $ddm4_elements['finish']['vis2_user_tool_write']=[];
 $ddm4_elements['finish']['vis2_user_tool_write']['module']='vis2_user_tool_write';
 $ddm4_elements['finish']['vis2_user_tool_write']['options']=[];
 $ddm4_elements['finish']['vis2_user_tool_write']['options']['createupdatestatus_prefix']='user_';
-$ddm4_elements['finish']['vis2_user_tool_write']['options']['tool_id']=$VIS2_Main->getToolId();
-$ddm4_elements['finish']['vis2_user_tool_write']['options']['tool_name']=$VIS2_Main->getToolName();
 $ddm4_elements['finish']['vis2_user_tool_write']['options']['manager']=true;
 
 /**
@@ -341,9 +345,16 @@ $ddm4_elements['finish']['vis2_user_group_write']=[];
 $ddm4_elements['finish']['vis2_user_group_write']['module']='vis2_user_group_write';
 $ddm4_elements['finish']['vis2_user_group_write']['options']=[];
 $ddm4_elements['finish']['vis2_user_group_write']['options']['createupdatestatus_prefix']='user_';
-$ddm4_elements['finish']['vis2_user_group_write']['options']['tool_id']=$VIS2_Main->getToolId();
-$ddm4_elements['finish']['vis2_user_group_write']['options']['tool_name']=$VIS2_Main->getToolName();
 $ddm4_elements['finish']['vis2_user_group_write']['options']['manager']=true;
+
+/*
+ * Finish: VIS2_User_Mandant_Write
+ */
+$ddm4_elements['finish']['vis2_user_mandant_write']=[];
+$ddm4_elements['finish']['vis2_user_mandant_write']['module']='vis2_user_mandant_write';
+$ddm4_elements['finish']['vis2_user_mandant_write']['options']=[];
+$ddm4_elements['finish']['vis2_user_mandant_write']['options']['createupdatestatus_prefix']='user_';
+$ddm4_elements['finish']['vis2_user_mandant_write']['options']['manager']=true;
 
 /**
  * Finish: VIS2_User_Delete

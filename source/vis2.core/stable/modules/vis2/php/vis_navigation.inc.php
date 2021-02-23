@@ -1018,6 +1018,15 @@ if (in_array($ddm_navigation_id, [5])) {
 	$ddm4_elements['data']['mandant_description']['validation']['length_max']=64;
 
 	/*
+	 * Data: Benutzer
+	 */
+	$ddm4_elements['data']['vis2_mandanten_user']=[];
+	$ddm4_elements['data']['vis2_mandanten_user']['module']='vis2_mandanten_user';
+	$ddm4_elements['data']['vis2_mandanten_user']['title']='Benutzer';
+	$ddm4_elements['data']['vis2_mandanten_user']['options']=[];
+	$ddm4_elements['data']['vis2_mandanten_user']['options']['tool_id']=$VIS2_Main->getToolId();
+
+	/*
 	 * Data: Status
 	 */
 	$ddm4_elements['data']['mandant_ispublic']=[];
@@ -1082,6 +1091,15 @@ if (in_array($ddm_navigation_id, [5])) {
 	$ddm4_elements['finish']['vis2_store_form_data']['module']='vis2_store_form_data';
 	$ddm4_elements['finish']['vis2_store_form_data']['options']=[];
 	$ddm4_elements['finish']['vis2_store_form_data']['options']['createupdatestatus_prefix']='mandant_';
+
+	/*
+	 * Finish: VIS2_Mandant_User_Write
+	 */
+	$ddm4_elements['finish']['vis2_mandant_user_write']=[];
+	$ddm4_elements['finish']['vis2_mandant_user_write']['module']='vis2_mandant_user_write';
+	$ddm4_elements['finish']['vis2_mandant_user_write']['options']=[];
+	$ddm4_elements['finish']['vis2_mandant_user_write']['options']['tool_id']=$VIS2_Main->getToolId();
+	$ddm4_elements['finish']['vis2_mandant_user_write']['options']['tool_name']=$VIS2_Main->getToolName();
 
 	/*
 	 * AfterFinish: VIS2_Direct

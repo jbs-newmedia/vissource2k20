@@ -19,6 +19,7 @@ class User {
 	use osWFrame\BaseStaticTrait;
 	use osWFrame\BaseConnectionTrait;
 	use osWFrame\BaseVarTrait;
+	use BaseToolTrait;
 
 	/**
 	 * Major-Version der Klasse.
@@ -28,7 +29,7 @@ class User {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -50,6 +51,11 @@ class User {
 	 * @var array|null
 	 */
 	private ?array $tools=null;
+
+	/**
+	 * @var array|null
+	 */
+	private ?array $mandanten=null;
 
 	/**
 	 * User constructor.
@@ -309,6 +315,69 @@ class User {
 		unset($tools[\osWFrame\Core\Settings::getStringVar('vis2_chtool_module')]);
 
 		return $tools;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function loadMandanten():bool {
+		$this->mandanten=[];
+
+		$QselectMandanten=self::getConnection();
+		$QselectMandanten->prepare('SELECT *, m.mandant_id as mandant_id FROM :table_vis2_mandant: AS m INNER JOIN :table_vis2_user_mandant: AS u ON (u.mandant_id=m.mandant_id OR u.mandant_id=0) WHERE m.mandant_ispublic=:mandant_ispublic: AND u.user_id=:user_id: AND u.tool_id=:tool_id: ORDER BY m.mandant_name ASC');
+		$QselectMandanten->bindTable(':table_vis2_mandant:', 'vis2_mandant');
+		$QselectMandanten->bindTable(':table_vis2_user_mandant:', 'vis2_user_mandant');
+		$QselectMandanten->bindInt(':mandant_ispublic:', 1);
+		$QselectMandanten->bindInt(':user_id:', $this->getId());
+		$QselectMandanten->bindInt(':tool_id:', $this->getToolId());
+		foreach ($QselectMandanten->query() as $mandant_details) {
+			$this->mandanten[$mandant_details['mandant_id']]=['mandant_id'=>$mandant_details['mandant_id'], 'mandant_name'=>$mandant_details['mandant_name']];
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param int $mandant_id
+	 * @return bool
+	 */
+	public function checkMandantAccess(int $mandant_id):bool {
+		if ($this->mandanten===null) {
+			$this->loadMandanten();
+		}
+
+		if (isset($this->mandanten[$mandant_id])) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getMandanten():array {
+		if ($this->mandanten===null) {
+			$this->loadMandanten();
+		}
+
+		return $this->mandanten;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getMandantenSelectArray():array {
+		if ($this->mandanten===null) {
+			$this->loadMandanten();
+		}
+
+		$mandanten=[];
+		foreach ($this->mandanten as $mandanten_details) {
+			$mandanten[$mandanten_details['mandant_id']]=$mandanten_details['mandant_name'];
+		}
+
+		return $mandanten;
 	}
 
 	/**

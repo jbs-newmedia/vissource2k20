@@ -11,7 +11,7 @@
  */
 
 $default_options['enabled']=true;
-$default_options['options']['search_mod_counter']=12;
+$default_options['options']['manager']=false;
 $default_options['_list']['enabled']=false;
 $default_options['_search']['enabled']=false;
 

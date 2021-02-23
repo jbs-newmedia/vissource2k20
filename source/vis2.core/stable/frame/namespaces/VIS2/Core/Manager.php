@@ -27,7 +27,7 @@ class Manager {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -75,6 +75,12 @@ class Manager {
 	 * @var array
 	 */
 	private static array $groupsbytoolid=[];
+
+	/**
+	 *
+	 * @var array
+	 */
+	private static array $mandantebytoolid=[];
 
 	/**
 	 *
@@ -276,6 +282,36 @@ class Manager {
 	}
 
 	/**
+	 * Gibt eine Liste aller Gruppen eines Tools zurück anhand der Tool-Id
+	 *
+	 * @param int $tool_id
+	 * @param bool $with_all
+	 * @param bool $force
+	 * @return array
+	 */
+	public static function getMandantenByToolId(int $tool_id=0, bool $with_all=false, bool $force=false):array {
+		if ($tool_id==0) {
+			$tool_id=Main::getToolId();
+		}
+		if ((!isset(self::$mandantebytoolid[$tool_id]))||($force===true)) {
+			self::$mandantebytoolid[$tool_id]=[];
+			$QselectMandanten=self::getConnection();
+			$QselectMandanten->prepare('SELECT * FROM :table_vis2_mandant: WHERE tool_id=:tool_id: ORDER BY mandant_name ASC');
+			$QselectMandanten->bindTable(':table_vis2_mandant:', 'vis2_mandant');
+			$QselectMandanten->bindInt(':tool_id:', $tool_id);
+			foreach ($QselectMandanten->query() as $mandant) {
+				self::$mandantebytoolid[$tool_id][$mandant['mandant_id']]=$mandant['mandant_name'];
+			}
+		}
+
+		if ($with_all===true) {
+			return [0=>'Alle']+self::$mandantebytoolid[$tool_id];
+		}
+
+		return self::$mandantebytoolid[$tool_id];
+	}
+
+	/**
 	 * Gibt eine Liste aller Seiten eines Tools zurück anhand der Tool-Id
 	 *
 	 * @param int $tool_id
@@ -406,6 +442,48 @@ class Manager {
 		}
 
 		return $ar_tool_group;
+	}
+
+	/**
+	 * @param int $group_id
+	 * @param int $tool_id
+	 * @return array
+	 */
+	public static function loadUserMandantenByMandantenId(int $mandant_id, int $tool_id):array {
+		$ar_tool_mandant=[];
+		$QloadData=self::getConnection();
+		$QloadData->prepare('SELECT * FROM :table_vis2_user_mandant: WHERE mandant_id=:mandant_id: AND tool_id=:tool_id:');
+		$QloadData->bindTable(':table_vis2_user_mandant:', 'vis2_user_mandant');
+		$QloadData->bindInt(':mandant_id:', $mandant_id);
+		$QloadData->bindInt(':tool_id:', $tool_id);
+		foreach ($QloadData->query() as $user_mandant) {
+			$ar_tool_mandant[$user_mandant['user_id']]=1;
+		}
+
+		return $ar_tool_mandant;
+	}
+
+	/**
+	 * @param int $user_id
+	 * @param int $tool_id
+	 * @return array
+	 */
+	public static function loadUserMandantenByUserId(int $user_id, int $tool_id):array {
+		$ar_tool_mandant=[];
+		$QloadData=self::getConnection();
+		if ($tool_id==0) {
+			$QloadData->prepare('SELECT * FROM :table_vis2_user_mandant: WHERE user_id=:user_id:');
+		} else {
+			$QloadData->prepare('SELECT * FROM :table_vis2_user_mandant: WHERE user_id=:user_id: AND tool_id=:tool_id:');
+		}
+		$QloadData->bindTable(':table_vis2_user_mandant:', 'vis2_user_mandant');
+		$QloadData->bindInt(':user_id:', $user_id);
+		$QloadData->bindInt(':tool_id:', $tool_id);
+		foreach ($QloadData->query() as $user_mandant) {
+			$ar_tool_mandant[$user_mandant['tool_id']][$user_mandant['mandant_id']]=1;
+		}
+
+		return $ar_tool_mandant;
 	}
 
 	/**
@@ -800,7 +878,7 @@ class Manager {
 	}
 
 	/**
-	 * Löscht eine Verknüpfung zwischen einem Benutzer und einem Tool
+	 * Löscht eine Verknüpfung zwischen einem Benutzer und einer Gruppe und einem Tool
 	 *
 	 * @param int $user_id
 	 * @param int $group_id
@@ -814,6 +892,52 @@ class Manager {
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->bindInt(':tool_id:', $tool_id);
 		$QdeleteData->bindInt(':group_id:', $group_id);
+		$QdeleteData->execute();
+
+		return true;
+	}
+
+	/**
+	 * Erstellt eine Verknüpfung zwischen einem Benutzer und einem Mandanten und einem Tool
+	 *
+	 * @param int $user_id
+	 * @param int $mandant_id
+	 * @param int $tool_id
+	 * @param int $create_time
+	 * @param int $create_user_id
+	 * @return bool
+	 */
+	public static function addUserMandant(int $user_id, int $mandant_id, int $tool_id, int $create_time, int $create_user_id):bool {
+		$QinsertData=self::getConnection();
+		$QinsertData->prepare('INSERT INTO :table_vis2_user_mandant: (mandant_id, tool_id, user_id, user_mandant_create_time, user_mandant_create_user_id, user_mandant_update_time, user_mandant_update_user_id) VALUES (:mandant_id:, :tool_id:, :user_id:, :user_mandant_create_time:, :user_mandant_create_user_id:, :user_mandant_update_time:, :user_mandant_update_user_id:)');
+		$QinsertData->bindTable(':table_vis2_user_mandant:', 'vis2_user_mandant');
+		$QinsertData->bindInt(':user_id:', $user_id);
+		$QinsertData->bindInt(':mandant_id:', $mandant_id);
+		$QinsertData->bindInt(':tool_id:', $tool_id);
+		$QinsertData->bindInt(':user_mandant_create_time:', $create_time);
+		$QinsertData->bindInt(':user_mandant_create_user_id:', $create_user_id);
+		$QinsertData->bindInt(':user_mandant_update_time:', $create_time);
+		$QinsertData->bindInt(':user_mandant_update_user_id:', $create_user_id);
+		$QinsertData->execute();
+
+		return true;
+	}
+
+	/**
+	 * Löscht eine Verknüpfung zwischen einem Benutzer und einem Mandanten und einem Tool
+	 *
+	 * @param int $user_id
+	 * @param int $mandant_id
+	 * @param int $tool_id
+	 * @return bool
+	 */
+	public static function delUserMandant(int $user_id, int $mandant_id, int $tool_id):bool {
+		$QdeleteData=self::getConnection();
+		$QdeleteData->prepare('DELETE FROM :table_vis2_user_mandant: WHERE user_id=:user_id: AND tool_id=:tool_id: AND mandant_id=:mandant_id:');
+		$QdeleteData->bindTable(':table_vis2_user_mandant:', 'vis2_user_mandant');
+		$QdeleteData->bindInt(':user_id:', $user_id);
+		$QdeleteData->bindInt(':tool_id:', $tool_id);
+		$QdeleteData->bindInt(':mandant_id:', $mandant_id);
 		$QdeleteData->execute();
 
 		return true;
@@ -865,7 +989,6 @@ class Manager {
 		return true;
 	}
 
-
 	public static function delUserById(int $user_id):bool {
 		$QdeleteData=self::getConnection();
 		$QdeleteData->prepare('DELETE FROM :table_vis2_protect: WHERE user_id=:user_id:');
@@ -882,6 +1005,12 @@ class Manager {
 		$QdeleteData=self::getConnection();
 		$QdeleteData->prepare('DELETE FROM :table_vis2_user_group: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis2_user_group:', 'vis2_user_group');
+		$QdeleteData->bindInt(':user_id:', $user_id);
+		$QdeleteData->execute();
+
+		$QdeleteData=self::getConnection();
+		$QdeleteData->prepare('DELETE FROM :table_vis2_user_mandant: WHERE user_id=:user_id:');
+		$QdeleteData->bindTable(':table_vis2_user_mandant:', 'vis2_user_mandant');
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->execute();
 

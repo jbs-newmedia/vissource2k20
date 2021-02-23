@@ -14,13 +14,17 @@ $VIS2_Mandant=new \VIS2\Core\Mandant($VIS2_Main->getToolId());
 $osW_Template->setVar('VIS2_Mandant', $VIS2_Mandant);
 if ($VIS2_Main->getBoolVar('tool_use_mandant')===true) {
 	if ($VIS2_Mandant->getId()==0) {
-		if (count($VIS2_Mandant->getMandanten())==1) {
-			$vis2_mandant_id=array_key_first($VIS2_Mandant->getMandanten());
+		if (count($VIS2_User->getMandantenSelectArray())==1) {
+			$vis2_mandant_id=array_key_first($VIS2_User->getMandantenSelectArray());
 		} else {
 			$vis2_mandant_id=intval(\osWFrame\Core\Settings::catchValue('vis2_mandant_id', 0, 'gp'));
 		}
 	} else {
-		$vis2_mandant_id=intval(\osWFrame\Core\Settings::catchValue('vis2_mandant_id', 0, 'gp'));
+		if ($VIS2_User->checkMandantAccess($VIS2_Mandant->getId())===true) {
+			$vis2_mandant_id=intval(\osWFrame\Core\Settings::catchValue('vis2_mandant_id', 0, 'gp'));
+		} else {
+			$VIS2_Mandant->setId(0);
+		}
 	}
 	if ($vis2_mandant_id>0) {
 		$VIS2_Mandant->setId($vis2_mandant_id);
