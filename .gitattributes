@@ -1,4 +1,5 @@
 *.css text eol=lf
+*.scss text eol=lf
 *.htaccess text eol=lf
 *.htm text eol=lf
 *.html text eol=lf
