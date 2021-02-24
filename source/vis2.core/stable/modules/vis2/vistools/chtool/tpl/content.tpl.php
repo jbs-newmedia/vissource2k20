@@ -49,7 +49,7 @@
 					</div>
 					<div class="form-group">
 						<label for="vis2_login_tool" class="form-control-label">Programm:</label>
-						<?php echo $this->Form()->drawSelectField('vis2_login_tool', [''=>'']+$VIS2_User->getToolsSelectArray(), '', ['input_class'=>'selectpicker form-control', 'input_errorclass'=>'is-invalid', 'input_parameter'=>' data-style="btn btn-outline-default"']) ?>
+						<?php echo $this->Form()->drawSelectField('vis2_login_tool', [''=>'']+$VIS2_User->getToolsSelectArray(), '', ['input_class'=>'selectpicker form-control', 'input_errorclass'=>'is-invalid', 'input_parameter'=>' data-style="custom-select"']) ?>
 						<div class="invalid-feedback"><?php echo $this->Form()->getErrorMessage('vis2_login_tool') ?></div>
 					</div>
 				</div>

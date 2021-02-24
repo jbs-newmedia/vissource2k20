@@ -12,7 +12,7 @@
 
 ?><?php if (\osWFrame\Core\Settings::catchValue('modal', '', 'pg')=='1'): ?><?php echo $vis2content ?><?php else: ?>
 	<div id="wrapper">
-		<ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
 				<div class="sidebar-brand-icon">

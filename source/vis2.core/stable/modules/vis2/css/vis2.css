@@ -3,6 +3,15 @@ body {
     overflow-y: scroll;
 }
 
+#page-wrapper {
+    padding: 15px;
+}
+
+.page-wrapper-color {
+    background-color: white;
+    padding: 5px 10px;
+    overflow: hidden;
+}
 
 .navbar-brand {
     margin-top: -2px;
@@ -12,16 +21,6 @@ body {
 .navbar-brand > img {
     display: inline;
     margin-top: -4px;
-}
-
-#page-wrapper {
-    padding: 15px;
-}
-
-.page-wrapper-color {
-    background-color: white;
-    padding: 5px 10px;
-    overflow: hidden;
 }
 
 .page-wrapper-color > form > .form-group {
@@ -34,135 +33,14 @@ body {
     border-top: 0;
 }
 
-.page-wrapper-color .form-group.ddm4_element_header {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.form-control.disabled {
-    cursor: default;
-    background-color: #eee;
-    opacity: 1;
-}
-
-.form-control.readonly {
-    cursor: default;
-    background-color: #eee;
-    opacity: 1;
-}
-
-.button-group {
-    margin-top: 10px;
-}
-
-.float-left {
-    float: left;
-}
-
-.float-right {
-    float: right;
-}
-
-table.dataTable > tbody > tr.child ul.dtr-details {
-    width: 100%;
-}
-
-.mce-tinymce.mce-container.mce-panel {
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
-.sidebar .bootstrap-select ul li:last-child {
-    border-bottom: 0px solid #e7e7e7;
-}
-
-
 .ddm4_button_option {
     cursor: pointer;
-
 }
 
-
-.btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+.bg-gradient-primary {
+    background-attachment: fixed;
 }
 
-.btn-default:hover {
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #adadad;
-}
-
-.btn-default:focus, .btn-default.focus {
-    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
-}
-
-.btn-default.disabled, .btn-default:disabled {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-default:not(:disabled):not(.disabled):active, .btn-default:not(:disabled):not(.disabled).active,
-.show > .btn-default.dropdown-toggle {
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #adadad;
-}
-
-.btn-default:not(:disabled):not(.disabled):active:focus, .btn-default:not(:disabled):not(.disabled).active:focus,
-.show > .btn-default.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
-}
-
-
-.btn-outline-default {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ced4da;
-}
-
-.btn-outline-default:hover {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ced4da;
-}
-
-.btn-outline-default:focus, .btn-outline-default.focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.btn-outline-default.disabled, .btn-outline-default:disabled {
-    color: #007bff;
-    background-color: transparent;
-}
-
-.btn-outline-default:not(:disabled):not(.disabled):active, .btn-outline-default:not(:disabled):not(.disabled).active,
-.show > .btn-outline-default.dropdown-toggle {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ced4da;
-}
-
-.btn-outline-default:not(:disabled):not(.disabled):active:focus, .btn-outline-default:not(:disabled):not(.disabled).active:focus,
-.show > .btn-outline-default.dropdown-toggle:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ced4da;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.modal-header .close {
-    margin: -1rem 0 -1rem 0;
+.bootstrap-select .dropdown-toggle::after {
+    display: none;
 }

@@ -236,7 +236,7 @@ body,
 					<h5 class="modal-title"></h5></div>
 				<div class="modal-body"><p></p></div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
 				</div>
 			</div>
 		</div>
@@ -259,9 +259,9 @@ body,
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_add"><?php echo $this->getGroupMessage('form_add') ?></button>
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_edit"><?php echo $this->getGroupMessage('form_edit') ?></button>
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>(true);" name="ddm4_button_delete" type="button" class="btn btn-danger ddm4_btn_delete"><?php echo $this->getGroupMessage('form_delete') ?></button>
-					<button onclick="resetDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_reset" type="button" class="btn btn-default ddm4_btn_reset"><?php echo $this->getGroupMessage('form_reset') ?></button>
-					<button name="ddm4_button_close" type="button" class="btn btn-default ddm4_btn_close" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
-					<button name="ddm4_button_cancel" type="button" class="btn btn-default ddm4_btn_cancel" data-dismiss="modal"><?php echo $this->getGroupMessage('form_cancel') ?></button>
+					<button onclick="resetDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_reset" type="button" class="btn btn-secondary ddm4_btn_reset"><?php echo $this->getGroupMessage('form_reset') ?></button>
+					<button name="ddm4_button_close" type="button" class="btn btn-secondary ddm4_btn_close" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
+					<button name="ddm4_button_cancel" type="button" class="btn btn-secondary ddm4_btn_cancel" data-dismiss="modal"><?php echo $this->getGroupMessage('form_cancel') ?></button>
 				</div>
 			</div>
 		</div>
