@@ -231,9 +231,13 @@ body,
 	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ddm4modal_dialog_<?php echo $this->getName() ?>">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title"></h5></div>
+				<div class="modal-header" style="justify-content: none; ">
+					<h5 class="modal-title float-left" style="float:left !important;"></h5>
+					<span class="float-right">
+				<button type="button" class="float-right close" data-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-window-close" aria-hidden="true"></i></button>
+				<button type="button" class="float-right close resize" onclick="resizeDDM4Dialog()" aria-label="<?php echo $this->getGroupMessage('form_maximize') ?>"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+					</span>
+				</div>
 				<div class="modal-body"><p></p></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
@@ -291,6 +295,12 @@ function resizeDDM4Modal() {
 	$("#ddm4_controller_'.$this->getName().' .modal-header .resize .fa").toggleClass("fa-window-maximize");
 	$("#ddm4_controller_'.$this->getName().' .modal-header .resize .fa").toggleClass("fa-window-minimize");
 	sizeDDM4Modal();
+}
+
+function resizeDDM4Dialog() {
+	$("#ddm4modal_dialog_'.$this->getName().'").toggleClass("modal-fullscreen", 1000, "easeOutSine");
+	$("#ddm4modal_dialog_'.$this->getName().' .modal-header .resize .fa").toggleClass("fa-window-maximize");
+	$("#ddm4modal_dialog_'.$this->getName().' .modal-header .resize .fa").toggleClass("fa-window-minimize");
 }
 
 function openDDM4Notify_'.$this->getName().'(elem) {
