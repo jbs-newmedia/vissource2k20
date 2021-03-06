@@ -1,6 +1,8 @@
 function checkVIS2Logout() {
-	if (Math.floor(jQuery.now() / 1000) >= session_timeout) {
-		window.location.href = session_logout;
+	if (typeof session_timeout !== 'undefined') {
+		if (Math.floor(jQuery.now() / 1000) >= session_timeout) {
+			window.location.href = session_logout;
+		}
 	}
 }
 
