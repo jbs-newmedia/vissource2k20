@@ -55,7 +55,17 @@
     },
     {
       "serverlist": "oswframe2k20",
+      "package": "oswframe.favicon",
+      "release": "stable"
+    },
+    {
+      "serverlist": "oswframe2k20",
       "package": "oswframe.filter",
+      "release": "stable"
+    },
+    {
+      "serverlist": "oswframe2k20",
+      "package": "oswframe.iconcreator",
       "release": "stable"
     },
     {

@@ -10,6 +10,7 @@
 			"vis2_toolswitch": true,
 			"vis2_mandant": false,
 			"vis2_mandantswitch": false,
+			"vis2_logo_favicon_name": "oswframe-512.png",
 			"vis2_logo_login_name": "oswframe-512.png",
 			"vis2_logon_message": "Willkommen zum VIS",
 			"vis2_logo_login_module": "vis2",
