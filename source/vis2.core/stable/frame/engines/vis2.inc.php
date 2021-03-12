@@ -18,7 +18,7 @@ $osW_Bootstrap4=new \osWFrame\Core\Bootstrap4($osW_Template);
 
 $osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
 
-$osW_Bootstrap4->loadPlugin('sbadmin2', ['theme'=>\osWFrame\Core\Settings::getStringVar('vis2_theme')]);
+$osW_Bootstrap4->loadPlugin('jbsadmin4', ['theme'=>\osWFrame\Core\Settings::getStringVar('vis2_theme')]);
 $osW_Bootstrap4->loadPlugin('select');
 $osW_Bootstrap4->loadPlugin('datatables');
 $osW_Bootstrap4->loadPlugin('datatables_responsive');

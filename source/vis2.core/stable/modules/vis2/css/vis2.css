@@ -13,16 +13,6 @@ body {
     overflow: hidden;
 }
 
-.navbar-brand {
-    margin-top: -2px;
-    font-size: 23px;
-}
-
-.navbar-brand > img {
-    display: inline;
-    margin-top: -4px;
-}
-
 .page-wrapper-color > form > .form-group {
     padding: 10px 5px;
     border-top: 1px solid #ddd;
@@ -37,9 +27,6 @@ body {
     cursor: pointer;
 }
 
-.bg-gradient-primary {
-    background-attachment: fixed;
-}
 
 .bootstrap-select .dropdown-toggle::after {
     display: none;
