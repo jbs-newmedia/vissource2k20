@@ -51,7 +51,7 @@
 
 	<div id="wrapper">
 
-		<div class="bg-gradient-primary sidebar sidebar-dark fixed-top" id="accordionSidebar" style="z-index:1050">
+		<div class="bg-gradient-primary sidebar sidebar-dark fixed-top" id="accordionSidebar">
 
 			<ul class="navbar-nav accordion custom-scrollbar-css">
 
