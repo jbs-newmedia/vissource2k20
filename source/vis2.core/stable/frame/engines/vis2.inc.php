@@ -18,6 +18,8 @@ $osW_Bootstrap4=new \osWFrame\Core\Bootstrap4($osW_Template);
 
 $osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
 
+$osW_jQuery3->loadPlugin('easing');
+
 $osW_Bootstrap4->loadPlugin('jbsadmin4', ['theme'=>\osWFrame\Core\Settings::getStringVar('vis2_theme')]);
 $osW_Bootstrap4->loadPlugin('select');
 $osW_Bootstrap4->loadPlugin('datatables');
@@ -26,6 +28,7 @@ $osW_Bootstrap4->loadPlugin('datepicker');
 $osW_Bootstrap4->loadPlugin('notify');
 
 \osWFrame\Core\Network::sendHeader('Content-Type: text/html; charset=utf-8');
+$osW_Template->addVoidTag('base', ['href'=>\osWFrame\Core\Settings::getStringVar('project_domain_full')]);
 $osW_Template->addVoidTag('meta', ['charset'=>'utf-8']);
 $osW_Template->addVoidTag('meta', ['http-equiv'=>'X-UA-Compatible', 'content'=>'IE=edge']);
 $osW_Template->addVoidTag('meta', ['name'=>'viewport', 'content'=>'width=device-width, initial-scale=1, shrink-to-fit=no']);
