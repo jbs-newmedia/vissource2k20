@@ -30,7 +30,7 @@
     },
     {
       "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap4_sbadmin2",
+      "package": "oswframe.bootstrap4_jbsadmin4",
       "release": "stable"
     },
     {
@@ -81,6 +81,11 @@
     {
       "serverlist": "oswframe2k20",
       "package": "oswframe.jquery3_datatables",
+      "release": "stable"
+    },
+    {
+      "serverlist": "oswframe2k20",
+      "package": "oswframe.jquery3_easing",
       "release": "stable"
     }
   ]
