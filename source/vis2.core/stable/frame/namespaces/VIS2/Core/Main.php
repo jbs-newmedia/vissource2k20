@@ -29,7 +29,7 @@ class Main {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -92,6 +92,26 @@ class Main {
 		$this->addTemplateCSSFile('head', $path.'css'.DIRECTORY_SEPARATOR.'vis2.css');
 
 		return true;
+	}
+
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public function getResourceLink(string $file):string {
+		$version=self::getVersion();
+		$dir=strtolower('VIS2');
+		$name=$version.'.resource';
+		$path=self::getResourcePath();
+
+		$rfile=osWFrame\Settings::getStringVar('settings_abspath').$path.$file;
+		$lfile=osWFrame\Settings::getStringVar('settings_abspath').'modules'.DIRECTORY_SEPARATOR.'vis2'.DIRECTORY_SEPARATOR.$file;
+
+		if ((osWFrame\Filesystem::existsFile($rfile)!==true)||((osWFrame\Filesystem::getFileModTime($rfile))<(osWFrame\Filesystem::getFileModTime($lfile)))) {
+			osWFrame\Resource::copyResourcePath('modules'.DIRECTORY_SEPARATOR.'vis2'.DIRECTORY_SEPARATOR, $dir.DIRECTORY_SEPARATOR.$version.DIRECTORY_SEPARATOR, [$file]);
+		}
+
+		return $path.$file;
 	}
 
 	/*

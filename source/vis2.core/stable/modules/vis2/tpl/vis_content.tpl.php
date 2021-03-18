@@ -15,7 +15,13 @@
 
 		<a class="navbar-brand d-flex align-items-center" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
 			<div class="navbar-brand-icon">
-				<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>36]) ?>
+				<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), PATHINFO_EXTENSION)=='svg'): ?>
+					<img style="height:<?php echo \osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height') ?>px" src="<?php echo $VIS2_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name')) ?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>"/>
+				<?php else: ?>
+
+					<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
+
+				<?php endif ?>
 			</div>
 			<div class="navbar-brand-text text-primary mx-3"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!=null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
 		</a>
@@ -102,7 +108,7 @@
 
 							<div id="vis2_mandant" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 								<div class="bg-white py-2 collapse-inner rounded">
-									<?php foreach ($VIS2_User->getMandantenSelectArray() as $mandant_id => $mandant_name): ?><?php if ($mandant_id>0): ?>
+									<?php foreach ($VIS2_User->getMandantenSelectArray() as $mandant_id=>$mandant_name): ?><?php if ($mandant_id>0): ?>
 										<a class="collapse-item<?php if ($VIS2_Mandant->getId()==$mandant_id): ?> active<?php endif ?>" href="<?php echo $this->buildhrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage='.$VIS2_Navigation->getPage().'&vis2_mandant_id='.$mandant_id) ?>"><?php echo \osWFrame\Core\HTML::outputString($mandant_name) ?></a>
 									<?php endif ?><?php endforeach ?>
 								</div>
