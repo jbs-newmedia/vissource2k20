@@ -1,15 +1,10 @@
 {
 	"configure": {
 		"middle": {
-			"vis2_majorrelease": 2,
-			"vis2_minorrelease": 0,
-			"vis2_patchlevel": 0,
-			"vis2_version": "RC1",
 			"vis2_title": "VIS",
 			"vis2_navigation_char": " » ",
 			"vis2_toolswitch": true,
 			"vis2_mandant": false,
-			"vis2_mandantswitch": false,
 			"vis2_logo_favicon_name": "oswframe-512.png",
 			"vis2_logo_login_name": "oswframe-logo-symbol.svg",
 			"vis2_logon_message": "Willkommen zum VIS",
