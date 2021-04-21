@@ -22,7 +22,7 @@ $__datatable_do=false;
  */
 $QreadData=new \osWFrame\Core\Database();
 $QreadData->prepare('SHOW TABLE STATUS LIKE :table:');
-$QreadData->bindString(':table:', $this->data['values_json']['database_prefix'].$__datatable_table);
+$QreadData->bindString(':table:', $this->getJSONStringValue('database_prefix').$__datatable_table);
 $QreadData->execute();
 if ($QreadData->rowCount()==1) {
 	$QreadData_result=$QreadData->fetch();
