@@ -1,0 +1,98 @@
+{
+  "tool": {
+    "tool_name": "Lab",
+    "tool_name_intern": "lab",
+    "tool_description": "Lab-Tool",
+    "tool_ispublic": 1,
+    "tool_hide_logon": 0,
+    "tool_hide_navigation": 0,
+    "tool_use_mandant": 0,
+    "tool_use_mandantswitch": 0
+  },
+  "group": {
+    "1": {
+      "group_name": "Lab-Admin",
+      "group_name_intern": "lab_admin",
+      "group_description": "Lab-Admin",
+      "group_ispublic": 1
+    }
+  },
+  "permission": [
+    {
+      "permission_flag": "link",
+      "permission_title": "Link anzeigen",
+      "permission_ispublic": 1
+    },
+    {
+      "permission_flag": "view",
+      "permission_title": "Seite anzeigen",
+      "permission_ispublic": 1
+    }
+  ],
+  "navigation": [
+    {
+      "navigation_parent_id": 0,
+      "navigation_title": "VIS",
+      "navigation_sortorder": 999,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "Header VIS",
+        "page_name_intern": "header_vis2",
+        "page_description": "Header VIS2",
+        "page_ispublic": 1,
+        "permission": [
+          "link"
+        ]
+      },
+      "permission": {
+        "1": [
+          "link"
+        ]
+      }
+    },
+    {
+      "navigation_parent_id": "header_vis2",
+      "navigation_title": "Navigation",
+      "navigation_sortorder": 10,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "VIS Navigation",
+        "page_name_intern": "vis_navigation",
+        "page_description": "VIS Navigation",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "1": [
+          "link",
+          "view"
+        ]
+      }
+    },
+    {
+      "navigation_parent_id": "header_vis2",
+      "navigation_title": "Benutzer",
+      "navigation_sortorder": 20,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "VIS Benutzer",
+        "page_name_intern": "vis_user",
+        "page_description": "VIS Benutzer",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "1": [
+          "link",
+          "view"
+        ]
+      }
+    }
+  ]
+}
