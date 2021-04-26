@@ -5,8 +5,8 @@ $this->settings=['page_title'=>'VIS2: Settings'];
 $VIS2=new \osWFrame\Tools\VIS2($this);
 $VIS2->loadUsers();
 
-if ($VIS2->geUserId()>0) {
-	$this->fields['vis2_admin_user_id']=['default_name'=>'User', 'default_type'=>'select', 'default_value'=>1, 'default_select'=>$VIS2->getUsers(), 'valid_type'=>'integer', 'valid_min_length'=>1, 'valid_max_length'=>11, 'configure_write'=>false];
+if ($VIS2->getUsers()!=[]) {
+	$this->fields['vis2_admin_user_id']=['default_name'=>'User', 'default_type'=>'select', 'default_value'=>$VIS2->geUserId(), 'default_select'=>$VIS2->getUsers(), 'valid_type'=>'integer', 'valid_min_length'=>1, 'valid_max_length'=>11, 'configure_write'=>false];
 } else {
 	$this->fields['vis2_admin_user_id']=['default_name'=>'User', 'default_type'=>'hidden', 'default_value'=>'1', 'valid_type'=>'integer', 'valid_min_length'=>1, 'valid_max_length'=>11, 'configure_write'=>false];
 
