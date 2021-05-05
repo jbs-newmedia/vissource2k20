@@ -14,18 +14,22 @@ $osW_Template=new \osWFrame\Core\Template();
 
 $osW_jQuery3=new \osWFrame\Core\jQuery3($osW_Template);
 
-$osW_Bootstrap4=new \osWFrame\Core\Bootstrap4($osW_Template);
+if (\osWFrame\Core\Settings::getStringVar('vis2_theme')!=null) {
+	$osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template, \osWFrame\Core\Settings::getStringVar('vis2_theme'));
+} else {
+	$osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template);
+}
 
 $osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
 
 $osW_jQuery3->loadPlugin('easing');
 
-$osW_Bootstrap4->loadPlugin('jbsadmin4', ['theme'=>\osWFrame\Core\Settings::getStringVar('vis2_theme')]);
-$osW_Bootstrap4->loadPlugin('select');
-$osW_Bootstrap4->loadPlugin('datatables');
-$osW_Bootstrap4->loadPlugin('datatables_responsive');
-$osW_Bootstrap4->loadPlugin('datepicker');
-$osW_Bootstrap4->loadPlugin('notify');
+$osW_Bootstrap5->loadPlugin('jbsadmin5');
+$osW_Bootstrap5->loadPlugin('select');
+$osW_Bootstrap5->loadPlugin('datatables');
+$osW_Bootstrap5->loadPlugin('datatables_responsive');
+$osW_Bootstrap5->loadPlugin('datepicker');
+$osW_Bootstrap5->loadPlugin('notify');
 
 \osWFrame\Core\Network::sendHeader('Content-Type: text/html; charset=utf-8');
 $osW_Template->addVoidTag('base', ['href'=>\osWFrame\Core\Settings::getStringVar('project_domain_full')]);

@@ -20,9 +20,9 @@ if (!function_exists('vis2_manager_group_permission')) {
 					<?php if (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])): ?><?php echo $object->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getEditElementOption($element, 'tool_id'))) ?><?php else: ?><?php echo $object->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getEditElementOption($element, 'tool_id'))) ?><?php endif ?><?php echo $object->getTemplate()->Form()->drawHiddenField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, 0) ?>
 				</div>
 			<?php else: ?>
-				<div class="custom-control custom-checkbox">
-					<?php echo $object->getTemplate()->Form()->drawCheckBoxField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, '1', (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])?$ar_permission[$navigation_element['info']['page_name_intern']][$flag]:0), ['input_class'=>'custom-control-input']) ?>
-					<label class="custom-control-label<?php if ($object->getTemplate()->Form()->getErrorMessage($element)): ?> text-danger<?php endif ?>" for="<?php echo 'page_'.$navigation_element['info']['page_name_intern'].'_'.$flag ?>0"><?php echo \osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getEditElementOption($element, 'tool_id'))) ?></label>
+				<div class="form-check">
+					<?php echo $object->getTemplate()->Form()->drawCheckBoxField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, '1', (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])?$ar_permission[$navigation_element['info']['page_name_intern']][$flag]:0), ['input_class'=>'form-check-input']) ?>
+					<label class="form-check-label<?php if ($object->getTemplate()->Form()->getErrorMessage($element)): ?> text-danger<?php endif ?>" for="<?php echo 'page_'.$navigation_element['info']['page_name_intern'].'_'.$flag ?>0"><?php echo \osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getEditElementOption($element, 'tool_id'))) ?></label>
 				</div>
 			<?php endif ?><?php endforeach ?><?php endif ?>
 			<?php if (count($navigation_element['links'])>0): ?>

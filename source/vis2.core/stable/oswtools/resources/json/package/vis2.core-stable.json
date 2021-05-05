@@ -15,27 +15,27 @@
   "required": [
     {
       "serverlist": "oswframe2k20",
-      "package": "oswframe.corebs4",
+      "package": "oswframe.corebs5",
       "release": "stable"
     },
     {
       "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap4_datatables",
+      "package": "oswframe.bootstrap5_datatables",
       "release": "stable"
     },
     {
       "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap4_notify",
+      "package": "oswframe.bootstrap5_notify",
       "release": "stable"
     },
     {
       "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap4_jbsadmin4",
+      "package": "oswframe.bootstrap5_jbsadmin5",
       "release": "stable"
     },
     {
       "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap4_select",
+      "package": "oswframe.bootstrap5_select",
       "release": "stable"
     },
     {

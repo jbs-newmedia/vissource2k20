@@ -50,9 +50,9 @@
 
 			<?php foreach ($permission_list as $permission_flag=>$permission_text): ?>
 
-				<div class="custom-control custom-checkbox">
-					<?php echo $this->getTemplate()->Form()->drawCheckBoxField($element.'_'.$permission_flag, '1', ((isset($ar_navigation_permission[$permission_flag])&&($ar_navigation_permission[$permission_flag]==1))?1:0), ['input_parameter'=>'title="'.\osWFrame\Core\HTML::outputString($permission_text).'"', 'input_class'=>'custom-control-input']) ?>
-					<label class="custom-control-label<?php if ($this->getTemplate()->Form()->getErrorMessage($element)): ?> text-danger<?php endif ?>" for="<?php echo $element.'_'.$permission_flag ?>0"><?php echo \osWFrame\Core\HTML::outputString($permission_text) ?></label>
+				<div class="form-check">
+					<?php echo $this->getTemplate()->Form()->drawCheckBoxField($element.'_'.$permission_flag, '1', ((isset($ar_navigation_permission[$permission_flag])&&($ar_navigation_permission[$permission_flag]==1))?1:0), ['input_parameter'=>'title="'.\osWFrame\Core\HTML::outputString($permission_text).'"', 'input_class'=>'form-check-input']) ?>
+					<label class="form-check-label<?php if ($this->getTemplate()->Form()->getErrorMessage($element)): ?> text-danger<?php endif ?>" for="<?php echo $element.'_'.$permission_flag ?>0"><?php echo \osWFrame\Core\HTML::outputString($permission_text) ?></label>
 				</div>
 
 			<?php endforeach ?>

@@ -376,15 +376,19 @@ if ((\osWFrame\Core\Settings::getAction()=='search')||(\osWFrame\Core\Settings::
 		if ($data==[]) {
 			$this->getTemplate()->addJSCodeHead('
 	$(function() {
-		window.parent.$("#ddm4_button_search_edit").hide();
-		window.parent.$("#ddm4_button_search_submit").show();
+		window.parent.$("#ddm4_button_search_edit").removeClass("d-block d-lg-inline");
+		window.parent.$("#ddm4_button_search_edit").addClass("d-none");
+		window.parent.$("#ddm4_button_search_submit").removeClass("d-none");
+		window.parent.$("#ddm4_button_search_submit").addClass("d-block d-lg-inline");
 	});
 				');
 		} else {
 			$this->getTemplate()->addJSCodeHead('
 	$(function() {
-		window.parent.$("#ddm4_button_search_edit").show();
-		window.parent.$("#ddm4_button_search_submit").hide();
+		window.parent.$("#ddm4_button_search_edit").removeClass("d-none");
+		window.parent.$("#ddm4_button_search_edit").addClass("d-block d-lg-inline");
+		window.parent.$("#ddm4_button_search_submit").removeClass("d-block d-lg-inline");
+		window.parent.$("#ddm4_button_search_submit").addClass("d-none");
 	});
 				');
 		}
@@ -904,6 +908,10 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 			}
 		}
 
+	}
+
+	if ($ajax_order=='') {
+		$ajax_order=[];
 	}
 
 	foreach ($ajax_order as $key=>$value) {

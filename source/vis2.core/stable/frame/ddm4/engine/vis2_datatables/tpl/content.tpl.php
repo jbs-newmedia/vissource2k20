@@ -10,21 +10,16 @@
  * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
  */
 
-# search
-if (\osWFrame\Core\Settings::getAction()=='search') {
+if (in_array(\osWFrame\Core\Settings::getAction(), ['search', 'add', 'edit', 'delete', '', 'log'])) {
 	$this->addCSSCodeHead('
-html,
-body {
-	height: 100%;
-}
-
-html,
-body,
-.page-wrapper-color {
-	min-height: 100%;
+.page-wrapper-modal {
+	width:100%;
 }
 ');
+}
 
+# search
+if (\osWFrame\Core\Settings::getAction()=='search') {
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4(del) {
 	if (del===true) {
@@ -37,7 +32,7 @@ function resetDDM4() {
 	$(".selectpicker").selectpicker("render");
 }
 ');
-	echo '<div class="page-wrapper-color">';
+	echo '<div class="page-wrapper-modal">';
 	echo $this->getTemplate()->Form()->startForm('form_search', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getSearchElements() as $element=>$options) {
 		echo $this->parseFormSearchElementTPL($element, $options);
@@ -51,19 +46,6 @@ function resetDDM4() {
 
 # add
 if (\osWFrame\Core\Settings::getAction()=='add') {
-	$this->getTemplate()->addCSSCodeHead('
-html,
-body {
-	height: 100%;
-}
-
-html,
-body,
-.page-wrapper-color {
-	min-height: 100%;
-}
-');
-
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4() {
 	$("form").submit();
@@ -73,7 +55,7 @@ function resetDDM4() {
 	$(".selectpicker").selectpicker("render");
 }
 ');
-	echo '<div class="page-wrapper-color">';
+	echo '<div class="page-wrapper-modal">';
 	echo $this->getTemplate()->Form()->startForm('form_add', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getAddElements() as $element=>$options) {
 		echo $this->parseFormAddElementTPL($element, $options);
@@ -86,19 +68,6 @@ function resetDDM4() {
 
 # edit
 if (\osWFrame\Core\Settings::getAction()=='edit') {
-	$this->getTemplate()->addCSSCodeHead('
-html,
-body {
-	height: 100%;
-}
-
-html,
-body,
-.page-wrapper-color {
-	min-height: 100%;
-}
-');
-
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4() {
 	$("form").submit();
@@ -126,7 +95,7 @@ $(function() {
 });
 
 ');
-	echo '<div class="page-wrapper-color">';
+	echo '<div class="page-wrapper-modal">';
 
 	if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))!==true) {
 		echo '<div class="alert alert-danger" role="alert" style="margin:15px 0px;">'.\osWFrame\Core\StringFunctions::parseTextWithVars($this->getGroupMessage('lock_error'), ['user'=>\VIS2\Core\Manager::getUsernameById($this->getLockUserId(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data')))]).'</div>';
@@ -143,19 +112,6 @@ $(function() {
 
 # delete
 if (\osWFrame\Core\Settings::getAction()=='delete') {
-	$this->getTemplate()->addCSSCodeHead('
-html,
-body {
-	height: 100%;
-}
-
-html,
-body,
-.page-wrapper-color {
-	min-height: 100%;
-}
-');
-
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4() {
 	$("form").submit();
@@ -165,7 +121,7 @@ function resetDDM4() {
 	$(".selectpicker").selectpicker("render");
 }
 ');
-	echo '<div class="page-wrapper-color">';
+	echo '<div class="page-wrapper-modal">';
 	echo $this->getTemplate()->Form()->startForm('form_delete', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getDeleteElements() as $element=>$options) {
 		echo $this->parseFormDeleteElementTPL($element, $options);
@@ -180,22 +136,25 @@ function resetDDM4() {
 if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 	$this->getTemplate()->addCSSCodeHead('
 html,
-body {
+#jbsadmin-body  {
 	height: 100%;
+	overflow-y:hidden !important;
+	width:100%;
 }
 
 html,
-body,
-.page-wrapper-color {
+#jbsadmin-body ,
+.page-wrapper-modal {
 	min-height: 100%;
+	width:100%;
 }
 ');
 
 	if (\osWFrame\Core\Settings::getAction()!='') {
 		$this->name.='_'.\osWFrame\Core\Settings::getAction();
-		echo '<div class="page-wrapper-color">';
+		echo '<div class="page-wrapper-modal">';
 	} else {
-		echo '<div class="card shadow mb-4"><div class="card-body">';
+		echo '<div class="card shadow mb-4"><div class="card-body page-wrapper-form">';
 	}
 
 	if ($this->getPreViewElements()!=[]) {
@@ -234,38 +193,39 @@ body,
 				<div class="modal-header" style="justify-content: none; ">
 					<h5 class="modal-title float-left" style="float:left !important;"></h5>
 					<span class="float-right">
-				<button type="button" class="float-right close" data-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-window-close" aria-hidden="true"></i></button>
+				<button type="button" class="float-right close" data-bs-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-window-close" aria-hidden="true"></i></button>
 				<button type="button" class="float-right close resize" onclick="resizeDDM4Dialog()" aria-label="<?php echo $this->getGroupMessage('form_maximize') ?>"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
 					</span>
 				</div>
 				<div class="modal-body"><p></p></div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ddm4_controller_<?php echo $this->getName() ?>" style="width:100%;">
-		<div class="modal-dialog">
+
+	<div class="modal fade overflow-hidden pe-0 pb-4" id="ddm4_controller_<?php echo $this->getName() ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-				<div class="modal-header" style="justify-content: none; ">
-					<h5 class="modal-title float-left" style="float:left !important;"></h5>
-					<span class="float-right">
-				<button type="button" class="float-right close" data-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-window-close" aria-hidden="true"></i></button>
-				<button type="button" class="float-right close resize" onclick="resizeDDM4Modal()" aria-label="<?php echo $this->getGroupMessage('form_maximize') ?>"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
-				</span>
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+					<div class="justify-content-end">
+						<a type="button" class="resize" onclick="resizeDDM4Modal()" aria-label="<?php echo $this->getGroupMessage('form_maximize') ?>"><i class="fa fa-2x fa-fw fa-window-maximize text-muted" aria-hidden="true"></i></a>
+						<a type="button" data-bs-dismiss="modal" data-bs-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-2x fa-fw fa-window-close text-muted" aria-hidden="true"></i></a>
+					</div>
 				</div>
-				<div class="modal-body" style="padding:0px; margin:0px; overflow:hidden;"></div>
+				<div class="modal-body" style="padding:0px; margin:0px; overflow:hidden; overflow-y: auto;"></div>
 				<div class="modal-footer">
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_search"><?php echo $this->getGroupMessage('form_search') ?></button>
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_add"><?php echo $this->getGroupMessage('form_add') ?></button>
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_edit"><?php echo $this->getGroupMessage('form_edit') ?></button>
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>(true);" name="ddm4_button_delete" type="button" class="btn btn-danger ddm4_btn_delete"><?php echo $this->getGroupMessage('form_delete') ?></button>
 					<button onclick="resetDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_reset" type="button" class="btn btn-secondary ddm4_btn_reset"><?php echo $this->getGroupMessage('form_reset') ?></button>
-					<button name="ddm4_button_close" type="button" class="btn btn-secondary ddm4_btn_close" data-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
-					<button name="ddm4_button_cancel" type="button" class="btn btn-secondary ddm4_btn_cancel" data-dismiss="modal"><?php echo $this->getGroupMessage('form_cancel') ?></button>
+					<button name="ddm4_button_close" type="button" class="btn btn-secondary ddm4_btn_close" data-bs-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
+					<button name="ddm4_button_cancel" type="button" class="btn btn-secondary ddm4_btn_cancel" data-bs-dismiss="modal"><?php echo $this->getGroupMessage('form_cancel') ?></button>
 				</div>
 			</div>
 		</div>
@@ -282,11 +242,16 @@ $( window ).resize(function() {
 
 function sizeDDM4Modal() {
 	if ($("#ddm4_controller_'.$this->getName().'").hasClass("modal-fullscreen")) {
-		$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_holder").css("height", ($( window ).height()-122)+"px");
-		$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_content").css("height", ($( window ).height()-122)+"px");
+		$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_holder").css("height", ($( window ).height()-139)+"px");
+		$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_content").css("height", ($( window ).height()-139)+"px");
 	} else {
-		$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_holder").css("height", "600px");
-		$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_content").css("height", "600px");
+		if ($( window ).height()>800) {
+			$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_holder").css("height", "700px");
+			$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_content").css("height", "700px");
+		} else {
+			$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_holder").css("height", ($( window ).height()-200)+"px");
+			$("#ddm4_controller_'.$this->getName().' .modal-dialog .ddm4_iframe_content").css("height", ($( window ).height()-200)+"px");
+		}	
 	}
 }
 

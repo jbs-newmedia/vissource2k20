@@ -20,7 +20,7 @@ function vis2_notify(notify_msg, notify_type) {
 		message: notify_msg
 	}, {
 		offset: {
-			x: 20,
+			x: 40,
 			y: 60
 		},
 		placement: {

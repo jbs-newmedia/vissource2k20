@@ -25,9 +25,9 @@ if (!function_exists('vis2_manager_group_permission')) {
 							<?php echo $object->getTemplate()->Form()->drawHiddenField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, 0) ?>
 						</div>
 					<?php else: ?>
-						<div class="custom-control custom-checkbox">
-							<?php echo $object->getTemplate()->Form()->drawCheckBoxField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, '1', (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])?$ar_permission[$navigation_element['info']['page_name_intern']][$flag]:0), ['input_class'=>'custom-control-input']) ?>
-							<label class="custom-control-label<?php if ($object->getTemplate()->Form()->getErrorMessage($element)!==null): ?> text-danger<?php endif ?>" for="<?php echo 'page_'.$navigation_element['info']['page_name_intern'].'_'.$flag ?>0"><?php echo \osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getAddElementOption($element, 'tool_id'))) ?></label>
+						<div class="form-check">
+							<?php echo $object->getTemplate()->Form()->drawCheckBoxField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, '1', (isset($ar_permission[$navigation_element['info']['page_name_intern']][$flag])?$ar_permission[$navigation_element['info']['page_name_intern']][$flag]:0), ['input_class'=>'form-check-input']) ?>
+							<label class="form-check-label<?php if ($object->getTemplate()->Form()->getErrorMessage($element)!==null): ?> text-danger<?php endif ?>" for="<?php echo 'page_'.$navigation_element['info']['page_name_intern'].'_'.$flag ?>0"><?php echo \osWFrame\Core\HTML::outputString(\VIS2\Core\Manager::getPermissionText($flag, $object->getAddElementOption($element, 'tool_id'))) ?></label>
 						</div>
 					<?php endif ?>
 

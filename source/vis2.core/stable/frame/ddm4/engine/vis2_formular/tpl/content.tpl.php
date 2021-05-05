@@ -11,7 +11,7 @@
  */
 
 if (\osWFrame\Core\Settings::getAction()=='send') {
-	echo '<div class="card shadow mb-4"><div class="card-body">';
+	echo '<div class="card shadow mb-4"><div class="card-body page-wrapper-form">';
 
 	echo $this->getTemplate()->Form()->startForm('form_send', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getSendElements() as $element=>$options) {
