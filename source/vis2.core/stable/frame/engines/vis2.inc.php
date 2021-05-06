@@ -13,14 +13,16 @@
 $osW_Template=new \osWFrame\Core\Template();
 
 $osW_jQuery3=new \osWFrame\Core\jQuery3($osW_Template);
+$osW_jQuery3->load();
 
+$osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template);
 if (\osWFrame\Core\Settings::getStringVar('vis2_theme')!=null) {
-	$osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template, \osWFrame\Core\Settings::getStringVar('vis2_theme'));
-} else {
-	$osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template);
+	$osW_Bootstrap5->setTheme(\osWFrame\Core\Settings::getStringVar('vis2_theme'));
 }
+$osW_Bootstrap5->load();
 
 $osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
+$osW_FontAwesome5->load();
 
 $osW_jQuery3->loadPlugin('easing');
 
