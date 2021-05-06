@@ -37,7 +37,7 @@
 			<div class="dropdown ms-auto">
 				<a href="#" class="d-flex align-items-center link-dark text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
 					<span class="text-gray-600 ms-2 d-none d-md-block"><?php echo \osWFrame\Core\HTML::outputString($VIS2_User->getDisplayName(false)) ?></span>
-					<img src="<?php echo $VIS2_User->getProfileImage(); ?>" height="42" class="rounded-circle border ms-2"></a>
+					<img src="<?php echo $VIS2_User->getProfileImage(); ?>" height="46" class="ms-2"></a>
 				<ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
 					<li>
 						<a class="dropdown-item<?php if ($VIS2_Navigation->getPage()=='vis_profile'): ?> active<?php endif ?>" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_profile') ?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profil</a>
