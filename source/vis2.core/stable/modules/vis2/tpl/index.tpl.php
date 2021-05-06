@@ -15,7 +15,7 @@
 <head>
 	<?php echo $this->getHead(); ?>
 </head>
-<body id="jbsadmin-body"<?php if (\osWFrame\Core\Settings::catchValue('modal', '', 'pg')=='1'): ?> class="overflow-y-auto"<?php else:?> class="overflow-y-scroll"<?php endif?>>
+<body id="jbsadmin-body">
 <?php echo $this->getBody(); ?>
 
 <?php echo $content ?>

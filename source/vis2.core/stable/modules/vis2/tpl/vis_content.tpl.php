@@ -33,7 +33,7 @@
 
 		<div class="ms-auto"></div>
 
-		<div>
+		<div class="pe-2">
 			<div class="dropdown ms-auto">
 				<a href="#" class="d-flex align-items-center link-dark text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
 					<span class="text-gray-600 ms-2 d-none d-md-block"><?php echo \osWFrame\Core\HTML::outputString($VIS2_User->getDisplayName(false)) ?></span>
@@ -61,7 +61,7 @@
 
 	</nav>
 
-	<div class="d-flex align-items-stretch w-100" id="jbsadmin-wrapper">
+	<div class="d-flex w-100" id="jbsadmin-wrapper">
 
 		<div id="jbsadmin-sidebar" class="sidebar collapse show me-2">
 
@@ -176,7 +176,7 @@
 			</div>
 		</div>
 
-		<div id="jbsadmin-content-wrapper" class="w-100 h-100">
+		<div id="jbsadmin-content-wrapper" class="w-100">
 
 			<div id="jbsadmin-content">
 

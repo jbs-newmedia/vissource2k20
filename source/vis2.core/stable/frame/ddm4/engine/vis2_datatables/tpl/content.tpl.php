@@ -134,21 +134,7 @@ function resetDDM4() {
 
 # data
 if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
-	$this->getTemplate()->addCSSCodeHead('
-html,
-#jbsadmin-body  {
-	height: 100%;
-	overflow-y:hidden !important;
-	width:100%;
-}
 
-html,
-#jbsadmin-body ,
-.page-wrapper-modal {
-	min-height: 100%;
-	width:100%;
-}
-');
 
 	if (\osWFrame\Core\Settings::getAction()!='') {
 		$this->name.='_'.\osWFrame\Core\Settings::getAction();
