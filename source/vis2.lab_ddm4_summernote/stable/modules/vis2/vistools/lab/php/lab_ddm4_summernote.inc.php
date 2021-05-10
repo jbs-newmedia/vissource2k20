@@ -10,7 +10,7 @@
  * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
  */
 
-$osW_Bootstrap4->loadPlugin('summernote');
+$osW_Bootstrap5->loadPlugin('summernote');
 
 /*
  * DDM4 initialisieren
