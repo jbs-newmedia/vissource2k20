@@ -23,7 +23,7 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 					if (\VIS2\Core\Protect::isBlocked($VIS2_User->getId())!==true) {
 						if (\VIS2\Core\User::validatePassword($vis2_login_password, $VIS2_User->getStringVar('user_password'))!==true) {
 							$osW_Template->Form()->addErrorMessage('vis2_login_password', 'Ihr Passwort ist falsch.');
-							VIS2\Core\Protect::addEntry($VIS2_User->getId());
+							\VIS2\Core\Protect::addEntry($VIS2_User->getId());
 						}
 					} else {
 						$time=\VIS2\Core\Protect::getTime($VIS2_User->getId());
@@ -52,7 +52,7 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 		if ($VIS2_User->createLogin()===true) {
 			osWFrame\Core\SessionMessageStack::addMessage('session', 'success', ['msg'=>'Sie wurden erfolgreich eingeloggt.']);
 
-			VIS2\Core\Protect::clearEntries($VIS2_User->getId());
+			\VIS2\Core\Protect::clearEntries($VIS2_User->getId());
 
 			osWFrame\Core\Cookie::setCookie('vis2_login_email', $vis2_login_email, osWFrame\Core\Settings::getIntVar('vis2_login_cookie_lifetime'));
 
