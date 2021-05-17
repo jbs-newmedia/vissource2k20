@@ -20,7 +20,7 @@ if ($VIS2->getUsers()!=[]) {
 
 	$this->fields['vis2_admin_gender']=['default_name'=>'Gender', 'default_type'=>'select', 'default_value'=>'', 'default_select'=>[''=>'', '1'=>'männlich', '2'=>'weiblich'], 'valid_type'=>'integer', 'valid_min_length'=>1, 'valid_max_length'=>1, 'valid_min_value'=>1, 'configure_write'=>false];
 
-	$this->fields['vis2_admin_email']=['default_name'=>'E-Mail', 'default_type'=>'text', 'default_value'=>'', 'valid_type'=>'string', 'valid_min_length'=>2, 'valid_max_length'=>32, 'valid_function'=>'check_email', 'configure_write'=>false];
+	$this->fields['vis2_admin_email']=['default_name'=>'E-Mail', 'default_type'=>'text', 'default_value'=>'', 'valid_type'=>'string', 'valid_min_length'=>2, 'valid_max_length'=>64, 'valid_function'=>'check_email', 'configure_write'=>false];
 
 	$this->fields['vis2_admin_password']=['default_name'=>'Password', 'default_type'=>'password', 'default_value'=>'', 'valid_type'=>'string', 'valid_min_length'=>8, 'valid_max_length'=>32, 'configure_write'=>false];
 }
