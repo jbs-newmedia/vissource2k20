@@ -249,6 +249,25 @@ class VIS2 {
 			return false;
 		}
 		$_vis2_script=json_decode(file_get_contents($file), true);
+		$files=glob(Frame\Settings::getStringVar('settings_abspath').'resources'.DIRECTORY_SEPARATOR.'json'.DIRECTORY_SEPARATOR.'vis2'.DIRECTORY_SEPARATOR.'vis2_'.$_vis2_script['tool']['tool_name_intern'].DIRECTORY_SEPARATOR.'*.json');
+		foreach ($files as $file) {
+			$data=json_decode(file_get_contents($file), true);
+			if ((isset($data['group']))) {
+				foreach ($data['group'] as $key=>$value) {
+					$_vis2_script['group'][$key]=$value;
+				}
+			}
+			if ((isset($data['permission']))) {
+				foreach ($data['permission'] as $key=>$value) {
+					$_vis2_script['permission'][$key]=$value;
+				}
+			}
+			if ((isset($data['navigation']))) {
+				foreach ($data['navigation'] as $key=>$value) {
+					$_vis2_script['navigation'][$key]=$value;
+				}
+			}
+		}
 
 		/**
 		 * Tool

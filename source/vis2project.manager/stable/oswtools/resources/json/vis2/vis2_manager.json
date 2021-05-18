@@ -10,27 +10,27 @@
     "tool_use_mandantswitch": 0
   },
   "group": {
-    "1": {
+    "manager_admin": {
       "group_name": "Manager-Admin",
       "group_name_intern": "manager_admin",
       "group_description": "Manager-Admin",
       "group_ispublic": 1
     }
   },
-  "permission": [
-    {
+  "permission": {
+    "link": {
       "permission_flag": "link",
       "permission_title": "Link anzeigen",
       "permission_ispublic": 1
     },
-    {
+    "view": {
       "permission_flag": "view",
       "permission_title": "Seite anzeigen",
       "permission_ispublic": 1
     }
-  ],
-  "navigation": [
-    {
+  },
+  "navigation": {
+    "header_manager": {
       "navigation_parent_id": 0,
       "navigation_title": "Manager",
       "navigation_sortorder": 2,
@@ -45,12 +45,12 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link"
         ]
       }
     },
-    {
+    "manager_tool": {
       "navigation_parent_id": "header_manager",
       "navigation_title": "Tools",
       "navigation_sortorder": 1,
@@ -66,13 +66,13 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link",
           "view"
         ]
       }
     },
-    {
+    "manager_navigation": {
       "navigation_parent_id": "header_manager",
       "navigation_title": "Navigation",
       "navigation_sortorder": 2,
@@ -88,13 +88,13 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link",
           "view"
         ]
       }
     },
-    {
+    "manager_user": {
       "navigation_parent_id": "header_manager",
       "navigation_title": "Benutzer",
       "navigation_sortorder": 3,
@@ -110,13 +110,13 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link",
           "view"
         ]
       }
     },
-    {
+    "header_vis2": {
       "navigation_parent_id": 0,
       "navigation_title": "VIS",
       "navigation_sortorder": 999,
@@ -131,12 +131,12 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link"
         ]
       }
     },
-    {
+    "vis_navigation": {
       "navigation_parent_id": "header_vis2",
       "navigation_title": "Navigation",
       "navigation_sortorder": 10,
@@ -152,13 +152,13 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link",
           "view"
         ]
       }
     },
-    {
+    "vis_user": {
       "navigation_parent_id": "header_vis2",
       "navigation_title": "Benutzer",
       "navigation_sortorder": 20,
@@ -174,11 +174,11 @@
         ]
       },
       "permission": {
-        "1": [
+        "manager_admin": [
           "link",
           "view"
         ]
       }
     }
-  ]
+  }
 }
