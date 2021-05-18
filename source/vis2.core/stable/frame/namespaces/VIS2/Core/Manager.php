@@ -684,7 +684,7 @@ class Manager {
 	 * @param int $tool_id
 	 * @return array
 	 */
-	public function getNavigationRealUnsorted(int $tool_id=0):array {
+	public static function getNavigationRealUnsorted(int $tool_id=0):array {
 		if ($tool_id==0) {
 			$tool_id=Main::getToolId();
 		}
