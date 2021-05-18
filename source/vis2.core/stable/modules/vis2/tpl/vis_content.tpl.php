@@ -107,8 +107,17 @@
 
 													<?php if ($navigation_element['info']['permission_view']==true): ?>
 														<a class="collapse-item<?php if ($navigation_element['info']['navigation_active']===true): ?> active<?php endif ?>" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage='.$navigation_element['info']['page_name_intern']) ?>">
-													<?php endif ?><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?><?php if (\VIS2\Core\Badge::get($navigation_element['info']['page_name_intern'])!==null): ?>
-														<span class="vis2_navigation_badge" title="<?php echo VIS2\Core\Badge::get($navigation_element['info']['page_name_intern'], null) ?>"><?php echo VIS2\Core\Badge::get($navigation_element['info']['page_name_intern']) ?></span><?php endif ?><?php if ($navigation_element['info']['permission_view']==true): ?></a><?php endif ?>
+													<?php endif ?>
+
+													<?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?>
+
+													<?php if (($navigation_element['info']['page_name_intern']!==null)&&(\VIS2\Core\Badge::get($navigation_element['info']['page_name_intern'])!==null)): ?>
+														<span class="vis2_navigation_badge" title="<?php echo VIS2\Core\Badge::get($navigation_element['info']['page_name_intern'], null) ?>"><?php echo VIS2\Core\Badge::get($navigation_element['info']['page_name_intern']) ?></span>
+													<?php endif ?>
+
+													<?php if ($navigation_element['info']['permission_view']==true): ?>
+														</a>
+													<?php endif ?>
 
 												<?php endforeach ?>
 
