@@ -10,6 +10,8 @@ body {
     background-color: white;
     padding: 5px 10px;
     overflow: hidden;
+    overflow-y: scroll;
+    height: 100vh;
 }
 
 .page-wrapper-form > form > .form-group {

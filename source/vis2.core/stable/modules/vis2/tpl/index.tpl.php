@@ -15,7 +15,7 @@
 <head>
 	<?php echo $this->getHead(); ?>
 </head>
-<body id="jbsadmin-body">
+<body id="jbsadmin-body" class="<?php if (\osWFrame\Core\Settings::catchValue('modal', '', 'pg')=='1'): ?>jbsadmin-body-modal<?php else:?>jbsadmin-body-full<?php endif?>">
 <?php echo $this->getBody(); ?>
 
 <?php echo $content ?>
