@@ -466,6 +466,17 @@ if ((\osWFrame\Core\Settings::getAction()=='add')||(\osWFrame\Core\Settings::get
 if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::getAction()=='doedit')) {
 	$this->setIndexElementStorage(\osWFrame\Core\Settings::catchValue($this->getGroupOption('index', 'database'), '', 'pg'));
 	$database_where_string='';
+
+	// build selector
+	$ddm_selector_array=$this->getGroupOption('selector', 'database');
+	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+		$ar_values=[];
+		foreach ($ddm_selector_array as $key=>$value) {
+			$ar_values[]=$key.'='.$value;
+		}
+		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
+	}
+
 	$ddm_filter_array=$this->getGroupOption('filter', 'database');
 	if (($ddm_filter_array!='')&&($ddm_filter_array!=[])) {
 		$ddm_filter=[];
@@ -561,6 +572,17 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::getAction()=='dodelete')) {
 	$this->setIndexElementStorage(\osWFrame\Core\Settings::catchValue($this->getGroupOption('index', 'database'), '', 'pg'));
 	$database_where_string='';
+
+	// build selector
+	$ddm_selector_array=$this->getGroupOption('selector', 'database');
+	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+		$ar_values=[];
+		foreach ($ddm_selector_array as $key=>$value) {
+			$ar_values[]=$key.'='.$value;
+		}
+		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
+	}
+
 	$ddm_filter_array=$this->getGroupOption('filter', 'database');
 	if (($ddm_filter_array!='')&&($ddm_filter_array!=[])) {
 		$ddm_filter=[];
@@ -777,6 +799,20 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 				include $file;
 			}
 		}
+	}
+	if ($ddm_search_case_array!=[]) {
+		$ddm_search_case_array_all[]='('.implode(' AND ', $ddm_search_case_array).')';
+	}
+
+	// build selector
+	$ddm_search_case_array=[];
+	$ddm_selector_array=$this->getGroupOption('selector', 'database');
+	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+		$ar_values=[];
+		foreach ($ddm_selector_array as $key=>$value) {
+			$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+		}
+		$ddm_search_case_array[]='('.implode(' AND ', $ar_values).')';
 	}
 	if ($ddm_search_case_array!=[]) {
 		$ddm_search_case_array_all[]='('.implode(' AND ', $ddm_search_case_array).')';

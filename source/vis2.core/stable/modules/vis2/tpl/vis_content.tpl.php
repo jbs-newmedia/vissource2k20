@@ -13,7 +13,6 @@
 ?><?php if (\osWFrame\Core\Settings::catchValue('modal', '', 'pg')=='1'): ?><?php echo $vis2content ?><?php else: ?>
 	<nav id="jbsadmin-navbar" class="navbar navbar-expand navbar-light bg-white mb-4 fixed-top shadow">
 
-
 		<a class="navbar-brand d-flex align-items-center" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
 			<div class="navbar-brand-icon">
 				<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), PATHINFO_EXTENSION)=='svg'): ?>
@@ -93,14 +92,15 @@
 
 							<?php if ($navigation_element['info']['permission_link']==true): ?>
 
+								<?php if (count($navigation_element['links'])>0): ?>
+
 								<li class="nav-item nav-divider w-100"></li>
 
 								<li class="nav-item w-100<?php if ($navigation_element['info']['navigation_active']==true): ?> active<?php endif ?>">
 
-									<?php if (count($navigation_element['links'])>0): ?>
 										<a href="#navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" class="nav-link" data-bs-toggle="collapse">
 											<span><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?></span></a>
-										<div class="collapse nav flex-column <?php if ($navigation_element['info']['navigation_active']==true): ?> show<?php endif ?>" id="navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" data-bs-parent="#jbsadmin-sidebar-navigation">
+										<div class="collapse nav flex-column<?php if ($navigation_element['info']['navigation_active']==true): ?> show<?php endif ?>" id="navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" data-bs-parent="#jbsadmin-sidebar-navigation">
 											<div class="nav-sub p-2 mb-2">
 
 												<?php foreach ($navigation_element['links'] as $navigation_element): ?>

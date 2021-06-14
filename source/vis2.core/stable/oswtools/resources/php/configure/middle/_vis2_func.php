@@ -1,6 +1,6 @@
 <?php
 
-$this->settings=['page_title'=>'VIS2:Manager Settings'];
+$this->settings=['page_title'=>'VIS2: Settings'];
 
 if (($position=='run')&&(isset($_POST['next']))&&($_POST['next']=='next')) {
 	$VIS2=new \osWFrame\Tools\VIS2($this);

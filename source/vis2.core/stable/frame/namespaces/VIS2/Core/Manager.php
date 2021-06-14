@@ -760,9 +760,6 @@ class Manager {
 	 * @return array|null
 	 */
 	private static function createNavigationRealRecursive(int $parent_id, int $level, int $max_level, int $tool_id):?array {
-		$name_tree='navigation_tree_'.$tool_id;
-		$name_navigation='navigation_data_'.$tool_id;
-
 		$data=[];
 		if (isset(self::$navigation_tree[$tool_id][$parent_id])) {
 			foreach (self::$navigation_tree[$tool_id][$parent_id] as $category_id=>$category) {

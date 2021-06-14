@@ -17,6 +17,17 @@ foreach ($this->getAddElements() as $element=>$element_details) {
 	}
 }
 
+// build selector
+$selector_value=[];
+$ddm_selector_array=$this->getGroupOption('selector', 'database');
+if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+	foreach ($ddm_selector_array as $key=>$value) {
+		$vars_key[]=$key;
+		$vars_value[]=$key;
+		$selector_value[$key]=$value;
+	}
+}
+
 $QsaveData=self::getConnection();
 $QsaveData->prepare('INSERT INTO :table: (:vars_name:) VALUES (:vars_value:)');
 $QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
@@ -39,8 +50,17 @@ foreach ($this->getAddElements() as $element=>$element_details) {
 				break;
 			case 'string':
 			default:
-				$QsaveData->bindString(':'.$element.':', $this->getDoAddElementStorage($element));
+				$QsaveData->bindString(':'.$element.':', strval($this->getDoAddElementStorage($element)));
 				break;
+		}
+	}
+}
+if ($selector_value!=[]) {
+	foreach ($selector_value as $key=>$value) {
+		if (is_int($value)===true) {
+			$QsaveData->bindInt(':'.$key.':', intval($value));
+		} else {
+			$QsaveData->bindString(':'.$key.':', strval($value));
 		}
 	}
 }

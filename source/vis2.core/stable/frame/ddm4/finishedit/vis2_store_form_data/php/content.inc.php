@@ -17,8 +17,19 @@ foreach ($this->getEditElements() as $element_name=>$element_details) {
 	}
 }
 
+// build selector
+$ddm_search_case_array='';
+$ddm_selector_array=$this->getGroupOption('selector', 'database');
+if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+	$ar_values=[];
+	foreach ($ddm_selector_array as $key=>$value) {
+		$ar_values[]=$key.'='.$value;
+	}
+	$ddm_search_case_array='AND ('.implode(' AND ', $ar_values).')';
+}
+
 $QsaveData=self::getConnection();
-$QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index:');
+$QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index: :search_filter:');
 $QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 $QsaveData->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));
 $QsaveData->bindRaw(':vars:', $this->getGroupOption('alias', 'database').'.'.implode(',  '.$this->getGroupOption('alias', 'database').'.', $vars));
@@ -28,6 +39,7 @@ if ($this->getGroupOption('db_index_type', 'database')=='string') {
 } else {
 	$QsaveData->bindInt(':value_index:', intval($this->getIndexElementStorage()));
 }
+$QsaveData->bindRaw(':search_filter:', $ddm_search_case_array);
 
 foreach ($this->getEditElements() as $element_name=>$element_details) {
 	if ((isset($element_details['name']))&&($element_details['name']!='')) {

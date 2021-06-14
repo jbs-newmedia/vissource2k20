@@ -37,7 +37,7 @@ class VIS2 {
 	 * Extra-Version der Klasse.
 	 * Zum Beispiel alpha, beta, rc1, rc2 ...
 	 */
-	private const CLASS_EXTRA_VERSION='beta';
+	private const CLASS_EXTRA_VERSION='';
 
 	/**
 	 * @var bool
@@ -69,7 +69,7 @@ class VIS2 {
 	 *
 	 * @param object $object
 	 */
-	public function __construct(object &$object) {
+	public function __construct(object $object) {
 		$this->object=$object;
 		if (($this->object->getJSONStringValue('database_server')!=='')&&($this->object->getJSONStringValue('database_username')!=='')&&($this->object->getJSONStringValue('database_db')!=='')) {
 			\osWFrame\Core\DB::addConnectionMYSQL($this->object->getJSONStringValue('database_server'), $this->object->getJSONStringValue('database_username'), $this->object->getJSONStringValue('database_password'), $this->object->getJSONStringValue('database_db'));

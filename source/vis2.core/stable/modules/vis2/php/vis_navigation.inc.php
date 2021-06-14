@@ -15,7 +15,7 @@
  */
 $ddm4_object=[];
 $ddm4_object['general']=[];
-$ddm4_object['general']['engine']='ddm4_formular';
+$ddm4_object['general']['engine']='ddm4';
 $ddm4_object['general']['cache']=\osWFrame\Core\Settings::catchValue('ddm_cache', '', 'pg');
 $ddm4_object['general']['elements_per_page']=50;
 $ddm4_object['general']['enable_log']=true;
@@ -615,10 +615,6 @@ if (in_array($ddm_navigation_id, [3])) {
 	$ddm4_elements['data']['navigation_intern_sortorder']['options']['search']=true;
 	$ddm4_elements['data']['navigation_intern_sortorder']['options']['default_value']=1;
 	$ddm4_elements['data']['navigation_intern_sortorder']['options']['required']=true;
-	$ddm4_elements['data']['navigation_intern_sortorder']['options']['text_yes']='Aktiviert';
-	$ddm4_elements['data']['navigation_intern_sortorder']['options']['text_no']='Deaktiviert';
-	$ddm4_elements['data']['navigation_intern_sortorder']['_list']=[];
-	$ddm4_elements['data']['navigation_intern_sortorder']['_list']['module']='hidden';
 	$ddm4_elements['data']['navigation_intern_sortorder']['_search']=[];
 	$ddm4_elements['data']['navigation_intern_sortorder']['_search']['enabled']=false;
 	$ddm4_elements['data']['navigation_intern_sortorder']['_add']=[];

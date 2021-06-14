@@ -59,3 +59,25 @@ body {
 .custom-select.dropdown-toggle::after {
     display: none;
 }
+
+.dropdown-flex-100 .dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    text-align: left !important;
+}
+
+.dropdown-flex-100 .dropdown-menu {
+    width: 100% !important;
+    text-align: left !important;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    z-index: 1300;
+}
+
+table.dataTable {
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+}

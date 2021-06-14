@@ -38,8 +38,8 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 			$this->setDoEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time', $this->getEditElementOption($element, 'time'));
 			$this->setDoEditElementStorage($this->getEditElementOption($element, 'prefix').'update_user_id', $this->getEditElementOption($element, 'user_id'));
 
-			$this->addDataElement($this->getEditElementOption($element, 'prefix').'update_time', ['module'=>'hidden', 'name'=>$this->getEditElementOption($element, 'prefix').'update_time', 'options'=>['default_value'=>$this->getDoEditElementStorage($element, $this->getEditElementOption($element, 'prefix').'update_time'),],]);
-			$this->addDataElement($this->getEditElementOption($element, 'prefix').'update_user_id', ['module'=>'hidden', 'name'=>$this->getEditElementOption($element, 'prefix').'update_user_id', 'options'=>['default_value'=>$this->getDoEditElementStorage($element, $this->getEditElementOption($element, 'prefix').'update_user_id'),],]);
+			$this->addDataElement($this->getEditElementOption($element, 'prefix').'update_time', ['module'=>'hidden', 'name'=>$this->getEditElementOption($element, 'prefix').'update_time', 'options'=>['default_value'=>$this->getDoEditElementStorage($element, $this->getEditElementOption($element, 'prefix').'update_time')], 'validation'=>['module'=>'integer']]);
+			$this->addDataElement($this->getEditElementOption($element, 'prefix').'update_user_id', ['module'=>'hidden', 'name'=>$this->getEditElementOption($element, 'prefix').'update_user_id', 'options'=>['default_value'=>$this->getDoEditElementStorage($element, $this->getEditElementOption($element, 'prefix').'update_user_id')], 'validation'=>['module'=>'integer']]);
 		}
 	}
 }
