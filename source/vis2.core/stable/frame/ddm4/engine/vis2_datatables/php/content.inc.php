@@ -477,6 +477,7 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
 	}
 
+	// build filter
 	$ddm_filter_array=$this->getGroupOption('filter', 'database');
 	if (($ddm_filter_array!='')&&($ddm_filter_array!=[])) {
 		$ddm_filter=[];
@@ -583,6 +584,7 @@ if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::
 		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
 	}
 
+	// build filter
 	$ddm_filter_array=$this->getGroupOption('filter', 'database');
 	if (($ddm_filter_array!='')&&($ddm_filter_array!=[])) {
 		$ddm_filter=[];
@@ -816,6 +818,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 	}
 	if ($ddm_search_case_array!=[]) {
 		$ddm_search_case_array_all[]='('.implode(' AND ', $ddm_search_case_array).')';
+		$ddm_search_filter_case_array_all[]='('.implode(' AND ', $ddm_search_case_array).')';
 	}
 
 	// build filter
@@ -870,6 +873,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 	$QgetData->bindRaw(':search:', $database_search_string);
 	$QgetData->bindRaw(':order:', $database_order_string);
 	$QgetData->bindLimit($this->getGroupOption('alias', 'database').'.'.$this->getGroupOption('index', 'database'), osWFrame\Core\Settings::catchValue('length', 1, 'gp'), ((\osWFrame\Core\Settings::catchValue('start', 0, 'gp')/osWFrame\Core\Settings::catchValue('length', 1, 'gp'))+1), 'draw');
+
 	foreach ($QgetData->query() as $view_data) {
 		$this->incCounter('storage_view_elements');
 		foreach ($this->getListElements() as $element=>$options) {

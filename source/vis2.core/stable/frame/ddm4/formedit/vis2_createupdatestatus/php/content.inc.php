@@ -11,8 +11,36 @@
  */
 
 if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::getAction()=='doedit')) {
+	$database_where_string='';
+
+	// build selector
+	$ddm_selector_array=$this->getGroupOption('selector', 'database');
+	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+		$ar_values=[];
+		foreach ($ddm_selector_array as $key=>$value) {
+			$ar_values[]=$key.'='.$value;
+		}
+		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
+	}
+
+	// build filter
+	$ddm_filter_array=$this->getGroupOption('filter', 'database');
+	if (($ddm_filter_array!='')&&($ddm_filter_array!=[])) {
+		$ddm_filter=[];
+		foreach ($ddm_filter_array as $filter) {
+			$ar_values=[];
+			foreach ($filter as $logic=>$elements) {
+				foreach ($elements as $element) {
+					$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$element['key'].$element['operator'].$element['value'];
+				}
+			}
+			$ddm_filter[]='('.implode(' '.strtoupper($logic).' ', $ar_values).')';
+		}
+		$database_where_string.=' AND ('.implode(' OR ', $ddm_filter).')';
+	}
+
 	$Qselect=self::getConnection();
-	$Qselect->prepare('SELECT :elements: FROM :table: AS :alias: WHERE :name_index:=:value_index:');
+	$Qselect->prepare('SELECT :elements: FROM :table: AS :alias: WHERE :name_index:=:value_index: :where:');
 	$Qselect->bindRaw(':elements:', implode(', ', [$this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'create_time', $this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'create_user_id', $this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'update_time', $this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'update_user_id']));
 	$Qselect->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$Qselect->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));
@@ -22,6 +50,7 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 	} else {
 		$Qselect->bindInt(':value_index:', $this->getIndexElementStorage());
 	}
+	$Qselect->bindRaw(':where:', $database_where_string);
 	if ($Qselect->exec()==1) {
 		$result=$Qselect->fetch();
 
