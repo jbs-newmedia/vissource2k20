@@ -873,7 +873,6 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 	$QgetData->bindRaw(':search:', $database_search_string);
 	$QgetData->bindRaw(':order:', $database_order_string);
 	$QgetData->bindLimit($this->getGroupOption('alias', 'database').'.'.$this->getGroupOption('index', 'database'), osWFrame\Core\Settings::catchValue('length', 1, 'gp'), ((\osWFrame\Core\Settings::catchValue('start', 0, 'gp')/osWFrame\Core\Settings::catchValue('length', 1, 'gp'))+1), 'draw');
-
 	foreach ($QgetData->query() as $view_data) {
 		$this->incCounter('storage_view_elements');
 		foreach ($this->getListElements() as $element=>$options) {
