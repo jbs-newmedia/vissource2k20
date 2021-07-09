@@ -30,8 +30,8 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 		foreach ($ddm_filter_array as $filter) {
 			$ar_values=[];
 			foreach ($filter as $logic=>$elements) {
-				foreach ($elements as $element) {
-					$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$element['key'].$element['operator'].$element['value'];
+				foreach ($elements as $_element) {
+					$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$_element['key'].$_element['operator'].$_element['value'];
 				}
 			}
 			$ddm_filter[]='('.implode(' '.strtoupper($logic).' ', $ar_values).')';
