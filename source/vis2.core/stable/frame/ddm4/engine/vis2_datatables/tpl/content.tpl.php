@@ -32,7 +32,7 @@ function resetDDM4() {
 	$(".selectpicker").selectpicker("render");
 }
 ');
-	echo '<div class="page-wrapper-modal">';
+	echo '<div class="page-wrapper-modal px-2 py-1">';
 	echo $this->getTemplate()->Form()->startForm('form_search', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getSearchElements() as $element=>$options) {
 		echo $this->parseFormSearchElementTPL($element, $options);
@@ -55,7 +55,7 @@ function resetDDM4() {
 	$(".selectpicker").selectpicker("render");
 }
 ');
-	echo '<div class="page-wrapper-modal">';
+	echo '<div class="page-wrapper-modal px-2 py-1">';
 	echo $this->getTemplate()->Form()->startForm('form_add', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getAddElements() as $element=>$options) {
 		echo $this->parseFormAddElementTPL($element, $options);
@@ -95,7 +95,7 @@ $(function() {
 });
 
 ');
-	echo '<div class="page-wrapper-modal">';
+	echo '<div class="page-wrapper-modal px-2 py-1">';
 
 	if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))!==true) {
 		echo '<div class="alert alert-danger" role="alert" style="margin:15px 0px;">'.\osWFrame\Core\StringFunctions::parseTextWithVars($this->getGroupMessage('lock_error'), ['user'=>\VIS2\Core\Manager::getUsernameById($this->getLockUserId(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data')))]).'</div>';
@@ -121,7 +121,7 @@ function resetDDM4() {
 	$(".selectpicker").selectpicker("render");
 }
 ');
-	echo '<div class="page-wrapper-modal">';
+	echo '<div class="page-wrapper-modal px-2 py-1">';
 	echo $this->getTemplate()->Form()->startForm('form_delete', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getDeleteElements() as $element=>$options) {
 		echo $this->parseFormDeleteElementTPL($element, $options);
@@ -138,7 +138,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 
 	if (\osWFrame\Core\Settings::getAction()!='') {
 		$this->name.='_'.\osWFrame\Core\Settings::getAction();
-		echo '<div class="page-wrapper-modal">';
+		echo '<div class="page-wrapper-modal px-2 py-1">';
 	} else {
 		echo '<div class="card shadow mb-4"><div class="card-body page-wrapper-form">';
 	}
