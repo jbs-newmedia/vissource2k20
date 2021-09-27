@@ -19,6 +19,9 @@ $osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template);
 if (\osWFrame\Core\Settings::getStringVar('vis2_theme')!=null) {
 	$osW_Bootstrap5->setTheme(\osWFrame\Core\Settings::getStringVar('vis2_theme'));
 }
+if (\osWFrame\Core\Settings::getStringVar('vis2_theme_color')!=null) {
+	$osW_Bootstrap5->setCustom('blue', \osWFrame\Core\Settings::getStringVar('vis2_theme_color'));
+}
 $osW_Bootstrap5->load();
 
 $osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
