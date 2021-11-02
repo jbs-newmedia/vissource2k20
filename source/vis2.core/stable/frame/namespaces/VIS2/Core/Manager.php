@@ -714,7 +714,6 @@ class Manager {
 		$Qselect->bindTable(':table_vis2_navigation:', 'vis2_navigation');
 		$Qselect->bindTable(':table_vis2_page:', 'vis2_page');
 		$Qselect->bindInt(':tool_id:', $tool_id);
-		$Qselect->execute();
 		foreach ($Qselect->query() as $navigation_element) {
 			$navigation_element['navigation_sortorder']=intval($navigation_element['navigation_sortorder']);
 			$navigation_element['custom']=false;
