@@ -12,7 +12,7 @@
 
 $vars=[];
 foreach ($this->getEditElements() as $element_name=>$element_details) {
-	if ((isset($element_details['name']))&&($element_details['name']!='')) {
+	if (((isset($element_details['enabled']))&&($element_details['enabled']===true))&&((isset($element_details['name']))&&($element_details['name']!=''))) {
 		$vars[]=$element_details['name'].'=:'.$element_name.':';
 	}
 }

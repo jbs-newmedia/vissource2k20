@@ -508,15 +508,17 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 	if ($QloadData->exec()===1) {
 		$result=$QloadData->fetch();
 		foreach ($this->getEditElements() as $element=>$element_details) {
-			if ((isset($element_details['name']))&&($element_details['name']!='')) {
-				$this->setEditElementStorage($element, $result[$element_details['name']]);
-			}
-			if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
-				foreach ($element_details['name_array'] as $_name) {
-					if ($element_details['options']['prefix']!='') {
-						$this->setEditElementStorage($element_details['options']['prefix'].$_name, $result[$element_details['options']['prefix'].$_name]);
-					} else {
-						$this->setEditElementStorage($element.'_'.$_name, $result[$_name]);
+			if ((isset($element_details['enabled']))&&($element_details['enabled']===true)) {
+				if ((isset($element_details['name']))&&($element_details['name']!='')) {
+					$this->setEditElementStorage($element, $result[$element_details['name']]);
+				}
+				if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
+					foreach ($element_details['name_array'] as $_name) {
+						if ($element_details['options']['prefix']!='') {
+							$this->setEditElementStorage($element_details['options']['prefix'].$_name, $result[$element_details['options']['prefix'].$_name]);
+						} else {
+							$this->setEditElementStorage($element.'_'.$_name, $result[$_name]);
+						}
 					}
 				}
 			}
@@ -615,15 +617,17 @@ if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::
 	if ($QloadData->exec()===1) {
 		$result=$QloadData->fetch();
 		foreach ($this->getDeleteElements() as $element=>$element_details) {
-			if ((isset($element_details['name']))&&($element_details['name']!='')) {
-				$this->setDeleteElementStorage($element, $result[$element_details['name']]);
-			}
-			if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
-				foreach ($element_details['name_array'] as $_name) {
-					if ($element_details['options']['prefix']!='') {
-						$this->setDeleteElementStorage($element.'_'.$element_details['options']['prefix'].$_name, $result[$element_details['options']['prefix'].$_name]);
-					} else {
-						$this->setDeleteElementStorage($element.'_'.$_name, $result[$_name]);
+			if ((isset($element_details['enabled']))&&($element_details['enabled']===true)) {
+				if ((isset($element_details['name']))&&($element_details['name']!='')) {
+					$this->setDeleteElementStorage($element, $result[$element_details['name']]);
+				}
+				if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
+					foreach ($element_details['name_array'] as $_name) {
+						if ($element_details['options']['prefix']!='') {
+							$this->setDeleteElementStorage($element.'_'.$element_details['options']['prefix'].$_name, $result[$element_details['options']['prefix'].$_name]);
+						} else {
+							$this->setDeleteElementStorage($element.'_'.$_name, $result[$_name]);
+						}
 					}
 				}
 			}
