@@ -107,9 +107,9 @@ class User {
 	public static function validatePassword(string $pwblank, string $pwcrypted):bool {
 		if (($pwblank!='')&&($pwcrypted!='')) {
 
-            if(password_verify($pwblank, $pwcrypted)){
-                return true;
-            }
+			if (password_verify($pwblank, $pwcrypted)) {
+				return true;
+			}
 
 			$stack=explode(':', $pwcrypted);
 			if (sizeof($stack)!=2) {
@@ -123,33 +123,34 @@ class User {
 		return false;
 	}
 
-    /**
-     * @param string $password
-     * @return bool
-     */
-    public function rehashPassword(string $password): bool{
-        if($this->getId() !== null){
+	/**
+	 * @param string $password
+	 * @return bool
+	 */
+	public function rehashPassword(string $password):bool {
+		if ($this->getId()!==null) {
 
-            $hash = osWFrame\StringFunctions::encryptString($password);
+			$hash=osWFrame\StringFunctions::encryptString($password);
 
-            $QupdateData = self::getConnection();
-            $QupdateData->prepare('UPDATE :table_vis2_user: SET user_password=:user_password: WHERE user_id=:user_id:');
-            $QupdateData->bindTable(':table_vis2_user:', 'vis2_user');
-            $QupdateData->bindString(':user_password:', $hash);
-            $QupdateData->bindInt(':user_id:', $this->getId());
+			$QupdateData=self::getConnection();
+			$QupdateData->prepare('UPDATE :table_vis2_user: SET user_password=:user_password: WHERE user_id=:user_id:');
+			$QupdateData->bindTable(':table_vis2_user:', 'vis2_user');
+			$QupdateData->bindString(':user_password:', $hash);
+			$QupdateData->bindInt(':user_id:', $this->getId());
 
-            return $QupdateData->execute() && $this->setStringVar('user_password', $hash);
-        }
+			return $QupdateData->execute()&&$this->setStringVar('user_password', $hash);
+		}
 
-        return false;
-    }
+		return false;
+	}
 
 	/**
 	 * @return bool
 	 */
 	public function createLogin():bool {
 		if ($this->getId()!==null) {
-            $user_token = md5($this->getEMail().microtime().uniqid(microtime()));
+
+			$user_token=md5($this->getEMail().microtime().uniqid(microtime()));
 
 			$QupdateData=self::getConnection();
 			$QupdateData->prepare('UPDATE :table_vis2_user: SET user_token=:user_token: WHERE user_id=:user_id:');
@@ -284,8 +285,8 @@ class User {
 	 */
 	public function loadTools():bool {
 		$this->tools=[];
-		$this->tools[Settings::getStringVar('vis2_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=> Settings::getStringVar('vis2_login_module')];
-		$this->tools[Settings::getStringVar('vis2_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=> Settings::getStringVar('vis2_chtool_module')];
+		$this->tools[Settings::getStringVar('vis2_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=>Settings::getStringVar('vis2_login_module')];
+		$this->tools[Settings::getStringVar('vis2_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=>Settings::getStringVar('vis2_chtool_module')];
 
 		$QselectTools=self::getConnection();
 		$QselectTools->prepare('SELECT * FROM :table_vis2_tool: AS t INNER JOIN :table_vis2_user_tool: AS u ON (u.tool_id=t.tool_id) WHERE t.tool_ispublic=:tool_ispublic: AND u.user_id=:user_id: ORDER BY t.tool_name ASC');
