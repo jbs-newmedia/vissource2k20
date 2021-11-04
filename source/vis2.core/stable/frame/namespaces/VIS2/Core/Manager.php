@@ -32,7 +32,7 @@ class Manager {
 	/**
 	 * Release-Version der Klasse.
 	 */
-	private const CLASS_RELEASE_VERSION=0;
+	private const CLASS_RELEASE_VERSION=1;
 
 	/**
 	 * Extra-Version der Klasse.
@@ -1100,9 +1100,9 @@ class Manager {
 		$QdeleteData->execute();
 
 		// vis2_user_tool
-		$QdeleteData->prepare('DELETE FROM :table_vis2_user_tool: WHERE user_id=:user_id:');
+		$QdeleteData->prepare('DELETE FROM :table_vis2_user_tool: WHERE tool_id=:tool_id:');
 		$QdeleteData->bindTable(':table_vis2_user_tool:', 'vis2_user_tool');
-		$QdeleteData->bindInt(':user_id:', $tool_id);
+		$QdeleteData->bindInt(':tool_id:', $tool_id);
 		$QdeleteData->execute();
 	}
 
