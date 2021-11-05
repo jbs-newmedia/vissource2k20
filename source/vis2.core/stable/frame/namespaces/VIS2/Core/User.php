@@ -130,7 +130,7 @@ class User {
 	public function rehashPassword(string $password):bool {
 		if ($this->getId()!==null) {
 
-			$hash=osWFrame\StringFunctions::encryptString($password);
+			$hash=osWFrame\StringFunctions::hashPassword($password);
 
 			$QupdateData=self::getConnection();
 			$QupdateData->prepare('UPDATE :table_vis2_user: SET user_password=:user_password: WHERE user_id=:user_id:');
