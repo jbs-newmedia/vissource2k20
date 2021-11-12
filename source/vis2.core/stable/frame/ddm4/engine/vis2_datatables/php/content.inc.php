@@ -472,7 +472,11 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 		$ar_values=[];
 		foreach ($ddm_selector_array as $key=>$value) {
-			$ar_values[]=$key.'='.$value;
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
 		}
 		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
 	}
@@ -581,7 +585,11 @@ if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::
 	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 		$ar_values=[];
 		foreach ($ddm_selector_array as $key=>$value) {
-			$ar_values[]=$key.'='.$value;
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
 		}
 		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
 	}
@@ -816,7 +824,11 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 		$ar_values=[];
 		foreach ($ddm_selector_array as $key=>$value) {
-			$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
 		}
 		$ddm_search_case_array[]='('.implode(' AND ', $ar_values).')';
 	}
@@ -887,9 +899,10 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 		}
 		$this->ddm['storage']['view']['data'][]=$view_data;
 	}
-	$this->addParameter('ddm_page', $QgetData->limitrows['current_page_number']);
+	$limitrows=$QgetData->getLimitRows();
+	$this->addParameter('ddm_page', $limitrows['current_page_number']);
 
-	$this->ddm['storage']['view']['limitrows']=$QgetData->limitrows;
+	$this->ddm['storage']['view']['limitrows']=$limitrows;
 
 	\osWFrame\Core\Network::dieJSON(['draw'=>\osWFrame\Core\Settings::catchValue('draw', 1, 'gp'), 'recordsTotal'=>$datalimit, 'recordsFiltered'=>$this->ddm['storage']['view']['limitrows']['number_of_rows'], 'data'=>$this->ddm['storage']['view']['data']]);
 }

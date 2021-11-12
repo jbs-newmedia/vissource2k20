@@ -24,6 +24,11 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	foreach ($ddm_selector_array as $key=>$value) {
 		$vars_key[]=$key;
 		$vars_value[]=$key;
+		if (is_int($value)==true) {
+			$selector_value[$key]=$value;
+		} else {
+			$selector_value[$key]='\''.$value.'\'';
+		}
 		$selector_value[$key]=$value;
 	}
 }
