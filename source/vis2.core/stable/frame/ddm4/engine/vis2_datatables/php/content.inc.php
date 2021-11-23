@@ -515,6 +515,10 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 			if ((isset($element_details['enabled']))&&($element_details['enabled']===true)) {
 				if ((isset($element_details['name']))&&($element_details['name']!='')) {
 					$this->setEditElementStorage($element, $result[$element_details['name']]);
+				} elseif (!isset($element_details['name'])) {
+					if ((isset($element_details['options']))&&(isset($element_details['options']['default_value']))) {
+						$this->setEditElementStorage($element, $element_details['options']['default_value']);
+					}
 				}
 				if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
 					foreach ($element_details['name_array'] as $_name) {
