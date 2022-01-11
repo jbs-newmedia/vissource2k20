@@ -22,7 +22,7 @@
 
 	<?php $ar_tool_user=$this->getDeleteElementStorage($element); ?>
 
-	<?php if ($this->getEditElementOption($element, 'manager')===true):?>
+	<?php if ($this->getDeleteElementOption($element, 'manager')===true):?>
 
 		<?php foreach (\VIS2\Core\Manager::getTools() as $tool_id=>$tool_name):?>
 
