@@ -29,7 +29,7 @@ class Permission {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -45,7 +45,7 @@ class Permission {
 	/**
 	 * @var array|null
 	 */
-	private ?array $permission=null;
+	protected ?array $permission=null;
 
 	/**
 	 * Permission constructor.
@@ -99,9 +99,9 @@ class Permission {
 	}
 
 	/**
-	 * @return bool
+	 * @return $this
 	 */
-	public function loadPermission():bool {
+	public function loadPermission():self {
 		$this->permission=[];
 		$VIS2_Groups=new Group($this->getToolId(), $this->getUserId());
 
@@ -129,23 +129,23 @@ class Permission {
 		$this->permission['vis_logout']['view']=true;
 		$this->permission['vis_logout']['link']=true;
 
-		return true;
+		return $this;
 	}
 
 	/**
 	 * @param string $permission_page
 	 * @param string $permission_flag
 	 * @param bool $status
-	 * @return bool
+	 * @return $this
 	 */
-	public function addPermission(string $permission_page, string $permission_flag, bool $status=true):bool {
+	public function addPermission(string $permission_page, string $permission_flag, bool $status=true):self {
 		if ($this->isLoaded()!==true) {
 			$this->loadPermission();
 		}
 
 		$this->permission[$permission_page][$permission_flag]=$status;
 
-		return true;
+		return $this;
 	}
 
 }

@@ -29,7 +29,7 @@ class Group {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -45,7 +45,7 @@ class Group {
 	/**
 	 * @var array|null
 	 */
-	private ?array $groups=null;
+	protected ?array $groups=null;
 
 	/**
 	 * Group constructor.
@@ -83,9 +83,9 @@ class Group {
 	}
 
 	/**
-	 * @return bool
+	 * @return $this
 	 */
-	public function loadGroups():bool {
+	public function loadGroups():self {
 		$this->groups=[];
 
 		$QloadGroupData=self::getConnection();
@@ -99,7 +99,7 @@ class Group {
 			$this->groups[$group['group_id']]=['group_id'=>$group['group_id'], 'group_name_intern'=>$group['group_name_intern'], 'group_name'=>$group['group_name']];
 		}
 
-		return true;
+		return $this;
 	}
 
 }

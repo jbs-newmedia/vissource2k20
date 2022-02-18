@@ -45,17 +45,17 @@ class User {
 	/**
 	 * @var bool
 	 */
-	private bool $logged_in=false;
+	protected bool $logged_in=false;
 
 	/**
 	 * @var array|null
 	 */
-	private ?array $tools=null;
+	protected ?array $tools=null;
 
 	/**
 	 * @var array|null
 	 */
-	private ?array $mandanten=null;
+	protected ?array $mandanten=null;
 
 	/**
 	 * User constructor.

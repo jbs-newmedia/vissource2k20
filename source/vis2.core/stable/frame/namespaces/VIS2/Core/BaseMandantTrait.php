@@ -17,7 +17,7 @@ trait BaseMandantTrait {
 	/**
 	 * @var int
 	 */
-	private int $mandant_id=0;
+	protected int $mandant_id=0;
 
 	/**
 	 * @param int $mandant_id

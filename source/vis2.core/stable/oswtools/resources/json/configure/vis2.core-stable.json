@@ -2,6 +2,7 @@
   "configure": {
     "middle": {
       "vis2_title": "VIS",
+      "vis2_path": "vis2",
       "vis2_navigation_char": " » ",
       "vis2_toolswitch": true,
       "vis2_mandant": false,

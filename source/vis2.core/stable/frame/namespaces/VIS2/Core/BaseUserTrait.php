@@ -17,7 +17,7 @@ trait BaseUserTrait {
 	/**
 	 * @var int
 	 */
-	private int $user_id=0;
+	protected int $user_id=0;
 
 	/**
 	 * @param int $user_id

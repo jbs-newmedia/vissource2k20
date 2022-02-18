@@ -17,7 +17,7 @@ trait BaseToolTrait {
 	/**
 	 * @var int
 	 */
-	private int $tool_id=0;
+	protected int $tool_id=0;
 
 	/**
 	 * @param int $tool_id

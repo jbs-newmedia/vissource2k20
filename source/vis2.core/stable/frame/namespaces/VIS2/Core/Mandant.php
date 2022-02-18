@@ -29,7 +29,7 @@ class Mandant {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -47,7 +47,7 @@ class Mandant {
 	 *
 	 * @var array|null
 	 */
-	private ?array $mandanten=null;
+	protected ?array $mandanten=null;
 
 	/**
 	 * Mandant constructor.
@@ -86,9 +86,9 @@ class Mandant {
 	/**
 	 * Lädt alle Mandanten.
 	 *
-	 * @return bool
+	 * @return $this
 	 */
-	private function loadMandanten():bool {
+	private function loadMandanten():self {
 		$this->mandanten=[];
 
 		$QselectMandanten=self::getConnection();
@@ -100,7 +100,7 @@ class Mandant {
 			$this->mandanten[$mandant['mandant_id']]=['mandant_id'=>$mandant['mandant_id'], 'mandant_number'=>$mandant['mandant_number'], 'mandant_name_intern'=>$mandant['mandant_name_intern'], 'mandant_name'=>$mandant['mandant_name']];
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**

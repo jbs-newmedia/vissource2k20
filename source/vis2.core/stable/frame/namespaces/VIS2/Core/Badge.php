@@ -26,7 +26,7 @@ class Badge {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -44,7 +44,7 @@ class Badge {
 	 *
 	 * @var array
 	 */
-	private static array $badge=[];
+	protected static array $badge=[];
 
 	/**
 	 * Setzt ein Badge.
