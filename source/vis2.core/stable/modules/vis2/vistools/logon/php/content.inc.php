@@ -53,10 +53,8 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 
 			\VIS2\Core\Protect::clearEntries($VIS2_User->getId());
 
-			osWFrame\Core\Cookie::setCookie(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email', $vis2_login_email, osWFrame\Core\Settings::getIntVar('vis2_login_cookie_lifetime'));
-
 			$vis2_login_link=\osWFrame\Core\Settings::catchValue(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', '', 's');
-			if ((strlen($vis2_login_link)>0)&&($vis2_login_link!='/vis2')&&($vis2_login_link!='/vis2/')&&($vis2_login_link!='/vis2/'.\osWFrame\Core\Settings::getStringVar('vis2_login_tool').'/')) {
+			if ((strlen($vis2_login_link)>0)&&($vis2_login_link!='/'.\osWFrame\Core\Settings::getStringVar('vis2_path'))&&($vis2_login_link!='/'.\osWFrame\Core\Settings::getStringVar('vis2_path').'/')&&($vis2_login_link!='/'.\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_tool').'/')) {
 				osWFrame\Core\Session::removeVar(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link');
 				osWFrame\Core\Network::directHeader($vis2_login_link);
 			} else {
@@ -76,10 +74,6 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 			$osW_Template->Form()->addErrorMessage('vis2_login_email', 'Sie konnten nicht eingeloggt werden.');
 		}
 	}
-}
-
-if (isset($_COOKIE[\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email'])) {
-	$_POST[\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email']=$_COOKIE[\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email'];
 }
 
 ?>
