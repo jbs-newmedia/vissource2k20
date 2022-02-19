@@ -29,7 +29,7 @@ class User {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=1;
+	private const CLASS_MINOR_VERSION=2;
 
 	/**
 	 * Release-Version der Klasse.
@@ -130,7 +130,7 @@ class User {
 			$QupdateData->bindInt(':user_id:', $this->getId());
 			$QupdateData->execute();
 
-			osWFrame\Session::setStringVar('vis2_user_token', $user_token);
+			$this->setLoginSessionToken($user_token);
 
 			return true;
 		}
@@ -139,10 +139,45 @@ class User {
 	}
 
 	/**
+	 * @return $this
+	 */
+	public function setLoginSessionToken(string $user_token):self {
+		osWFrame\Session::setStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token', $user_token);
+
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isLoginSessionToken():bool {
+		if (osWFrame\Session::getStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token')!==null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLoginSessionToken():string {
+		if ($this->isLoginSessionToken()===true) {
+			return osWFrame\Session::getStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token');
+		}
+
+		return '';
+	}
+
+	/**
 	 * @param string $user_token
 	 * @return bool
 	 */
-	public function doLoginByToken(string $user_token):bool {
+	public function doLoginByToken(string $user_token=''):bool {
+		if ($user_token=='') {
+			$user_token=$this->getLoginSessionToken();
+		}
+
 		if (strlen($user_token)==32) {
 			if ($this->loadUserDetailsByToken($user_token)===true) {
 				self::setLoggedIn(true);
@@ -176,7 +211,7 @@ class User {
 			$QupdateData->bindInt(':user_id:', $this->getId());
 			$QupdateData->execute();
 
-			osWFrame\Session::setStringVar('vis2_user_token', $user_token);
+			$this->setLoginSessionToken('');
 
 			return true;
 		}

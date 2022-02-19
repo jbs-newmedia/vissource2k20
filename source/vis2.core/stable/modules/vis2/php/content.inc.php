@@ -10,6 +10,14 @@
  * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
  */
 
+/*
+ * Hook Configure.
+ */
+$file=\osWFrame\Core\Settings::getStringVar('settings_abspath').'modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.'content_header_config.inc.php';
+if (file_exists($file)) {
+	require_once $file;
+}
+
 $VIS2_Main=new \VIS2\Core\Main();
 $VIS2_Main->setEnvironment($osW_Template);
 $osW_Template->setVar('VIS2_Main', $VIS2_Main);
@@ -19,8 +27,8 @@ $osW_Template->setVar('VIS2_Main', $VIS2_Main);
 $VIS2_User=new \VIS2\Core\User();
 $osW_Template->setVar('VIS2_User', $VIS2_User);
 
-if (\osWFrame\Core\Session::getStringVar('vis2_user_token')!==null) {
-	$VIS2_User->doLoginByToken(\osWFrame\Core\Session::getStringVar('vis2_user_token'));
+if ($VIS2_User->isLoginSessionToken()===true) {
+	$VIS2_User->doLoginByToken();
 }
 
 /*
@@ -39,16 +47,16 @@ if ($VIS2_User->isLoggedIn()!==true) {
 		$request_uri=preg_replace('/oswsid=([a-z0-9]+)(&?)/', '', $request_uri);
 	}
 
-	if ((!stristr($request_uri, 'vis2/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/'))&&(strlen($request_uri)>strlen('vis2/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/'))) {
-		$vis2_login_link=\osWFrame\Core\Settings::catchStringSessionValue('vis2_login_link', '');
+	if ((!stristr($request_uri, \osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/'))&&(strlen($request_uri)>strlen(\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/'))) {
+		$vis2_login_link=\osWFrame\Core\Settings::catchStringSessionValue(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', '');
 		if (strlen($vis2_login_link)==0) {
-			\osWFrame\Core\Session::setStringVar('vis2_login_link', $request_uri);
+			\osWFrame\Core\Session::setStringVar(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', $request_uri);
 		}
 	}
 
 	$VIS2_Main->setTool(\osWFrame\Core\Settings::getStringVar('vis2_login_module'));
 } else {
-	if ($VIS2_Main->setTool(\osWFrame\Core\Settings::catchStringGetValue('vistool', \osWFrame\Core\Settings::catchStringSessionValue('vis2_tool')))!==true) {
+	if ($VIS2_Main->setTool(\osWFrame\Core\Settings::catchStringGetValue('vistool', \osWFrame\Core\Settings::catchStringSessionValue(\osWFrame\Core\Settings::getStringVar('vis2_path').'_tool')))!==true) {
 		$VIS2_User->doLogout();
 		$VIS2_Main->setTool(\osWFrame\Core\Settings::getStringVar('vis2_login_module'));
 		\osWFrame\Core\Network::directHeader(\osWFrame\Core\Navigation::buildUrl('current', 'vistool='.$VIS2_Main->getTool()));

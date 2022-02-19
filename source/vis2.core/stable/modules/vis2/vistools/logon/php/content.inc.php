@@ -18,7 +18,6 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 			if (strlen($vis2_login_password)==0) {
 				$osW_Template->Form()->addErrorMessage('vis2_login_password', 'Bitte geben Sie Ihr Passwort ein.');
 			} else {
-
 				if ($VIS2_User->getIntVar('user_status')==1) {
 					if (\VIS2\Core\Protect::isBlocked($VIS2_User->getId())!==true) {
 						if (\VIS2\Core\User::validatePassword($vis2_login_password, $VIS2_User->getStringVar('user_password'))!==true) {
@@ -54,11 +53,11 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 
 			\VIS2\Core\Protect::clearEntries($VIS2_User->getId());
 
-			osWFrame\Core\Cookie::setCookie('vis2_login_email', $vis2_login_email, osWFrame\Core\Settings::getIntVar('vis2_login_cookie_lifetime'));
+			osWFrame\Core\Cookie::setCookie(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email', $vis2_login_email, osWFrame\Core\Settings::getIntVar('vis2_login_cookie_lifetime'));
 
-			$vis2_login_link=\osWFrame\Core\Settings::catchValue('vis2_login_link', '', 's');
+			$vis2_login_link=\osWFrame\Core\Settings::catchValue(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', '', 's');
 			if ((strlen($vis2_login_link)>0)&&($vis2_login_link!='/vis2')&&($vis2_login_link!='/vis2/')&&($vis2_login_link!='/vis2/'.\osWFrame\Core\Settings::getStringVar('vis2_login_tool').'/')) {
-				osWFrame\Core\Session::removeVar('vis2_login_link');
+				osWFrame\Core\Session::removeVar(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link');
 				osWFrame\Core\Network::directHeader($vis2_login_link);
 			} else {
 				if (\osWFrame\Core\Settings::getStringVar('vis2_default_tool')!='') {
@@ -79,8 +78,8 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 	}
 }
 
-if (isset($_COOKIE['vis2_login_email'])) {
-	$_POST['vis2_login_email']=$_COOKIE['vis2_login_email'];
+if (isset($_COOKIE[\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email'])) {
+	$_POST[\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email']=$_COOKIE[\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_email'];
 }
 
 ?>
