@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package osWFrame
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 $view_data[$this->getListElementValue($element, 'name')]=str_replace('#1#', $this->getGroupMessage('log_char_true'), $view_data[$this->getListElementValue($element, 'name')]);
