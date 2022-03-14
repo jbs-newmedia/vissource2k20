@@ -16,6 +16,7 @@ if (($position=='run')&&(isset($_POST['next']))&&($_POST['next']=='next')) {
 			}
 		}
 	} else {
+		$VIS2->runJSON('');
 		\osWFrame\Core\MessageStack::addMessage('configure', 'info', ['msg'=>'VIS2: creation/update was skipped (no projects available).']);
 	}
 }
