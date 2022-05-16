@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 namespace VIS2\Core;
@@ -26,7 +26,7 @@ class Badge {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -44,7 +44,7 @@ class Badge {
 	 *
 	 * @var array
 	 */
-	private static array $badge=[];
+	protected static array $badge=[];
 
 	/**
 	 * Setzt ein Badge.

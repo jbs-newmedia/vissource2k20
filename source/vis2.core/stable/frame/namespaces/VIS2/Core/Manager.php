@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 namespace VIS2\Core;
@@ -27,12 +27,12 @@ class Manager {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=1;
+	private const CLASS_MINOR_VERSION=2;
 
 	/**
 	 * Release-Version der Klasse.
 	 */
-	private const CLASS_RELEASE_VERSION=1;
+	private const CLASS_RELEASE_VERSION=0;
 
 	/**
 	 * Extra-Version der Klasse.
@@ -44,79 +44,79 @@ class Manager {
 	 *
 	 * @var array
 	 */
-	private static array $datacache=[];
+	protected static array $datacache=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $tools=[];
+	protected static array $tools=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $tool_details=[];
+	protected static array $tool_details=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $users=[];
+	protected static array $users=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $groups=[];
+	protected static array $groups=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $groupsbytoolid=[];
+	protected static array $groupsbytoolid=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $mandantebytoolid=[];
+	protected static array $mandantebytoolid=[];
 
 	/**
 	 *
 	 * @var array
 	 */
-	private static array $pagesbytoolid=[];
+	protected static array $pagesbytoolid=[];
 
 	/**
 	 * @var array
 	 */
-	private static array $permissiontext=[];
+	protected static array $permissiontext=[];
 
 	/**
 	 * @var array
 	 */
-	private static array $navigation_real=[];
+	protected static array $navigation_real=[];
 
 	/**
 	 * @var array
 	 */
-	private static array $navigation_tree=[];
+	protected static array $navigation_tree=[];
 
 	/**
 	 * @var array
 	 */
-	private static array $navigation_unsorted=[];
+	protected static array $navigation_unsorted=[];
 
 	/**
 	 * @var array
 	 */
-	private static array $navigation_name2id=[];
+	protected static array $navigation_name2id=[];
 
 	/**
 	 * @var array
 	 */
-	private static array $navigation_data=[];
+	protected static array $navigation_data=[];
 
 	/**
 	 * Ermittelt Anzahl der Benutzer mit einer E-Mail-Adresse

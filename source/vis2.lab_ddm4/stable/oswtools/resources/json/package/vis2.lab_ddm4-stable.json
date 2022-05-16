@@ -2,9 +2,10 @@
   "info": {
     "name": "VIS2:Lab|DDM4",
     "author": "Juergen Schwind",
-    "copyright": "Juergen Schwind",
-    "link": "http:\/\/oswframe.com",
-    "license": "GNU General Public License 3",
+    "copyright": "JBS New Media GmbH",
+    "year": 2022,
+    "link": "https:\/\/oswframe.com",
+    "license": "MIT License",
     "package": "vis2.lab_ddm4",
     "version": "",
     "release": "stable",

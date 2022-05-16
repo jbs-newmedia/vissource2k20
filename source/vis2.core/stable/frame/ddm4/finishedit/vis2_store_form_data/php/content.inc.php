@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 $vars=[];
@@ -23,7 +23,11 @@ $ddm_selector_array=$this->getGroupOption('selector', 'database');
 if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	$ar_values=[];
 	foreach ($ddm_selector_array as $key=>$value) {
-		$ar_values[]=$key.'='.$value;
+		if (is_int($value)==true) {
+			$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+		} else {
+			$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+		}
 	}
 	$ddm_search_case_array='AND ('.implode(' AND ', $ar_values).')';
 }

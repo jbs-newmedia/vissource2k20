@@ -2,6 +2,7 @@
   "configure": {
     "middle": {
       "vis2_title": "VIS",
+      "vis2_path": "vis2",
       "vis2_navigation_char": " » ",
       "vis2_toolswitch": true,
       "vis2_mandant": false,
@@ -36,11 +37,9 @@
   },
   "htaccess": {
     "middle": [
-      "RewriteRule ^vis2\/([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)$ ?module=vis2&vistool=$1&vispage=$2&%{QUERY_STRING}",
-      "RewriteRule ^vis2\/([a-zA-Z0-9-_]+)\/$ ?module=vis2&vistool=$1&%{QUERY_STRING}",
-      "RewriteRule ^vis2\/([a-zA-Z0-9-_]+)$ ?module=vis2&vistool=$1&%{QUERY_STRING}",
-      "RewriteRule ^vis2\/$ ?module=vis2%{QUERY_STRING}",
-      "RewriteRule ^vis2$ ?module=vis2%{QUERY_STRING}"
+      "RewriteRule ^vis2\/([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)\/?$ ?module=vis2&vistool=$1&vispage=$2&%{QUERY_STRING}",
+      "RewriteRule ^vis2\/([a-zA-Z0-9-_]+)\/?$ ?module=vis2&vistool=$1&%{QUERY_STRING}",
+      "RewriteRule ^vis2\/?$ ?module=vis2%{QUERY_STRING}"
     ]
   }
 }

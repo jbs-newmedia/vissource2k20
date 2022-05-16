@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 namespace VIS2\Core;
@@ -29,12 +29,12 @@ class Main {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=2;
+	private const CLASS_MINOR_VERSION=3;
 
 	/**
 	 * Release-Version der Klasse.
 	 */
-	private const CLASS_RELEASE_VERSION=1;
+	private const CLASS_RELEASE_VERSION=0;
 
 	/**
 	 * Extra-Version der Klasse.
@@ -45,12 +45,12 @@ class Main {
 	/**
 	 * @var string
 	 */
-	private string $tool='';
+	protected string $tool='';
 
 	/**
 	 * @var array
 	 */
-	private array $tools=[];
+	protected array $tools=[];
 
 	/**
 	 * Main constructor.
@@ -70,11 +70,10 @@ class Main {
 	}
 
 	/**
-	 *
-	 * @param object $osW_Template
-	 * @return bool
+	 * @param object $Template
+	 * @return $this
 	 */
-	public function setEnvironment(object $Template):bool {
+	public function setEnvironment(object $Template):self {
 		$version=self::getVersion();
 		$dir=strtolower('VIS2');
 		$name=$version.'.resource';
@@ -91,7 +90,7 @@ class Main {
 		$this->addTemplateJSFile('head', $path.'js'.DIRECTORY_SEPARATOR.'vis2.js');
 		$this->addTemplateCSSFile('head', $path.'css'.DIRECTORY_SEPARATOR.'vis2.css');
 
-		return true;
+		return $this;
 	}
 
 	/**
@@ -163,9 +162,9 @@ class Main {
 	 * Ermittelt die vorhanden Tools.
 	 *
 	 * @param bool $force
-	 * @return array
+	 * @return $this
 	 */
-	public function loadTools():bool {
+	public function loadTools():self {
 		$this->tools==[];
 		$this->tools[osWFrame\Settings::getStringVar('vis2_login_module')]='Logon';
 		$this->tools[osWFrame\Settings::getStringVar('vis2_chtool_module')]='ChTool';
@@ -178,7 +177,7 @@ class Main {
 			$this->tools[$tool['tool_name_intern']]=$tool['tool_name'];
 		}
 
-		return true;
+		return $this;
 	}
 
 	/*
@@ -204,7 +203,7 @@ class Main {
 	public function loadToolDetails():bool {
 		$this->clearVars();
 
-		if (in_array($this->getTool(), ['logon', 'chtool'])) {
+		if (in_array($this->getTool(), [\osWFrame\Core\Settings::getStringVar('vis2_login_module'), \osWFrame\Core\Settings::getStringVar('vis2_chtool_module')])) {
 			if ($this->getTool()==\osWFrame\Core\Settings::getStringVar('vis2_login_module')) {
 				$this->vars=['tool_id'=>0, 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis2_login_module'), 'tool_name'=>'Anmelden', 'tool_description'=>'Anmelden', 'tool_ispublic'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
 			}

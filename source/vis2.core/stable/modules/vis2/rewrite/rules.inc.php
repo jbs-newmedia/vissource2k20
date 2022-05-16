@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 $check_parameters=false;
@@ -15,9 +15,9 @@ $parameters=$ar_parameters;
 $go_default=false;
 
 if (isset($parameters['vistool'])) {
-	$base_uri.='vis2'.DIRECTORY_SEPARATOR.$parameters['vistool'].DIRECTORY_SEPARATOR;
+	$base_uri.=\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.$parameters['vistool'].'/';
 } else {
-	$base_uri.='vis2'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_login_module').DIRECTORY_SEPARATOR;
+	$base_uri.=\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/';
 }
 
 if ($seowrite_inpage==true) {

@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 foreach ($this->getAddElements() as $element=>$element_details) {
@@ -24,6 +24,11 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	foreach ($ddm_selector_array as $key=>$value) {
 		$vars_key[]=$key;
 		$vars_value[]=$key;
+		if (is_int($value)==true) {
+			$selector_value[$key]=$value;
+		} else {
+			$selector_value[$key]='\''.$value.'\'';
+		}
 		$selector_value[$key]=$value;
 	}
 }

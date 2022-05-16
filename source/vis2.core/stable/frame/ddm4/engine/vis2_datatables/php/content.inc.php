@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 if (in_array(\osWFrame\Core\Settings::getAction(), ['log', 'log_ajax'])) {
@@ -472,7 +472,11 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 		$ar_values=[];
 		foreach ($ddm_selector_array as $key=>$value) {
-			$ar_values[]=$key.'='.$value;
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
 		}
 		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
 	}
@@ -511,6 +515,10 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 			if ((isset($element_details['enabled']))&&($element_details['enabled']===true)) {
 				if ((isset($element_details['name']))&&($element_details['name']!='')) {
 					$this->setEditElementStorage($element, $result[$element_details['name']]);
+				} elseif (!isset($element_details['name'])) {
+					if ((isset($element_details['options']))&&(isset($element_details['options']['default_value']))) {
+						$this->setEditElementStorage($element, $element_details['options']['default_value']);
+					}
 				}
 				if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
 					foreach ($element_details['name_array'] as $_name) {
@@ -581,7 +589,11 @@ if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::
 	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 		$ar_values=[];
 		foreach ($ddm_selector_array as $key=>$value) {
-			$ar_values[]=$key.'='.$value;
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
 		}
 		$database_where_string.=' AND ('.implode(' AND ', $ar_values).')';
 	}
@@ -816,7 +828,11 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 		$ar_values=[];
 		foreach ($ddm_selector_array as $key=>$value) {
-			$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
 		}
 		$ddm_search_case_array[]='('.implode(' AND ', $ar_values).')';
 	}
@@ -887,9 +903,10 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 		}
 		$this->ddm['storage']['view']['data'][]=$view_data;
 	}
-	$this->addParameter('ddm_page', $QgetData->limitrows['current_page_number']);
+	$limitrows=$QgetData->getLimitRows();
+	$this->addParameter('ddm_page', $limitrows['current_page_number']);
 
-	$this->ddm['storage']['view']['limitrows']=$QgetData->limitrows;
+	$this->ddm['storage']['view']['limitrows']=$limitrows;
 
 	\osWFrame\Core\Network::dieJSON(['draw'=>\osWFrame\Core\Settings::catchValue('draw', 1, 'gp'), 'recordsTotal'=>$datalimit, 'recordsFiltered'=>$this->ddm['storage']['view']['limitrows']['number_of_rows'], 'data'=>$this->ddm['storage']['view']['data']]);
 }

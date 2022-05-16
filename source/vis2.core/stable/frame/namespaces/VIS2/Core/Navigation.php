@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 namespace VIS2\Core;
@@ -28,7 +28,7 @@ class Navigation {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=0;
+	private const CLASS_MINOR_VERSION=1;
 
 	/**
 	 * Release-Version der Klasse.
@@ -44,42 +44,42 @@ class Navigation {
 	/**
 	 * @var string
 	 */
-	private string $page='';
+	protected string $page='';
 
 	/**
 	 * @var int
 	 */
-	private $current_navigation_id=0;
+	protected $current_navigation_id=0;
 
 	/**
 	 * @var array|null
 	 */
-	public ?array $navigation_tree=null;
+	protected ?array $navigation_tree=null;
 
 	/**
 	 * @var array|null
 	 */
-	public ?array $navigation_unsorted=null;
+	protected ?array $navigation_unsorted=null;
 
 	/**
 	 * @var array|null
 	 */
-	public ?array $navigation_unsorted_name2id=null;
+	protected ?array $navigation_unsorted_name2id=null;
 
 	/**
 	 * @var array
 	 */
-	public array $current_navigation_path_array=[];
+	protected array $current_navigation_path_array=[];
 
 	/**
 	 * @var array
 	 */
-	public array $navigation_data=[];
+	protected array $navigation_data=[];
 
 	/**
 	 * @var object|null
 	 */
-	private ?object $VIS2_Permission=null;
+	protected ?object $VIS2_Permission=null;
 
 	/**
 	 * Navigation constructor.
@@ -92,18 +92,18 @@ class Navigation {
 
 	/**
 	 * @param object $Permission
-	 * @return bool
+	 * @return $this
 	 */
-	public function setPermission(object $Permission):bool {
+	public function setPermission(object $Permission):self {
 		$this->VIS2_Permission=$Permission;
 
-		return true;
+		return $this;
 	}
 
 	/**
-	 * @return object
+	 * @return Permission|null
 	 */
-	public function getPermission():object {
+	public function getPermission():?Permission {
 		return $this->VIS2_Permission;
 	}
 
@@ -226,9 +226,9 @@ class Navigation {
 	}
 
 	/**
-	 * @return bool
+	 * @return $this
 	 */
-	public function loadNavigationTree():bool {
+	public function loadNavigationTree():self {
 		$this->navigation_tree=[];
 		$this->navigation_unsorted=[];
 		$this->navigation_unsorted_name2id=[];
@@ -274,13 +274,13 @@ class Navigation {
 			}
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
-	 * @return bool
+	 * @return $this
 	 */
-	private function createNavigationPath():bool {
+	private function createNavigationPath():self {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -299,7 +299,7 @@ class Navigation {
 			}
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
@@ -438,9 +438,9 @@ class Navigation {
 
 	/**
 	 * @param array $data
-	 * @return bool
+	 * @return $this
 	 */
-	public function addNavigationElement(array $data):bool {
+	public function addNavigationElement(array $data):self {
 		$required_fields=['page_name', 'page_description', 'permission', 'navigation_parent_id', 'navigation_id'];
 
 		foreach ($required_fields as $required_field) {
@@ -489,7 +489,7 @@ class Navigation {
 
 		$this->createNavigationPath();
 
-		return true;
+		return $this;
 	}
 
 	/**

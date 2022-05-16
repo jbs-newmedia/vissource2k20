@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 namespace VIS2\Core;
@@ -47,17 +47,17 @@ class User {
 	/**
 	 * @var bool
 	 */
-	private bool $logged_in=false;
+	protected bool $logged_in=false;
 
 	/**
 	 * @var array|null
 	 */
-	private ?array $tools=null;
+	protected ?array $tools=null;
 
 	/**
 	 * @var array|null
 	 */
-	private ?array $mandanten=null;
+	protected ?array $mandanten=null;
 
 	/**
 	 * User constructor.
@@ -159,7 +159,7 @@ class User {
 			$QupdateData->bindInt(':user_id:', $this->getId());
 			$QupdateData->execute();
 
-			osWFrame\Session::setStringVar('vis2_user_token', $user_token);
+			$this->setLoginSessionToken($user_token);
 
 			return true;
 		}
@@ -168,10 +168,45 @@ class User {
 	}
 
 	/**
+	 * @return $this
+	 */
+	public function setLoginSessionToken(string $user_token):self {
+		osWFrame\Session::setStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token', $user_token);
+
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isLoginSessionToken():bool {
+		if (osWFrame\Session::getStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token')!==null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLoginSessionToken():string {
+		if ($this->isLoginSessionToken()===true) {
+			return osWFrame\Session::getStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token');
+		}
+
+		return '';
+	}
+
+	/**
 	 * @param string $user_token
 	 * @return bool
 	 */
-	public function doLoginByToken(string $user_token):bool {
+	public function doLoginByToken(string $user_token=''):bool {
+		if ($user_token=='') {
+			$user_token=$this->getLoginSessionToken();
+		}
+
 		if (strlen($user_token)==32) {
 			if ($this->loadUserDetailsByToken($user_token)===true) {
 				self::setLoggedIn(true);
@@ -205,7 +240,7 @@ class User {
 			$QupdateData->bindInt(':user_id:', $this->getId());
 			$QupdateData->execute();
 
-			osWFrame\Session::setStringVar('vis2_user_token', $user_token);
+			$this->setLoginSessionToken('');
 
 			return true;
 		}

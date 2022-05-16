@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 ?>
@@ -22,9 +22,9 @@
 		<?php if (($this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'create_time')=='')||($this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'create_time')=='0')): ?>
 			<div class="form-control readonly">---</div>
 		<?php else: ?><?php if ($this->getDeleteElementOption($element, 'month_asname')===true): ?>
-			<div class="form-control readonly"><?php echo strftime(str_replace('%m.', ' %B ', $this->getDeleteElementOption($element, 'date_format')), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'create_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo strftime(str_replace('%m.', ' %B ', $this->getDeleteElementOption($element, 'date_format')), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'create_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php else: ?>
-			<div class="form-control readonly"><?php echo strftime($this->getDeleteElementOption($element, 'date_format'), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'create_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo strftime($this->getDeleteElementOption($element, 'date_format'), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'create_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php endif ?><?php endif ?>
 	</div>
 <?php endif ?>
@@ -46,9 +46,9 @@
 		<?php if (($this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'update_time')=='')||($this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'update_time')=='0')): ?>
 			<div class="form-control readonly">---</div>
 		<?php else: ?><?php if ($this->getDeleteElementOption($element, 'month_asname')===true): ?>
-			<div class="form-control readonly"><?php echo strftime(str_replace('%m.', ' %B ', $this->getDeleteElementOption($element, 'date_format')), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'update_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo strftime(str_replace('%m.', ' %B ', $this->getDeleteElementOption($element, 'date_format')), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'update_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php else: ?>
-			<div class="form-control readonly"><?php echo strftime($this->getDeleteElementOption($element, 'date_format'), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'update_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo strftime($this->getDeleteElementOption($element, 'date_format'), $this->getDeleteElementStorage($this->getDeleteElementOption($element, 'prefix').'update_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php endif ?><?php endif ?>
 	</div>
 <?php endif ?>

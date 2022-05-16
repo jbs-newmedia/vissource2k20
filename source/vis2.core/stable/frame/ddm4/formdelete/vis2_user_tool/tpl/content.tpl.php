@@ -7,7 +7,7 @@
  * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
  * @package VIS2
  * @link https://oswframe.com
- * @license https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License 3
+ * @license MIT License
  */
 
 ?>
@@ -16,13 +16,13 @@
 
 	<?php /* label */ ?>
 
-	<label for="<?php echo $element ?>"><?php echo \osWFrame\Core\HTML::outputString($this->getDeleteElementValue($element, 'title')) ?><?php echo $this->getGroupMessage('form_title_closer') ?></label>
+	<label class="form-label" for="<?php echo $element ?>"><?php echo \osWFrame\Core\HTML::outputString($this->getDeleteElementValue($element, 'title')) ?><?php echo $this->getGroupMessage('form_title_closer') ?></label>
 
 	<?php /* read only */ ?>
 
 	<?php $ar_tool_user=$this->getDeleteElementStorage($element); ?>
 
-	<?php if ($this->getEditElementOption($element, 'manager')===true):?>
+	<?php if ($this->getDeleteElementOption($element, 'manager')===true):?>
 
 		<?php foreach (\VIS2\Core\Manager::getTools() as $tool_id=>$tool_name):?>
 
