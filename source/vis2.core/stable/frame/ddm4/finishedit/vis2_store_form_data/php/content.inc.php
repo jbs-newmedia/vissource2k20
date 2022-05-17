@@ -32,9 +32,6 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	$ddm_search_case_array='AND ('.implode(' AND ', $ar_values).')';
 }
 
-/**
- * @var \osWFrame\Core\Database $QsaveData
- */
 $QsaveData=self::getConnection();
 $QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index: :search_filter:');
 $QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
@@ -50,27 +47,22 @@ $QsaveData->bindRaw(':search_filter:', $ddm_search_case_array);
 
 foreach ($this->getEditElements() as $element_name=>$element_details) {
 	if ((isset($element_details['name']))&&($element_details['name']!='')) {
-		$bindName=":$element_name:";
-		$value=$this->getDoAddElementStorage($element_name);
 		switch ($this->getEditElementValidation($element_name, 'module')) {
 			case 'integer':
-				$QsaveData->bindInt($bindName, intval($value));
+				$QsaveData->bindInt(':'.$element_name.':', intval($this->getDoEditElementStorage($element_name)));
 				break;
 			case 'float':
-				$QsaveData->bindFloat($bindName, floatval($value));
+				$QsaveData->bindFloat(':'.$element_name.':', floatval($this->getDoEditElementStorage($element_name)));
 				break;
 			case 'crypt':
-				$QsaveData->bindCrypt($bindName, strval($value));
+				$QsaveData->bindCrypt(':'.$element_name.':', $this->getDoEditElementStorage($element_name));
 				break;
 			case 'raw':
-				$QsaveData->bindRaw($bindName, strval($value));
-				break;
-			case 'select':
-				$value===''?$QsaveData->bindRaw($bindName, 'NULL'):$QsaveData->bindString($bindName, strval($value));
+				$QsaveData->bindRaw(':'.$element_name.':', $this->getDoEditElementStorage($element_name));
 				break;
 			case 'string':
 			default:
-				$QsaveData->bindString($bindName, strval($value));
+				$QsaveData->bindString(':'.$element_name.':', $this->getDoEditElementStorage($element_name));
 				break;
 		}
 	}
