@@ -33,6 +33,9 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	}
 }
 
+/**
+ * @var \osWFrame\Core\Database $QsaveData
+ */
 $QsaveData=self::getConnection();
 $QsaveData->prepare('INSERT INTO :table: (:vars_name:) VALUES (:vars_value:)');
 $QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
@@ -40,22 +43,27 @@ $QsaveData->bindRaw(':vars_name:', implode(', ', $vars_key));
 $QsaveData->bindRaw(':vars_value:', ':'.implode(':, :', $vars_value).':');
 foreach ($this->getAddElements() as $element=>$element_details) {
 	if ((isset($element_details['name']))&&($element_details['name']!='')) {
+		$bindName=":$element:";
+		$value=$this->getDoAddElementStorage($element);
 		switch ($this->getAddElementValidation($element, 'module')) {
 			case 'integer':
-				$QsaveData->bindInt(':'.$element.':', intval($this->getDoAddElementStorage($element)));
+				$QsaveData->bindInt($bindName, intval($value));
 				break;
 			case 'float':
-				$QsaveData->bindFloat(':'.$element.':', floatval($this->getDoAddElementStorage($element)));
+				$QsaveData->bindFloat($bindName, floatval($value));
 				break;
 			case 'crypt':
-				$QsaveData->bindCrypt(':'.$element.':', $this->getDoAddElementStorage($element));
+				$QsaveData->bindCrypt($bindName, strval($value));
 				break;
 			case 'raw':
-				$QsaveData->bindRaw(':'.$element.':', $this->getDoAddElementStorage($element));
+				$QsaveData->bindRaw($bindName, strval($value));
+				break;
+			case 'select':
+				$value===''?$QsaveData->bindRaw($bindName, 'NULL'):$QsaveData->bindString($bindName, strval($value));
 				break;
 			case 'string':
 			default:
-				$QsaveData->bindString(':'.$element.':', strval($this->getDoAddElementStorage($element)));
+				$QsaveData->bindString($bindName, strval($value));
 				break;
 		}
 	}
