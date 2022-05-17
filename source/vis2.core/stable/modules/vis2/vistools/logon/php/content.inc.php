@@ -51,6 +51,10 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 		if ($VIS2_User->createLogin()===true) {
 			osWFrame\Core\SessionMessageStack::addMessage('session', 'success', ['msg'=>'Sie wurden erfolgreich eingeloggt.']);
 
+			if (password_needs_rehash($VIS2_User->getStringVar('user_password'), PASSWORD_DEFAULT)) {
+				$VIS2_User->rehashPassword($vis2_login_password);
+			}
+
 			\VIS2\Core\Protect::clearEntries($VIS2_User->getId());
 
 			$vis2_login_link=\osWFrame\Core\Settings::catchValue(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', '', 's');
