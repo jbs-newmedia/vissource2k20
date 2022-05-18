@@ -13,8 +13,13 @@ $(function () {
 });
 
 function vis2_notify(notify_msg, notify_type) {
-	if (!notify_type) {
-		notify_type = 'info';
+	switch (notify_type){
+		case "error":
+			notify_type = "danger";
+			break;
+		case "":
+			notify_type = "info";
+			break;
 	}
 	$.notify({
 		message: notify_msg

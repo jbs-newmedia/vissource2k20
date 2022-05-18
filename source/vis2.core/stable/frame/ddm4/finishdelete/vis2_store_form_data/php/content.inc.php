@@ -35,8 +35,10 @@ if ($this->getGroupOption('db_index_type', 'database')=='string') {
 	$QdeleteData->bindInt(':value_index:', intval($this->getIndexElementStorage()));
 }
 $QdeleteData->bindRaw(':search_selector:', $ddm_search_case_array);
-$QdeleteData->execute();
-
-\osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'success', ['msg'=>$this->getGroupMessage('delete_success_title')]);
+if($QdeleteData->execute()) {
+	\osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'success', ['msg'=>$this->getGroupMessage('delete_success_title')]);
+}else{
+	\osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'success', ['msg'=>$this->getGroupMessage('delete_error_title')]);
+}
 
 ?>
