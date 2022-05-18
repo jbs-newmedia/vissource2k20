@@ -69,8 +69,11 @@ if ($selector_value!=[]) {
 		}
 	}
 }
-$QsaveData->execute();
-$this->setIndexElementStorage($QsaveData->lastInsertId());
-\osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'success', ['msg'=>$this->getGroupMessage('add_success_title')]);
+if($QsaveData->execute()) {
+	$this->setIndexElementStorage($QsaveData->lastInsertId());
+	\osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'success', ['msg'=>$this->getGroupMessage('add_success_title')]);
+}else{
+	\osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'error', ['msg'=>$this->getGroupMessage('add_error_title')]);
+}
 
 ?>
