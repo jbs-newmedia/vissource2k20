@@ -203,7 +203,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 						<a type="button" data-bs-dismiss="modal" data-bs-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-2x fa-fw fa-window-close text-muted" aria-hidden="true"></i></a>
 					</div>
 				</div>
-				<div class="modal-body" style="padding:0px; margin:0px; overflow:hidden; overflow-y: auto;"></div>
+				<div class="modal-body" style="padding:0px; margin:0px; overflow:hidden; overflow-y: hidden;"></div>
 				<div class="modal-footer">
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_search"><?php echo $this->getGroupMessage('form_search') ?></button>
 					<button onclick="submitDDM4Modal_<?php echo $this->getName() ?>();" name="ddm4_button_submit" type="button" class="btn btn-primary ddm4_btn_add"><?php echo $this->getGroupMessage('form_add') ?></button>
