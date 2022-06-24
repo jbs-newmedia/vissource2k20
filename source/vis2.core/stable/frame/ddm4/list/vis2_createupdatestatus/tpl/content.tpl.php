@@ -15,9 +15,9 @@ if ($this->getListElementOption($element, 'display_create_time')==true) {
 		$view_data[$this->getListElementOption($element, 'prefix').'create_time']='---';
 	} else {
 		if ($this->getListElementOption($element, 'month_asname')===true) {
-			$view_data[$this->getListElementOption($element, 'prefix').'create_time']=strftime(str_replace('%m.', ' %B ', $this->getListElementOption($element, 'date_format')), $view_data[$this->getListElementOption($element, 'prefix').'create_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
+			$view_data[$this->getListElementOption($element, 'prefix').'create_time']=\osWFrame\Core\DateTime::strftime(str_replace('%m.', ' %B ', $this->getListElementOption($element, 'date_format')), $view_data[$this->getListElementOption($element, 'prefix').'create_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
 		} else {
-			$view_data[$this->getListElementOption($element, 'prefix').'create_time']=strftime($this->getListElementOption($element, 'date_format'), $view_data[$this->getListElementOption($element, 'prefix').'create_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
+			$view_data[$this->getListElementOption($element, 'prefix').'create_time']=\osWFrame\Core\DateTime::strftime($this->getListElementOption($element, 'date_format'), $view_data[$this->getListElementOption($element, 'prefix').'create_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
 		}
 	}
 }
@@ -35,9 +35,9 @@ if ($this->getListElementOption($element, 'display_update_time')==true) {
 		$view_data[$this->getListElementOption($element, 'prefix').'update_time']='---';
 	} else {
 		if ($this->getListElementOption($element, 'month_asname')===true) {
-			$view_data[$this->getListElementOption($element, 'prefix').'update_time']=strftime(str_replace('%m.', ' %B ', $this->getListElementOption($element, 'date_format')), $view_data[$this->getListElementOption($element, 'prefix').'update_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
+			$view_data[$this->getListElementOption($element, 'prefix').'update_time']=\osWFrame\Core\DateTime::strftime(str_replace('%m.', ' %B ', $this->getListElementOption($element, 'date_format')), $view_data[$this->getListElementOption($element, 'prefix').'update_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
 		} else {
-			$view_data[$this->getListElementOption($element, 'prefix').'update_time']=strftime($this->getListElementOption($element, 'date_format'), $view_data[$this->getListElementOption($element, 'prefix').'update_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
+			$view_data[$this->getListElementOption($element, 'prefix').'update_time']=\osWFrame\Core\DateTime::strftime($this->getListElementOption($element, 'date_format'), $view_data[$this->getListElementOption($element, 'prefix').'update_time']).' '.\osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock'));
 		}
 	}
 }
