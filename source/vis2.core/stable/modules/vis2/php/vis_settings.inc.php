@@ -70,7 +70,7 @@ $osW_DDM4->readParameters();
 
 $ddm_navigation_id=intval(\osWFrame\Core\Settings::catchIntValue('ddm_navigation_id', intval($osW_DDM4->getParameter('ddm_navigation_id')), 'pg'));
 
-if (!isset($settings_files[$ddm_navigation_id])) {
+if (($settings_files!=[])&&(!isset($settings_files[$ddm_navigation_id]))) {
 	reset($settings_files);
 	$ddm_navigation_id=key($settings_files);
 }
