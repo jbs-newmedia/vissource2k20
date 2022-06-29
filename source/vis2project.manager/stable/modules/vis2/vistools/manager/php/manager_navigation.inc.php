@@ -61,7 +61,7 @@ $ar_tools=\VIS2\Core\Manager::getTools();
 $navigation_links=[];
 
 $tool_details=[];
-if (($tool_id!=null)&&(isset($ar_tools[$tool_id]))) {
+if (($tool_id!==null)&&(isset($ar_tools[$tool_id]))) {
 	if (!isset($_POST['tool_id'])) {
 		$_POST['tool_id']=$tool_id;
 	}

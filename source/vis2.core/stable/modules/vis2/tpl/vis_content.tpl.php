@@ -16,14 +16,16 @@
 		<a class="navbar-brand d-flex align-items-center" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
 			<div class="navbar-brand-icon">
 				<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), PATHINFO_EXTENSION)=='svg'): ?>
+
 					<img style="height:<?php echo \osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height') ?>px" src="<?php echo $VIS2_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name')) ?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>"/>
+
 				<?php else: ?>
 
 					<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
 
 				<?php endif ?>
 			</div>
-			<div class="navbar-brand-text text-primary ms-2"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!=null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
+			<div class="navbar-brand-text text-primary ms-2"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
 		</a>
 
 		<button id="sidebarToggleTopLeft" class="btn btn-link d-none d-md-block rounded-circle me-2">
@@ -69,14 +71,16 @@
 			<a class="navbar-brand d-flex align-items-center bg-white position-fixed" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
 				<div class="navbar-brand-icon">
 					<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), PATHINFO_EXTENSION)=='svg'): ?>
+
 						<img style="height:<?php echo \osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height') ?>px" src="<?php echo $VIS2_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name')) ?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>"/>
+
 					<?php else: ?>
 
 						<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
 
 					<?php endif ?>
 				</div>
-				<div class="navbar-brand-text text-primary ms-2"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!=null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
+				<div class="navbar-brand-text text-primary ms-2"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
 			</a>
 
 			<div id="jbsadmin-sidebar-nav" class="pt-3">

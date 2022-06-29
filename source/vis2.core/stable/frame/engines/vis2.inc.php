@@ -16,13 +16,13 @@ $osW_jQuery3=new \osWFrame\Core\jQuery3($osW_Template);
 $osW_jQuery3->load();
 
 $osW_Bootstrap5=new \osWFrame\Core\Bootstrap5($osW_Template);
-if (\osWFrame\Core\Settings::getStringVar('vis2_theme')!=null) {
+if (\osWFrame\Core\Settings::getStringVar('vis2_theme')!==null) {
 	$osW_Bootstrap5->setTheme(\osWFrame\Core\Settings::getStringVar('vis2_theme'));
 }
-if (\osWFrame\Core\Settings::getStringVar('vis2_theme_color')!=null) {
+if (\osWFrame\Core\Settings::getStringVar('vis2_theme_color')!==null) {
 	$osW_Bootstrap5->setCustom('blue', \osWFrame\Core\Settings::getStringVar('vis2_theme_color'));
 }
-if (\osWFrame\Core\Settings::getStringVar('vis2_theme_font')!=null) {
+if (\osWFrame\Core\Settings::getStringVar('vis2_theme_font')!==null) {
 	$osW_Bootstrap5->setCustom('font-family-sans-serif', \osWFrame\Core\Settings::getStringVar('vis2_theme_font'));
 }
 $osW_Bootstrap5->load();
