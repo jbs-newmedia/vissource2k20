@@ -43,7 +43,7 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 		$database_where_string.=' AND ('.implode(' OR ', $ddm_filter).')';
 	}
 
-	$Qselect=self::getConnection();
+	$Qselect=self::getConnection($this->getGroupOption('connection', 'database'));
 	$Qselect->prepare('SELECT :elements: FROM :table: AS :alias: WHERE :name_index:=:value_index: :where:');
 	$Qselect->bindRaw(':elements:', implode(', ', [$this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'create_time', $this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'create_user_id', $this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'update_time', $this->getGroupOption('alias', 'database').'.'.$this->getEditElementOption($element, 'prefix').'update_user_id']));
 	$Qselect->bindTable(':table:', $this->getGroupOption('table', 'database'));

@@ -46,7 +46,7 @@ foreach ($ar_navigation_permission_do as $permission_flag=>$flag) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$permission_list[$permission_flag], '#1# '.$permission_list[$permission_flag]);
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 			}
 		} elseif ((isset($ar_navigation_permission[$permission_flag]))&&($flag==0)) {
 			\VIS2\Core\Manager::delPagePermission($this->getIndexElementStorage(), $this->getFinishElementOption($element, 'tool_id'), $permission_flag);
@@ -58,7 +58,7 @@ foreach ($ar_navigation_permission_do as $permission_flag=>$flag) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$permission_list[$permission_flag], '#0# '.$permission_list[$permission_flag]);
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 			}
 		}
 	}

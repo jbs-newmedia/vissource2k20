@@ -49,7 +49,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 							} else {
 								\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$tool_name.':'.$tool_mandants[$mandant_id], '#1# '.$tool_name.':'.$tool_mandants[$mandant_id]);
 							}
-							\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+							\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 						}
 						if ($this->getGroupOption('enable_log')===true) {
 							if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
@@ -59,7 +59,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 							} else {
 								\osWFrame\Core\DDM4_Log::addValue($mandant_more, $element_more, $this->getFinishElementValue($element, 'module'), '#0# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)', '#1# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)');
 							}
-							\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id);
+							\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id, $this->getGroupOption('connection_log', 'database'));
 						}
 					} elseif (((isset($ar_tool_user[$tool_id]))&&(isset($ar_tool_user[$tool_id][$mandant_id])))&&($flag==0)) {
 						\VIS2\Core\Manager::delUserMandant($this->getIndexElementStorage(),  $mandant_id, $tool_id);
@@ -71,7 +71,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 							} else {
 								\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$tool_name.':'.$tool_mandants[$mandant_id], '#0# '.$tool_name.':'.$tool_mandants[$mandant_id]);
 							}
-							\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+							\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 						}
 						if ($this->getGroupOption('enable_log')===true) {
 							if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
@@ -81,7 +81,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 							} else {
 								\osWFrame\Core\DDM4_Log::addValue($mandant_more, $element_more, $this->getFinishElementValue($element, 'module'), '#1# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)', '#0# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)');
 							}
-							\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id);
+							\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id, $this->getGroupOption('connection_log', 'database'));
 						}
 					}
 				}
@@ -103,7 +103,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						} else {
 							\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_mandants[$mandant_id], '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_mandants[$mandant_id]);
 						}
-						\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+						\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 					}
 					if ($this->getGroupOption('enable_log')===true) {
 						if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
@@ -113,7 +113,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						} else {
 							\osWFrame\Core\DDM4_Log::addValue($mandant_more, $element_more, $this->getFinishElementValue($element, 'module'), '#0# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)', '#1# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)');
 						}
-						\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id);
+						\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id, $this->getGroupOption('connection_log', 'database'));
 					}
 				} elseif (((isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')]))&&(isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')][$mandant_id])))&&($flag==0)) {
 					\VIS2\Core\Manager::delUserMandant($this->getIndexElementStorage(),  $mandant_id, $this->getFinishElementOption($element, 'tool_id'));
@@ -125,7 +125,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						} else {
 							\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_mandants[$mandant_id], '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_mandants[$mandant_id]);
 						}
-						\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+						\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 					}
 					if ($this->getGroupOption('enable_log')===true) {
 						if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
@@ -135,7 +135,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						} else {
 							\osWFrame\Core\DDM4_Log::addValue($mandant_more, $element_more, $this->getFinishElementValue($element, 'module'), '#1# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)', '#0# '.$ar_user[$this->getIndexElementStorage()].' (Über Benutzer geändert)');
 						}
-						\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id);
+						\osWFrame\Core\DDM4_Log::writeValues($mandant_more, 'group_id', $mandant_id, $this->getGroupOption('connection_log', 'database'));
 					}
 				}
 			}

@@ -8,6 +8,8 @@
  * @package VIS2
  * @link https://oswframe.com
  * @license MIT License
+ *
+ * @var $this \osWFrame\Core\DDM4
  */
 
 if (in_array(\osWFrame\Core\Settings::getAction(), ['log', 'log_ajax'])) {
@@ -219,7 +221,7 @@ switch (\osWFrame\Core\Settings::getAction()) {
 		} else {
 			\osWFrame\Core\Settings::setAction('');
 		}
-		if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))!==true) {
+		if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'), $this->getGroupOption('connection_lock', 'database'))!==true) {
 			foreach ($this->getEditElements() as $element=>$element_details) {
 				$element_details['options']['read_only']=true;
 				$this->setReadOnly($element);
@@ -238,13 +240,13 @@ switch (\osWFrame\Core\Settings::getAction()) {
 		} else {
 			\osWFrame\Core\Settings::setAction('');
 		}
-		if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))!==true) {
+		if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'), $this->getGroupOption('connection_lock', 'database'))!==true) {
 			$this->getTemplate()->addJSCodeHead('
 	$(function() {
 		window.parent.refreshDDM4Elements_'.$this->getName().'();
 		window.parent.ddm4datatables.ajax.reload(null, false);
 		window.parent.$(".modal").modal("hide");
-		window.parent.vis2_notify("'.addslashes(\osWFrame\Core\StringFunctions::parseTextWithVars($this->getGroupMessage('lock_error'), ['user'=>$this->getLockUserId(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))])).'", "danger");
+		window.parent.vis2_notify("'.addslashes(\osWFrame\Core\StringFunctions::parseTextWithVars($this->getGroupMessage('lock_error'), ['user'=>$this->getLockUserId(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('connection_lock', 'database'))])).'", "danger");
 	});
 	');
 			\osWFrame\Core\Settings::setAction('');
@@ -267,7 +269,7 @@ switch (\osWFrame\Core\Settings::getAction()) {
 		}
 		break;
 	case 'dolock':
-		if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))===true) {
+		if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'), $this->getGroupOption('connection_lock', 'database'))===true) {
 			\osWFrame\Core\Network::dieJSON(['status'=>'Ok']);
 		}
 		\osWFrame\Core\Network::dieJSON(['status'=>'Error']);
@@ -497,7 +499,7 @@ if ((\osWFrame\Core\Settings::getAction()=='edit')||(\osWFrame\Core\Settings::ge
 		$database_where_string.=' AND ('.implode(' OR ', $ddm_filter).')';
 	}
 
-	$QloadData=self::getConnection();
+	$QloadData=self::getConnection($this->getGroupOption('connection', 'database'));
 	$QloadData->prepare('SELECT :vars: FROM :table: AS :alias: WHERE :name_index:=:value_index: :where:');
 	$QloadData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$QloadData->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));
@@ -614,7 +616,7 @@ if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::
 		$database_where_string.=' AND ('.implode(' OR ', $ddm_filter).')';
 	}
 
-	$QloadData=self::getConnection();
+	$QloadData=self::getConnection($this->getGroupOption('connection', 'database'));
 	$QloadData->prepare('SELECT :vars: FROM :table: AS :alias: WHERE :name_index:=:value_index: :where:');
 	$QloadData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$QloadData->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));
@@ -872,7 +874,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 
 	// load complete list-count
 
-	$QgetDataLimit=self::getConnection();
+	$QgetDataLimit=self::getConnection($this->getGroupOption('connection', 'database'));
 	$QgetDataLimit->prepare('SELECT :index: FROM :table: AS :alias: WHERE :search_filter:');
 	$QgetDataLimit->bindRaw(':index:', $this->getGroupOption('alias', 'database').'.'.$this->getGroupOption('index', 'database'));
 	$QgetDataLimit->bindTable(':table:', $this->getGroupOption('table', 'database'));
@@ -884,7 +886,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['ajax', 'log_ajax'])) {
 	$this->ddm['storage']['view']['data']=[];
 
 	// load list
-	$QgetData=self::getConnection();
+	$QgetData=self::getConnection($this->getGroupOption('connection', 'database'));
 	$QgetData->prepare('SELECT :index:, :vars: FROM :table: AS :alias: WHERE :search: :order:');
 	$QgetData->bindRaw(':index:', $this->getGroupOption('alias', 'database').'.'.$this->getGroupOption('index', 'database'));
 	$QgetData->bindRaw(':vars:', $this->getGroupOption('alias', 'database').'.'.implode(', '.$this->getGroupOption('alias', 'database').'.', $vars));

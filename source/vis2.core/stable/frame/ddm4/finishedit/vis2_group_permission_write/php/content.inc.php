@@ -67,7 +67,7 @@ foreach ($ar_permission_do as $permission_page=>$permissions) {
 					} else {
 						\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$ar_data[$permission_page].' : '.$permission_list[$permission], '#1# '.$ar_data[$permission_page].' : '.$permission_list[$permission]);
 					}
-					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 				}
 			} elseif (((isset($ar_permission[$permission_page]))&&(isset($ar_permission[$permission_page][$permission])))&&($flag==0)) {
 				\VIS2\Core\Manager::delGroupPermission($this->getIndexElementStorage(), $permission_page, $permission);
@@ -79,7 +79,7 @@ foreach ($ar_permission_do as $permission_page=>$permissions) {
 					} else {
 						\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$ar_data[$permission_page].' : '.$permission_list[$permission], '#0# '.$ar_data[$permission_page].' : '.$permission_list[$permission]);
 					}
-					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 				}
 			}
 		}

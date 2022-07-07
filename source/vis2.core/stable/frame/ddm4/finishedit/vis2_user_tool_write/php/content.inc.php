@@ -43,7 +43,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 					} else {
 						\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$tool_name, '#1# '.$tool_name);
 					}
-					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 				}
 			} elseif ((isset($ar_tool_user[$tool_id]))&&($ar_tool_user_do[$tool_id]==0)) {
 				\VIS2\Core\Manager::delUserTool($this->getIndexElementStorage(), $tool_id);
@@ -55,7 +55,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 					} else {
 						\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$tool_name, '#0# '.$tool_name);
 					}
-					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+					\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 				}
 			}
 		}
@@ -72,7 +72,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$this->getFinishElementOption($element, 'tool_name'), '#1# '.$this->getFinishElementOption($element, 'tool_name'));
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 			}
 		} elseif ((isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')]))&&($ar_tool_user_do[$this->getFinishElementOption($element, 'tool_id')]==0)) {
 			\VIS2\Core\Manager::delUserTool($this->getIndexElementStorage(), $this->getFinishElementOption($element, 'tool_id'));
@@ -84,7 +84,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$this->getFinishElementOption($element, 'tool_name'), '#0# '.$this->getFinishElementOption($element, 'tool_name'));
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 			}
 		}
 	}

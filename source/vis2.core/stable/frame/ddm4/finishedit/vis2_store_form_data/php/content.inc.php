@@ -32,7 +32,7 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	$ddm_search_case_array='AND ('.implode(' AND ', $ar_values).')';
 }
 
-$QsaveData=self::getConnection();
+$QsaveData=self::getConnection($this->getGroupOption('connection', 'database'));
 $QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index: :search_filter:');
 $QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 $QsaveData->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));
@@ -117,7 +117,7 @@ if ($this->getGroupOption('enable_log')===true) {
 			}
 		}
 	}
-	\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+	\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 }
 
 \osWFrame\Core\MessageStack::addMessage('ddm4_'.$this->getName(), 'success', ['msg'=>$this->getGroupMessage('edit_success_title')]);

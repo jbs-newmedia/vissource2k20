@@ -8,6 +8,8 @@
  * @package VIS2
  * @link https://oswframe.com
  * @license MIT License
+ *
+ * @var $this \osWFrame\Core\DDM4
  */
 
 if (in_array(\osWFrame\Core\Settings::getAction(), ['search', 'add', 'edit', 'delete', '', 'log'])) {
@@ -97,8 +99,8 @@ $(function() {
 ');
 	echo '<div class="page-wrapper-modal px-2 py-1">';
 
-	if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'))!==true) {
-		echo '<div class="alert alert-danger" role="alert" style="margin:15px 0px;">'.\osWFrame\Core\StringFunctions::parseTextWithVars($this->getGroupMessage('lock_error'), ['user'=>\VIS2\Core\Manager::getUsernameById($this->getLockUserId(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data')))]).'</div>';
+	if ($this->setLock(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('user_id', 'data'), $this->getGroupOption('connection_lock', 'database'))!==true) {
+		echo '<div class="alert alert-danger" role="alert" style="margin:15px 0px;">'.\osWFrame\Core\StringFunctions::parseTextWithVars($this->getGroupMessage('lock_error'), ['user'=>\VIS2\Core\Manager::getUsernameById($this->getLockUserId(\osWFrame\Core\Settings::catchStringValue($this->getGroupOption('index', 'database')), $this->getGroupOption('index', 'database'), $this->getGroupOption('connection_lock', 'database')))]).'</div>';
 	}
 	echo $this->getTemplate()->Form()->startForm('form_edit', 'current', $this->getDirectParameters(), ['form_parameter'=>'enctype="multipart/form-data"']);
 	foreach ($this->getEditElements() as $element=>$options) {

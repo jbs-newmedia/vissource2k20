@@ -25,7 +25,7 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	$ddm_search_case_array='AND ('.implode(' AND ', $ar_values).')';
 }
 
-$QdeleteData=self::getConnection();
+$QdeleteData=self::getConnection($this->getGroupOption('connection', 'database'));
 $QdeleteData->prepare('DELETE FROM :table: WHERE :name_index:=:value_index: :search_selector:');
 $QdeleteData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 $QdeleteData->bindRaw(':name_index:', $this->getGroupOption('index', 'database'));

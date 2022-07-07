@@ -46,7 +46,7 @@ foreach ($ar_tool_user_do as $user_id=>$flag) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#0# '.$ar_user[$user_id], '#1# '.$ar_user[$user_id]);
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 			}
 			if ($this->getGroupOption('enable_log')===true) {
 				if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
@@ -56,7 +56,7 @@ foreach ($ar_tool_user_do as $user_id=>$flag) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group_more, $element_more, $this->getFinishElementValue($element, 'module'), '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$this->getIndexElementStorage()].' (Über Gruppe geändert)', '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$this->getIndexElementStorage()].' (Über Gruppe geändert)');
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group_more, 'user_id', $user_id);
+				\osWFrame\Core\DDM4_Log::writeValues($group_more, 'user_id', $user_id, $this->getGroupOption('connection_log', 'database'));
 			}
 		} elseif ((isset($ar_tool_user[$user_id]))&&($flag==0)) {
 			\VIS2\Core\Manager::delUserGroup($user_id, $this->getIndexElementStorage(), $this->getFinishElementOption($element, 'tool_id'));
@@ -68,7 +68,7 @@ foreach ($ar_tool_user_do as $user_id=>$flag) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group, $element_current, $this->getFinishElementValue($element, 'module'), '#1# '.$ar_user[$user_id], '#0# '.$ar_user[$user_id]);
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage());
+				\osWFrame\Core\DDM4_Log::writeValues($group, $this->getGroupOption('index', 'database'), $this->getIndexElementStorage(), $this->getGroupOption('connection_log', 'database'));
 			}
 			if ($this->getGroupOption('enable_log')===true) {
 				if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
@@ -78,7 +78,7 @@ foreach ($ar_tool_user_do as $user_id=>$flag) {
 				} else {
 					\osWFrame\Core\DDM4_Log::addValue($group_more, $element_more, $this->getFinishElementValue($element, 'module'), '#1# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$this->getIndexElementStorage()].' (Über Gruppe geändert)', '#0# '.$this->getFinishElementOption($element, 'tool_name').':'.$tool_groups[$this->getIndexElementStorage()].' (Über Gruppe geändert)');
 				}
-				\osWFrame\Core\DDM4_Log::writeValues($group_more, 'user_id', $user_id);
+				\osWFrame\Core\DDM4_Log::writeValues($group_more, 'user_id', $user_id, $this->getGroupOption('connection_log', 'database'));
 			}
 		}
 	}

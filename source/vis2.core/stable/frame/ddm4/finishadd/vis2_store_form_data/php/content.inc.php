@@ -33,7 +33,7 @@ if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
 	}
 }
 
-$QsaveData=self::getConnection();
+$QsaveData=self::getConnection($this->getGroupOption('connection', 'database'));
 $QsaveData->prepare('INSERT INTO :table: (:vars_name:) VALUES (:vars_value:)');
 $QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 $QsaveData->bindRaw(':vars_name:', implode(', ', $vars_key));

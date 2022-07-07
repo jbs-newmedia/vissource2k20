@@ -27,7 +27,7 @@ if ($mode=='insert') {
 		}
 	}
 
-	$QsaveData=self::getConnection();
+	$QsaveData=self::getConnection($this->getGroupOption('connection', 'database'));
 	$QsaveData->prepare('INSERT INTO :table: (:vars_name:) VALUES (:vars_value:)');
 	$QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$QsaveData->bindRaw(':vars_name:', implode(', ', $vars_key));
@@ -67,7 +67,7 @@ if ($mode=='update') {
 		}
 	}
 
-	$QsaveData=self::getConnection();
+	$QsaveData=self::getConnection($this->getGroupOption('connection', 'database'));
 	$QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index:');
 	$QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$QsaveData->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));

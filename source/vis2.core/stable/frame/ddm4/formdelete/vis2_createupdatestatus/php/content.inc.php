@@ -11,7 +11,7 @@
  */
 
 if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::getAction()=='dodelete')) {
-	$Qselect=self::getConnection();
+	$Qselect=self::getConnection($this->getGroupOption('connection', 'database'));
 	$Qselect->prepare('SELECT :elements: FROM :table: AS :alias: WHERE :name_index:=:value_index:');
 	$Qselect->bindRaw(':elements:', implode(', ', [$this->getGroupOption('alias', 'database').'.'.$this->getDeleteElementOption($element, 'prefix').'create_time', $this->getGroupOption('alias', 'database').'.'.$this->getDeleteElementOption($element, 'prefix').'create_user_id', $this->getGroupOption('alias', 'database').'.'.$this->getDeleteElementOption($element, 'prefix').'update_time', $this->getGroupOption('alias', 'database').'.'.$this->getDeleteElementOption($element, 'prefix').'update_user_id']));
 	$Qselect->bindTable(':table:', $this->getGroupOption('table', 'database'));
