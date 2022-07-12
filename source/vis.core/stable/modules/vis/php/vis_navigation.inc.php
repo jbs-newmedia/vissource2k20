@@ -34,6 +34,7 @@ $ddm4_object['direct']['parameters']=[];
 $ddm4_object['direct']['parameters']['vistool']=$VIS_Main->getTool();
 $ddm4_object['direct']['parameters']['vispage']=$VIS_Navigation->getPage();
 $ddm4_object['database']=[];
+$ddm4_object['database']['connection']='vis';
 $ddm4_object['database']['table']='vis_group';
 $ddm4_object['database']['alias']='tbl1';
 $ddm4_object['database']['index']='group_id';
@@ -688,7 +689,7 @@ if (in_array($ddm_navigation_id, [4])) {
 	$osW_DDM4->setGroupOption('navigation_level', '3');
 	$osW_DDM4->setGroupOption('filter', [['and'=>[['key'=>'tool_id', 'operator'=>'=', 'value'=>$VIS_Main->getToolId()]]]], 'database');
 	$osW_DDM4->setGroupOption('order', ['group_name_intern'=>'asc'], 'database');
-	$osW_DDM4->setGroupOption('status_keys', ['group_ispublic'=>[['value'=>'Deaktiviert', 'class'=>'danger']]]);
+	$osW_DDM4->setGroupOption('status_keys', ['group_status'=>[['value'=>'Deaktiviert', 'class'=>'danger']]]);
 
 	$messages=[];
 	$messages['createupdate_title']='Datensatzinformationen';
@@ -800,16 +801,16 @@ if (in_array($ddm_navigation_id, [4])) {
 	/*
 	 * Data: Status
 	 */
-	$ddm4_elements['data']['group_ispublic']=[];
-	$ddm4_elements['data']['group_ispublic']['module']='yesno';
-	$ddm4_elements['data']['group_ispublic']['title']='Status';
-	$ddm4_elements['data']['group_ispublic']['name']='group_ispublic';
-	$ddm4_elements['data']['group_ispublic']['options']=[];
-	$ddm4_elements['data']['group_ispublic']['options']['order']=true;
-	$ddm4_elements['data']['group_ispublic']['options']['default_value']=1;
-	$ddm4_elements['data']['group_ispublic']['options']['required']=true;
-	$ddm4_elements['data']['group_ispublic']['options']['text_yes']='Aktiviert';
-	$ddm4_elements['data']['group_ispublic']['options']['text_no']='Deaktiviert';
+	$ddm4_elements['data']['group_status']=[];
+	$ddm4_elements['data']['group_status']['module']='yesno';
+	$ddm4_elements['data']['group_status']['title']='Status';
+	$ddm4_elements['data']['group_status']['name']='group_status';
+	$ddm4_elements['data']['group_status']['options']=[];
+	$ddm4_elements['data']['group_status']['options']['order']=true;
+	$ddm4_elements['data']['group_status']['options']['default_value']=1;
+	$ddm4_elements['data']['group_status']['options']['required']=true;
+	$ddm4_elements['data']['group_status']['options']['text_yes']='Aktiviert';
+	$ddm4_elements['data']['group_status']['options']['text_no']='Deaktiviert';
 
 	/*
 	 * Data: ToolId

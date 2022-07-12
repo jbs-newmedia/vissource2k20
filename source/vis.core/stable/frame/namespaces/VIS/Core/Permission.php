@@ -106,7 +106,7 @@ class Permission {
 		$VIS_Groups=new Group($this->getToolId(), $this->getUserId());
 
 		foreach ($VIS_Groups->getGroups() as $group_id=>$group_details) {
-			$QloadGroupPermission=self::getConnection();
+			$QloadGroupPermission=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 			$QloadGroupPermission->prepare('SELECT * FROM :table_vis_group_permission: AS gp INNER JOIN :table_vis_page: AS p ON (p.page_name_intern=gp.permission_page) INNER JOIN :table_vis_page_permission: AS pp ON (pp.permission_flag=gp.permission_flag AND pp.page_id=p.page_id) INNER JOIN :table_vis_permission: AS pe ON (pe.permission_flag=pp.permission_flag) WHERE pe.permission_ispublic=:permission_ispublic: AND gp.group_id=:group_id:');
 			$QloadGroupPermission->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 			$QloadGroupPermission->bindTable(':table_vis_page:', 'vis_page');

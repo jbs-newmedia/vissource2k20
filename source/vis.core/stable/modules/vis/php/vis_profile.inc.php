@@ -91,8 +91,10 @@ $ddm4_elements['send']['vis_navigation']['options']['data']=$navigation_links;
 if (isset($profile_files[$ddm_navigation_id])) {
 	$profile_run='run';
 	include $profile_files[$ddm_navigation_id];
-	$osW_DDM4->getTemplate()->setVar('ddm_navigation_id', $ddm_navigation_id);
+} else {
+	$ddm_navigation_id=0;
 }
+$osW_DDM4->getTemplate()->setVar('ddm_navigation_id', $ddm_navigation_id);
 
 /*
 * Send: Submit

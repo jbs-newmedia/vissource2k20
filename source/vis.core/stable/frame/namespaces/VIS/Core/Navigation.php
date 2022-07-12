@@ -233,7 +233,7 @@ class Navigation {
 		$this->navigation_unsorted=[];
 		$this->navigation_unsorted_name2id=[];
 
-		$QselectNavigation=self::getConnection();
+		$QselectNavigation=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectNavigation->prepare('SELECT *, n.tool_id, n.page_id FROM :table_vis_navigation: AS n LEFT JOIN :table_vis_page: AS p on (p.tool_id=n.tool_id AND p.page_id=n.page_id) WHERE n.tool_id=:tool_id: ORDER BY n.navigation_parent_id ASC, n.navigation_sortorder ASC, n.navigation_title ASC');
 		$QselectNavigation->bindTable(':table_vis_navigation:', 'vis_navigation');
 		$QselectNavigation->bindTable(':table_vis_page:', 'vis_page');
@@ -250,7 +250,7 @@ class Navigation {
 
 		$this->createNavigationPath();
 
-		$QselectPagePermissions=self::getConnection();
+		$QselectPagePermissions=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectPagePermissions->prepare('SELECT * FROM :table_vis_page_permission: WHERE tool_id=:tool_id:');
 		$QselectPagePermissions->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QselectPagePermissions->bindInt(':tool_id:', $this->getToolId());
@@ -508,12 +508,12 @@ class Navigation {
 	public static function updateInternSortOrder():bool {
 		$i=0;
 
-		$QselectDataL1=self::getConnection();
+		$QselectDataL1=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectDataL1->prepare('SELECT * FROM :table_vis_navigation: WHERE navigation_parent_id=:navigation_parent_id: ORDER BY navigation_sortorder ASC');
 		$QselectDataL1->bindTable(':table_vis_navigation:', 'vis_navigation');
 		$QselectDataL1->bindInt(':navigation_parent_id:', 0);
 		foreach ($QselectDataL1->query() as $resultL1) {
-			$QupdateDataL1=self::getConnection();
+			$QupdateDataL1=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 			$QupdateDataL1->prepare('UPDATE :table_vis_navigation: SET navigation_intern_sortorder=:navigation_intern_sortorder: WHERE navigation_id=:navigation_id:');
 			$QupdateDataL1->bindTable(':table_vis_navigation:', 'vis_navigation');
 			$QupdateDataL1->bindInt(':navigation_intern_sortorder:', $i);
@@ -521,12 +521,12 @@ class Navigation {
 			$QupdateDataL1->execute();
 			$i++;
 
-			$QselectDataL2=self::getConnection();
+			$QselectDataL2=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 			$QselectDataL2->prepare('SELECT * FROM :table_vis_navigation: WHERE navigation_parent_id=:navigation_parent_id: ORDER BY navigation_sortorder ASC');
 			$QselectDataL2->bindTable(':table_vis_navigation:', 'vis_navigation');
 			$QselectDataL2->bindInt(':navigation_parent_id:', $resultL1['navigation_id']);
 			foreach ($QselectDataL2->query() as $resultL2) {
-				$QupdateDataL2=self::getConnection();
+				$QupdateDataL2=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 				$QupdateDataL2->prepare('UPDATE :table_vis_navigation: SET navigation_intern_sortorder=:navigation_intern_sortorder: WHERE navigation_id=:navigation_id:');
 				$QupdateDataL2->bindTable(':table_vis_navigation:', 'vis_navigation');
 				$QupdateDataL2->bindInt(':navigation_intern_sortorder:', $i);
@@ -534,12 +534,12 @@ class Navigation {
 				$QupdateDataL2->execute();
 				$i++;
 
-				$QselectDataL3=self::getConnection();
+				$QselectDataL3=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 				$QselectDataL3->prepare('SELECT * FROM :table_vis_navigation: WHERE navigation_parent_id=:navigation_parent_id: ORDER BY navigation_sortorder ASC');
 				$QselectDataL3->bindTable(':table_vis_navigation:', 'vis_navigation');
 				$QselectDataL3->bindInt(':navigation_parent_id:', $resultL2['navigation_id']);
 				foreach ($QselectDataL3->query() as $resultL3) {
-					$QupdateDataL3=self::getConnection();
+					$QupdateDataL3=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 					$QupdateDataL3->prepare('UPDATE :table_vis_navigation: SET navigation_intern_sortorder=:navigation_intern_sortorder: WHERE navigation_id=:navigation_id:');
 					$QupdateDataL3->bindTable(':table_vis_navigation:', 'vis_navigation');
 					$QupdateDataL3->bindInt(':navigation_intern_sortorder:', $i);

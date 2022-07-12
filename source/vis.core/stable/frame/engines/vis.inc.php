@@ -45,8 +45,14 @@ $osW_Template->addVoidTag('meta', ['charset'=>'utf-8']);
 $osW_Template->addVoidTag('meta', ['http-equiv'=>'X-UA-Compatible', 'content'=>'IE=edge']);
 $osW_Template->addVoidTag('meta', ['name'=>'viewport', 'content'=>'width=device-width, initial-scale=1, shrink-to-fit=no']);
 
-\osWFrame\Core\DB::addConnectionMYSQL(\osWFrame\Core\Settings::getStringVar('database_server'), \osWFrame\Core\Settings::getStringVar('database_username'), \osWFrame\Core\Settings::getStringVar('database_password'), \osWFrame\Core\Settings::getStringVar('database_db'), \osWFrame\Core\Settings::getStringVar('database_character'), 'default', \osWFrame\Core\Settings::getIntVar('database_port'));
-\osWFrame\Core\DB::connect();
+if ((\osWFrame\Core\Settings::getStringVar('vis_database_alias')!==null)&&(\osWFrame\Core\Settings::getStringVar('vis_database_alias')!='')) {
+	\osWFrame\Core\DB::addConnectionMYSQL(\osWFrame\Core\Settings::getStringVar('vis_database_server'), \osWFrame\Core\Settings::getStringVar('vis_database_username'), \osWFrame\Core\Settings::getStringVar('vis_database_password'), \osWFrame\Core\Settings::getStringVar('vis_database_db'), \osWFrame\Core\Settings::getStringVar('vis_database_character'), 'vis', \osWFrame\Core\Settings::getIntVar('vis_database_port'));
+	\osWFrame\Core\DB::connect('vis');
+} else {
+	\osWFrame\Core\DB::addConnectionMYSQL(\osWFrame\Core\Settings::getStringVar('database_server'), \osWFrame\Core\Settings::getStringVar('database_username'), \osWFrame\Core\Settings::getStringVar('database_password'), \osWFrame\Core\Settings::getStringVar('database_db'), \osWFrame\Core\Settings::getStringVar('database_character'), 'default', \osWFrame\Core\Settings::getIntVar('database_port'));
+	\osWFrame\Core\DB::connect('default');
+	\osWFrame\Core\Settings::setStringVar('vis_database_alias', 'default');
+}
 
 $osW_FavIcon=new \osWFrame\Core\FavIcon('modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis_logo_favicon_name'), $osW_Template);
 $osW_FavIcon->setIcons2Template();

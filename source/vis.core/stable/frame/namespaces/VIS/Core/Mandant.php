@@ -91,7 +91,7 @@ class Mandant {
 	private function loadMandanten():self {
 		$this->mandanten=[];
 
-		$QselectMandanten=self::getConnection();
+		$QselectMandanten=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectMandanten->prepare('SELECT * FROM :table_vis_mandant: WHERE tool_id=:tool_id: AND mandant_ispublic=:mandant_ispublic: ORDER BY mandant_name ASC');
 		$QselectMandanten->bindTable(':table_vis_mandant:', 'vis_mandant');
 		$QselectMandanten->bindInt(':mandant_ispublic:', 1);

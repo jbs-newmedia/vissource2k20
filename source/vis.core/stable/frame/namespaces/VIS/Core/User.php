@@ -108,7 +108,7 @@ class User {
 			if (sizeof($stack)!=2) {
 				return false;
 			}
-			if (hash('sha512', $stack[1].$pwblank)==$stack[0]) {
+			if (hash('md5', $stack[1].$pwblank)==$stack[0]) {
 				return true;
 			}
 		}
@@ -123,7 +123,7 @@ class User {
 		if ($this->getId()!==null) {
 			$user_token=md5($this->getEMail().microtime().uniqid(microtime()));
 
-			$QupdateData=self::getConnection();
+			$QupdateData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 			$QupdateData->prepare('UPDATE :table_vis_user: SET user_token=:user_token: WHERE user_id=:user_id:');
 			$QupdateData->bindTable(':table_vis_user:', 'vis_user');
 			$QupdateData->bindString(':user_token:', $user_token);
@@ -204,7 +204,7 @@ class User {
 		if ($this->getId()!==null) {
 			$user_token='';
 
-			$QupdateData=self::getConnection();
+			$QupdateData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 			$QupdateData->prepare('UPDATE :table_vis_user: SET user_token=:user_token: WHERE user_id=:user_id:');
 			$QupdateData->bindTable(':table_vis_user:', 'vis_user');
 			$QupdateData->bindString(':user_token:', $user_token);
@@ -226,7 +226,7 @@ class User {
 	public function loadUserDetailsById(int $user_id):bool {
 		$this->clearVars();
 
-		$QselectUserDetails=self::getConnection();
+		$QselectUserDetails=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectUserDetails->prepare('SELECT * FROM :table_vis_user: WHERE user_id=:user_id:');
 		$QselectUserDetails->bindTable(':table_vis_user:', 'vis_user');
 		$QselectUserDetails->bindInt(':user_id:', $user_id);
@@ -246,7 +246,7 @@ class User {
 	public function loadUserDetailsByEMail(string $user_email):bool {
 		$this->clearVars();
 
-		$QselectUserDetails=self::getConnection();
+		$QselectUserDetails=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectUserDetails->prepare('SELECT * FROM :table_vis_user: WHERE user_email=:user_email:');
 		$QselectUserDetails->bindTable(':table_vis_user:', 'vis_user');
 		$QselectUserDetails->bindString(':user_email:', $user_email);
@@ -266,7 +266,7 @@ class User {
 	public function loadUserDetailsByToken(string $user_token):bool {
 		$this->clearVars();
 
-		$QselectUserDetails=self::getConnection();
+		$QselectUserDetails=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectUserDetails->prepare('SELECT * FROM :table_vis_user: WHERE user_token=:user_token:');
 		$QselectUserDetails->bindTable(':table_vis_user:', 'vis_user');
 		$QselectUserDetails->bindString(':user_token:', $user_token);
@@ -294,11 +294,11 @@ class User {
 		$this->tools[\osWFrame\Core\Settings::getStringVar('vis_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis_login_module')];
 		$this->tools[\osWFrame\Core\Settings::getStringVar('vis_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis_chtool_module')];
 
-		$QselectTools=self::getConnection();
-		$QselectTools->prepare('SELECT * FROM :table_vis_tool: AS t INNER JOIN :table_vis_user_tool: AS u ON (u.tool_id=t.tool_id) WHERE t.tool_ispublic=:tool_ispublic: AND u.user_id=:user_id: ORDER BY t.tool_name ASC');
+		$QselectTools=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QselectTools->prepare('SELECT * FROM :table_vis_tool: AS t INNER JOIN :table_vis_user_tool: AS u ON (u.tool_id=t.tool_id) WHERE t.tool_status=:tool_status: AND u.user_id=:user_id: ORDER BY t.tool_name ASC');
 		$QselectTools->bindTable(':table_vis_tool:', 'vis_tool');
 		$QselectTools->bindTable(':table_vis_user_tool:', 'vis_user_tool');
-		$QselectTools->bindInt(':tool_ispublic:', 1);
+		$QselectTools->bindInt(':tool_status:', 1);
 		$QselectTools->bindInt(':user_id:', $this->getId());
 		foreach ($QselectTools->query() as $tool_details) {
 			$this->tools[$tool_details['tool_name_intern']]=['tool_id'=>$tool_details['tool_id'], 'tool_name'=>$tool_details['tool_name'], 'tool_name_intern'=>$tool_details['tool_name_intern']];
@@ -358,7 +358,7 @@ class User {
 	public function loadMandanten():bool {
 		$this->mandanten=[];
 
-		$QselectMandanten=self::getConnection();
+		$QselectMandanten=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QselectMandanten->prepare('SELECT *, m.mandant_id as mandant_id FROM :table_vis_mandant: AS m INNER JOIN :table_vis_user_mandant: AS u ON (u.mandant_id=m.mandant_id OR u.mandant_id=0) WHERE m.mandant_ispublic=:mandant_ispublic: AND u.user_id=:user_id: AND u.tool_id=:tool_id: ORDER BY m.mandant_name ASC');
 		$QselectMandanten->bindTable(':table_vis_mandant:', 'vis_mandant');
 		$QselectMandanten->bindTable(':table_vis_user_mandant:', 'vis_user_mandant');
@@ -368,7 +368,6 @@ class User {
 		foreach ($QselectMandanten->query() as $mandant_details) {
 			$this->mandanten[$mandant_details['mandant_id']]=['mandant_id'=>$mandant_details['mandant_id'], 'mandant_name'=>$mandant_details['mandant_name']];
 		}
-
 		return true;
 	}
 

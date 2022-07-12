@@ -169,10 +169,10 @@ class Main {
 		$this->tools[osWFrame\Settings::getStringVar('vis_login_module')]='Logon';
 		$this->tools[osWFrame\Settings::getStringVar('vis_chtool_module')]='ChTool';
 
-		$QselectTools=self::getConnection();
-		$QselectTools->prepare('SELECT * FROM :table_vis_tool: WHERE tool_ispublic=:tool_ispublic: ORDER BY tool_name ASC');
+		$QselectTools=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QselectTools->prepare('SELECT * FROM :table_vis_tool: WHERE tool_status=:tool_status: ORDER BY tool_name ASC');
 		$QselectTools->bindTable(':table_vis_tool:', 'vis_tool');
-		$QselectTools->bindInt(':tool_ispublic:', 1);
+		$QselectTools->bindInt(':tool_status:', 1);
 		foreach ($QselectTools->query() as $tool) {
 			$this->tools[$tool['tool_name_intern']]=$tool['tool_name'];
 		}
@@ -205,13 +205,13 @@ class Main {
 
 		if (in_array($this->getTool(), [\osWFrame\Core\Settings::getStringVar('vis_login_module'), \osWFrame\Core\Settings::getStringVar('vis_chtool_module')])) {
 			if ($this->getTool()==\osWFrame\Core\Settings::getStringVar('vis_login_module')) {
-				$this->vars=['tool_id'=>0, 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis_login_module'), 'tool_name'=>'Anmelden', 'tool_description'=>'Anmelden', 'tool_ispublic'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
+				$this->vars=['tool_id'=>0, 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis_login_module'), 'tool_name'=>'Anmelden', 'tool_description'=>'Anmelden', 'tool_status'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
 			}
 			if ($this->getTool()==\osWFrame\Core\Settings::getStringVar('vis_chtool_module')) {
-				$this->vars=['tool_id'=>0, 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis_chtool_module'), 'tool_name'=>'Programm wählen', 'tool_description'=>'Programm wählen', 'tool_ispublic'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
+				$this->vars=['tool_id'=>0, 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis_chtool_module'), 'tool_name'=>'Programm wählen', 'tool_description'=>'Programm wählen', 'tool_status'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
 			}
 		} else {
-			$QgetToolDetails=self::getConnection();
+			$QgetToolDetails=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 			$QgetToolDetails->prepare('SELECT * FROM :table_vis_tool: WHERE tool_name_intern=:tool_name_intern:');
 			$QgetToolDetails->bindTable(':table_vis_tool:', 'vis_tool');
 			$QgetToolDetails->bindString(':tool_name_intern:', $this->getTool());

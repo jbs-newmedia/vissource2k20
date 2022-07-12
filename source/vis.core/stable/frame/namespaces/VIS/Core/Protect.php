@@ -48,7 +48,7 @@ class Protect {
 	public static function addEntry(int $user_id):bool {
 		$time=time();
 
-		$QinsertData=self::getConnection();
+		$QinsertData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QinsertData->prepare('INSERT INTO :table_vis_protect: (user_id, protect_create_time, protect_create_user_id, protect_update_time, protect_update_user_id) VALUES (:user_id:, :protect_create_time:, :protect_create_user_id:, :protect_update_time:, :protect_update_user_id:)');
 		$QinsertData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QinsertData->bindInt(':user_id:', $user_id);
@@ -67,7 +67,7 @@ class Protect {
 	 * @return bool
 	 */
 	public static function clearEntries(int $user_id):bool {
-		$QclearData=self::getConnection();
+		$QclearData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QclearData->prepare('DELETE FROM :table_vis_protect: WHERE user_id=:user_id:');
 		$QclearData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QclearData->bindInt(':user_id:', $user_id);
@@ -82,7 +82,7 @@ class Protect {
 	 * @return bool
 	 */
 	public static function isBlocked(int $user_id):bool {
-		$QgetData=self::getConnection();
+		$QgetData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QgetData->prepare('SELECT COUNT(protect_id) AS counter FROM :table_vis_protect: WHERE user_id=:user_id:');
 		$QgetData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QgetData->bindInt(':user_id:', $user_id);
@@ -105,7 +105,7 @@ class Protect {
 		$attempts=bcdiv($attempts, osWFrame\Settings::getIntVar('vis_protect_attempts'));
 		$time=osWFrame\Settings::getIntVar('vis_protect_time')*pow(2, $attempts-1);
 
-		$QgetData=self::getConnection();
+		$QgetData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QgetData->prepare('SELECT protect_create_time FROM :table_vis_protect: WHERE user_id=:user_id: ORDER BY protect_id ASC LIMIT :start:, 1');
 		$QgetData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QgetData->bindInt(':user_id:', $user_id);
@@ -125,7 +125,7 @@ class Protect {
 	 * @return int
 	 */
 	public static function getTime(int $user_id):int {
-		$QgetData=self::getConnection();
+		$QgetData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QgetData->prepare('SELECT COUNT(protect_id) AS counter FROM :table_vis_protect: WHERE user_id=:user_id:');
 		$QgetData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QgetData->bindInt(':user_id:', $user_id);
@@ -140,7 +140,7 @@ class Protect {
 		$attempts=bcdiv($attempts, osWFrame\Settings::getIntVar('vis_protect_attempts'));
 		$time=osWFrame\Settings::getIntVar('vis_protect_time')*pow(2, $attempts-1);
 
-		$QgetData=self::getConnection();
+		$QgetData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
 		$QgetData->prepare('SELECT protect_create_time FROM :table_vis_protect: WHERE user_id=:user_id: ORDER BY protect_id ASC LIMIT :start:, 1');
 		$QgetData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QgetData->bindInt(':user_id:', $user_id);
