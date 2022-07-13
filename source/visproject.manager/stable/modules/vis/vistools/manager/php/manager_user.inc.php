@@ -70,6 +70,58 @@ $osW_DDM4=new osWFrame\Core\DDM4($osW_Template, 'vis_user', $ddm4_object);
 $ddm4_elements=$osW_DDM4->getElementsArrayInit();
 
 /*
+ * Navigationpunkte anlegen
+ */
+$navigation_links=[];
+
+$QselectCount=$osW_DDM4->getConnection($osW_DDM4->getGroupOption('connection', 'database'));
+$QselectCount->prepare('SELECT count(user_id) AS counter FROM :table_vis_user: WHERE user_status=:user_status:');
+$QselectCount->bindTable(':table_vis_user:', 'vis_user');
+$QselectCount->bindInt(':user_status:', 1);
+$navigation_links[1]=['navigation_id'=>1, 'module'=>$osW_DDM4->getDirectModule(), 'parameter'=>'vistool='.$VIS_Main->getTool().'&vispage='.$VIS_Navigation->getPage(), 'text'=>'Aktiv', 'counter'=>clone $QselectCount];
+
+$QselectCount=$osW_DDM4->getConnection($osW_DDM4->getGroupOption('connection', 'database'));
+$QselectCount->prepare('SELECT count(user_id) AS counter FROM :table_vis_user: WHERE user_status=:user_status:');
+$QselectCount->bindTable(':table_vis_user:', 'vis_user');
+$QselectCount->bindInt(':user_status:', 0);
+$navigation_links[2]=['navigation_id'=>2, 'module'=>$osW_DDM4->getDirectModule(), 'parameter'=>'vistool='.$VIS_Main->getTool().'&vispage='.$VIS_Navigation->getPage(), 'text'=>'Inaktiv', 'counter'=>clone $QselectCount];
+
+$QselectCount=$osW_DDM4->getConnection($osW_DDM4->getGroupOption('connection', 'database'));
+$QselectCount->prepare('SELECT count(user_id) AS counter FROM :table_vis_user: WHERE 1');
+$QselectCount->bindTable(':table_vis_user:', 'vis_user');
+$navigation_links[3]=['navigation_id'=>3, 'module'=>$osW_DDM4->getDirectModule(), 'parameter'=>'vistool='.$VIS_Main->getTool().'&vispage='.$VIS_Navigation->getPage(), 'text'=>'Alle', 'counter'=>clone $QselectCount];
+
+$osW_DDM4->readParameters();
+
+$ddm_navigation_id=intval(\osWFrame\Core\Settings::catchIntValue('ddm_navigation_id', intval($osW_DDM4->getParameter('ddm_navigation_id')), 'pg'));
+if (!isset($navigation_links[$ddm_navigation_id])) {
+	$ddm_navigation_id=1;
+}
+
+$osW_DDM4->addParameter('ddm_navigation_id', $ddm_navigation_id);
+$osW_DDM4->storeParameters();
+
+if (in_array($ddm_navigation_id, [1])) {
+	$osW_DDM4->setGroupOption('filter', [['and'=>[['key'=>'user_status', 'operator'=>'=', 'value'=>1]]]], 'database');
+}
+
+if (in_array($ddm_navigation_id, [2])) {
+	$osW_DDM4->setGroupOption('filter', [['and'=>[['key'=>'user_status', 'operator'=>'=', 'value'=>0]]]], 'database');
+}
+
+if (in_array($ddm_navigation_id, [3])) {
+	/* */
+}
+
+/*
+ * PreView: VIS_Navigation
+ */
+$ddm4_elements['preview']['vis_navigation']=[];
+$ddm4_elements['preview']['vis_navigation']['module']='vis_navigation';
+$ddm4_elements['preview']['vis_navigation']['options']=[];
+$ddm4_elements['preview']['vis_navigation']['options']['data']=$navigation_links;
+
+/*
  * View: VIS_Datatables
  */
 $ddm4_elements['view']['vis_datatables']=[];
