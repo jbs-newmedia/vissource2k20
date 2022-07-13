@@ -1,0 +1,23 @@
+{
+  "info": {
+    "name": "VIS:Manager",
+    "author": "Juergen Schwind",
+    "copyright": "JBS New Media GmbH",
+    "year": 2022,
+    "link": "https:\/\/oswframe.com",
+    "license": "MIT License",
+    "package": "visproject.manager",
+    "version": "",
+    "release": "stable",
+    "group": "project",
+    "unique": false,
+    "serverlist": "visk20"
+  },
+  "required": [
+    {
+      "serverlist": "visk20",
+      "package": "vis.core",
+      "release": "stable"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "tool": {
+    "tool_name": "Manager",
+    "tool_name_intern": "manager",
+    "tool_description": "Manager",
+    "tool_status": 1,
+    "tool_hide_logon": 0,
+    "tool_hide_navigation": 0,
+    "tool_use_mandant": 0,
+    "tool_use_mandantswitch": 0
+  },
+  "group": {
+    "manager_admin": {
+      "group_name": "Manager-Admin",
+      "group_name_intern": "manager_admin",
+      "group_description": "Manager-Admin",
+      "group_status": 1
+    }
+  },
+  "permission": {
+    "link": {
+      "permission_flag": "link",
+      "permission_title": "Link anzeigen",
+      "permission_ispublic": 1
+    },
+    "view": {
+      "permission_flag": "view",
+      "permission_title": "Seite anzeigen",
+      "permission_ispublic": 1
+    }
+  },
+  "navigation": {
+    "header_manager": {
+      "navigation_parent_id": 0,
+      "navigation_title": "Manager",
+      "navigation_sortorder": 2,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "Header Manager",
+        "page_name_intern": "header_manager",
+        "page_description": "Header Manager",
+        "page_ispublic": 1,
+        "permission": [
+          "link"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link"
+        ]
+      }
+    },
+    "manager_tool": {
+      "navigation_parent_id": "header_manager",
+      "navigation_title": "Tools",
+      "navigation_sortorder": 1,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "Manager Tools",
+        "page_name_intern": "manager_tool",
+        "page_description": "Manager Tools",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link",
+          "view"
+        ]
+      }
+    },
+    "manager_navigation": {
+      "navigation_parent_id": "header_manager",
+      "navigation_title": "Navigation",
+      "navigation_sortorder": 2,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "Manager Navigation",
+        "page_name_intern": "manager_navigation",
+        "page_description": "Manager Navigation",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link",
+          "view"
+        ]
+      }
+    },
+    "manager_user": {
+      "navigation_parent_id": "header_manager",
+      "navigation_title": "Benutzer",
+      "navigation_sortorder": 3,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "Manager Benutzer",
+        "page_name_intern": "manager_user",
+        "page_description": "Manager Benutzer",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link",
+          "view"
+        ]
+      }
+    },
+    "header_vis": {
+      "navigation_parent_id": 0,
+      "navigation_title": "VIS",
+      "navigation_sortorder": 999,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "Header VIS",
+        "page_name_intern": "header_vis",
+        "page_description": "Header VIS",
+        "page_ispublic": 1,
+        "permission": [
+          "link"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link"
+        ]
+      }
+    },
+    "vis_navigation": {
+      "navigation_parent_id": "header_vis",
+      "navigation_title": "Navigation",
+      "navigation_sortorder": 10,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "VIS Navigation",
+        "page_name_intern": "vis_navigation",
+        "page_description": "VIS Navigation",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link",
+          "view"
+        ]
+      }
+    },
+    "vis_user": {
+      "navigation_parent_id": "header_vis",
+      "navigation_title": "Benutzer",
+      "navigation_sortorder": 20,
+      "navigation_ispublic": 1,
+      "page": {
+        "page_name": "VIS Benutzer",
+        "page_name_intern": "vis_user",
+        "page_description": "VIS Benutzer",
+        "page_ispublic": 1,
+        "permission": [
+          "link",
+          "view"
+        ]
+      },
+      "permission": {
+        "manager_admin": [
+          "link",
+          "view"
+        ]
+      }
+    }
+  }
+}
