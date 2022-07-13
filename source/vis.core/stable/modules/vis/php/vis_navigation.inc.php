@@ -516,12 +516,12 @@ if (in_array($ddm_navigation_id, [3])) {
 	$ddm4_elements['data']['navigation_parent_id']['validation']['length_max']=11;
 	$ddm4_elements['data']['navigation_parent_id']['validation']['value_min']=0;
 	$ddm4_elements['data']['navigation_parent_id']['validation']['value_max']=999999;
+	$ddm4_elements['data']['navigation_parent_id']['_list']=[];
+	$ddm4_elements['data']['navigation_parent_id']['_list']['module']='hidden';
 	$ddm4_elements['data']['navigation_parent_id']['_edit']=[];
 	$ddm4_elements['data']['navigation_parent_id']['_edit']['validation']=[];
 	$ddm4_elements['data']['navigation_parent_id']['_edit']['validation']['filter']=[];
 	$ddm4_elements['data']['navigation_parent_id']['_edit']['validation']['filter']['vis_navigation_check_parent_id']=[];
-	$ddm4_elements['data']['navigation_parent_id']['_list']=[];
-	$ddm4_elements['data']['navigation_parent_id']['_list']['module']='hidden';
 
 	/*
 	 * Data: Titel
@@ -616,6 +616,8 @@ if (in_array($ddm_navigation_id, [3])) {
 	$ddm4_elements['data']['navigation_intern_sortorder']['options']['search']=true;
 	$ddm4_elements['data']['navigation_intern_sortorder']['options']['default_value']=1;
 	$ddm4_elements['data']['navigation_intern_sortorder']['options']['required']=true;
+	$ddm4_elements['data']['navigation_intern_sortorder']['_list']=[];
+	$ddm4_elements['data']['navigation_intern_sortorder']['_list']['module']='hidden';
 	$ddm4_elements['data']['navigation_intern_sortorder']['_search']=[];
 	$ddm4_elements['data']['navigation_intern_sortorder']['_search']['enabled']=false;
 	$ddm4_elements['data']['navigation_intern_sortorder']['_add']=[];
