@@ -11,7 +11,7 @@
     "release": "stable",
     "group": "core",
     "unique": false,
-    "serverlist": "visk20"
+    "serverlist": "vis2k20"
   },
   "required": [
     {

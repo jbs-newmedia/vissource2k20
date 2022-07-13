@@ -11,11 +11,11 @@
     "release": "stable",
     "group": "project",
     "unique": false,
-    "serverlist": "visk20"
+    "serverlist": "vis2k20"
   },
   "required": [
     {
-      "serverlist": "visk20",
+      "serverlist": "vis2k20",
       "package": "vis.core",
       "release": "stable"
     }
