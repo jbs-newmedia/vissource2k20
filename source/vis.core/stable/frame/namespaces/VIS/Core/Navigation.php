@@ -239,13 +239,15 @@ class Navigation {
 		$QselectNavigation->bindTable(':table_vis_page:', 'vis_page');
 		$QselectNavigation->bindInt(':tool_id:', $this->getToolId());
 		foreach ($QselectNavigation->query() as $navigation_element) {
-			$navigation_element['navigation_sortorder']=intval($navigation_element['navigation_sortorder']);
-			$navigation_element['custom']=false;
-			$navigation_element['permission_link']=false;
-			$navigation_element['permission_view']=false;
-			$this->navigation_tree[$navigation_element['navigation_parent_id']][$navigation_element['navigation_id']]=$navigation_element;
-			$this->navigation_unsorted[$navigation_element['navigation_id']]=$navigation_element;
-			$this->navigation_unsorted_name2id[$navigation_element['page_name_intern']]=$navigation_element['navigation_id'];
+			if (!in_array($navigation_element['page_name_intern'], ['header_program', 'start', 'vis_editpassword', 'vis_logout'])) {
+				$navigation_element['navigation_sortorder']=intval($navigation_element['navigation_sortorder']);
+				$navigation_element['custom']=false;
+				$navigation_element['permission_link']=false;
+				$navigation_element['permission_view']=false;
+				$this->navigation_tree[$navigation_element['navigation_parent_id']][$navigation_element['navigation_id']]=$navigation_element;
+				$this->navigation_unsorted[$navigation_element['navigation_id']]=$navigation_element;
+				$this->navigation_unsorted_name2id[$navigation_element['page_name_intern']]=$navigation_element['navigation_id'];
+			}
 		}
 
 		$this->createNavigationPath();
