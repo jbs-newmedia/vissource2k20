@@ -33,7 +33,7 @@ if(count($users)>intval($this->getEditElementOption($element, 'search_mod_counte
 
 	$this->getTemplate()->addJSCodeHead('
 function ddm4_function_'.$element.'() {
-	$(".ddm_element_'.$element.' .custom-control.custom-checkbox").each(function() {
+	$(".ddm_element_'.$element.' .form-check").each(function() {
 		search=$("#'.$element.'_search").val().toLowerCase();
 		if (((search!="")&&($(this).find("label").html().toLowerCase().indexOf(search)>=0))||($(this).find("input[type=checkbox]").is(":checked"))||(search=="*")) {
 			$(this).removeClass("d-none");
