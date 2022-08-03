@@ -416,9 +416,7 @@ if ((\osWFrame\Core\Settings::getAction()=='add')||(\osWFrame\Core\Settings::get
 
 	if ((\osWFrame\Core\Settings::getAction()=='add')||(\osWFrame\Core\Settings::getAction()=='doadd')) {
 		foreach ($this->getAddElements() as $element=>$element_details) {
-			if ((isset($element_details['name']))&&($element_details['name']!='')) {
-				$this->setAddElementStorage($element, $this->getAddElementOption($element, 'default_value'));
-			}
+			$this->setAddElementStorage($element, $this->getAddElementOption($element, 'default_value'));
 		}
 
 		if (\osWFrame\Core\Settings::getAction()=='doadd') {

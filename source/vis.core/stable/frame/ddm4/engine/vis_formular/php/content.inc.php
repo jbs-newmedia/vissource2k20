@@ -42,9 +42,7 @@ if ((\osWFrame\Core\Settings::getAction()=='send')||(\osWFrame\Core\Settings::ge
 
 	if ((\osWFrame\Core\Settings::getAction()=='send')||(\osWFrame\Core\Settings::getAction()=='dosend')) {
 		foreach ($this->getSendElements() as $element=>$element_details) {
-			if ((isset($element_details['name']))&&($element_details['name']!='')) {
-				$this->setSendElementStorage($element, $this->getSendElementOption($element, 'default_value'));
-			}
+			$this->setSendElementStorage($element, $this->getSendElementOption($element, 'default_value'));
 		}
 
 		if (\osWFrame\Core\Settings::getAction()=='dosend') {
