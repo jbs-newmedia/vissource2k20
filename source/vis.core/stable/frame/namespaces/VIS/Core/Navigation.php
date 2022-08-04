@@ -12,12 +12,14 @@
 
 namespace VIS\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\Settings;
 
 class Navigation {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 	use BaseToolTrait;
 
 	/**
@@ -77,9 +79,9 @@ class Navigation {
 	protected array $navigation_data=[];
 
 	/**
-	 * @var object|null
+	 * @var Permission|null
 	 */
-	protected ?object $VIS_Permission=null;
+	protected ?Permission $VIS_Permission=null;
 
 	/**
 	 * Navigation constructor.
@@ -91,10 +93,10 @@ class Navigation {
 	}
 
 	/**
-	 * @param object $Permission
+	 * @param Permission $Permission
 	 * @return $this
 	 */
-	public function setPermission(object $Permission):self {
+	public function setPermission(Permission $Permission):self {
 		$this->VIS_Permission=$Permission;
 
 		return $this;
@@ -233,7 +235,7 @@ class Navigation {
 		$this->navigation_unsorted=[];
 		$this->navigation_unsorted_name2id=[];
 
-		$QselectNavigation=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QselectNavigation=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QselectNavigation->prepare('SELECT *, n.tool_id, n.page_id FROM :table_vis_navigation: AS n LEFT JOIN :table_vis_page: AS p on (p.tool_id=n.tool_id AND p.page_id=n.page_id) WHERE n.tool_id=:tool_id: ORDER BY n.navigation_parent_id ASC, n.navigation_sortorder ASC, n.navigation_title ASC');
 		$QselectNavigation->bindTable(':table_vis_navigation:', 'vis_navigation');
 		$QselectNavigation->bindTable(':table_vis_page:', 'vis_page');
@@ -252,7 +254,7 @@ class Navigation {
 
 		$this->createNavigationPath();
 
-		$QselectPagePermissions=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QselectPagePermissions=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QselectPagePermissions->prepare('SELECT * FROM :table_vis_page_permission: WHERE tool_id=:tool_id:');
 		$QselectPagePermissions->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QselectPagePermissions->bindInt(':tool_id:', $this->getToolId());
@@ -282,7 +284,7 @@ class Navigation {
 	/**
 	 * @return $this
 	 */
-	private function createNavigationPath():self {
+	protected function createNavigationPath():self {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -309,7 +311,7 @@ class Navigation {
 	 * @param int $member_id
 	 * @return string
 	 */
-	private function getNavigationPath(int $member_id):string {
+	protected function getNavigationPath(int $member_id):string {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -371,7 +373,7 @@ class Navigation {
 	 * @param int $max_level
 	 * @return array
 	 */
-	private function createNavigationRecursive($parent_id, int $level=0, int $max_level=0):array {
+	protected function createNavigationRecursive($parent_id, int $level=0, int $max_level=0):array {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -420,7 +422,7 @@ class Navigation {
 	 * @param array $navigation_element
 	 * @return array
 	 */
-	private function checkNavigationPermissionRecursive(array $navigation_element):array {
+	protected function checkNavigationPermissionRecursive(array $navigation_element):array {
 		if (($navigation_element['info']['page_name_intern']!='')&&($this->getPermission()->checkPermission($navigation_element['info']['page_name_intern'], 'link')===true)) {
 			$navigation_element['info']['permission_link']=true;
 		}
@@ -498,7 +500,7 @@ class Navigation {
 	 * @param $key
 	 * @return \Closure
 	 */
-	private function buildSorter($key) {
+	protected function buildSorter($key) {
 		return function($a, $b) use ($key) {
 			return strnatcmp($a[$key], $b[$key]);
 		};
@@ -510,12 +512,12 @@ class Navigation {
 	public static function updateInternSortOrder():bool {
 		$i=0;
 
-		$QselectDataL1=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QselectDataL1=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QselectDataL1->prepare('SELECT * FROM :table_vis_navigation: WHERE navigation_parent_id=:navigation_parent_id: ORDER BY navigation_sortorder ASC');
 		$QselectDataL1->bindTable(':table_vis_navigation:', 'vis_navigation');
 		$QselectDataL1->bindInt(':navigation_parent_id:', 0);
 		foreach ($QselectDataL1->query() as $resultL1) {
-			$QupdateDataL1=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QupdateDataL1=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QupdateDataL1->prepare('UPDATE :table_vis_navigation: SET navigation_intern_sortorder=:navigation_intern_sortorder: WHERE navigation_id=:navigation_id:');
 			$QupdateDataL1->bindTable(':table_vis_navigation:', 'vis_navigation');
 			$QupdateDataL1->bindInt(':navigation_intern_sortorder:', $i);
@@ -523,12 +525,12 @@ class Navigation {
 			$QupdateDataL1->execute();
 			$i++;
 
-			$QselectDataL2=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectDataL2=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectDataL2->prepare('SELECT * FROM :table_vis_navigation: WHERE navigation_parent_id=:navigation_parent_id: ORDER BY navigation_sortorder ASC');
 			$QselectDataL2->bindTable(':table_vis_navigation:', 'vis_navigation');
 			$QselectDataL2->bindInt(':navigation_parent_id:', $resultL1['navigation_id']);
 			foreach ($QselectDataL2->query() as $resultL2) {
-				$QupdateDataL2=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+				$QupdateDataL2=self::getConnection(Settings::getStringVar('vis_database_alias'));
 				$QupdateDataL2->prepare('UPDATE :table_vis_navigation: SET navigation_intern_sortorder=:navigation_intern_sortorder: WHERE navigation_id=:navigation_id:');
 				$QupdateDataL2->bindTable(':table_vis_navigation:', 'vis_navigation');
 				$QupdateDataL2->bindInt(':navigation_intern_sortorder:', $i);
@@ -536,12 +538,12 @@ class Navigation {
 				$QupdateDataL2->execute();
 				$i++;
 
-				$QselectDataL3=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+				$QselectDataL3=self::getConnection(Settings::getStringVar('vis_database_alias'));
 				$QselectDataL3->prepare('SELECT * FROM :table_vis_navigation: WHERE navigation_parent_id=:navigation_parent_id: ORDER BY navigation_sortorder ASC');
 				$QselectDataL3->bindTable(':table_vis_navigation:', 'vis_navigation');
 				$QselectDataL3->bindInt(':navigation_parent_id:', $resultL2['navigation_id']);
 				foreach ($QselectDataL3->query() as $resultL3) {
-					$QupdateDataL3=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+					$QupdateDataL3=self::getConnection(Settings::getStringVar('vis_database_alias'));
 					$QupdateDataL3->prepare('UPDATE :table_vis_navigation: SET navigation_intern_sortorder=:navigation_intern_sortorder: WHERE navigation_id=:navigation_id:');
 					$QupdateDataL3->bindTable(':table_vis_navigation:', 'vis_navigation');
 					$QupdateDataL3->bindInt(':navigation_intern_sortorder:', $i);

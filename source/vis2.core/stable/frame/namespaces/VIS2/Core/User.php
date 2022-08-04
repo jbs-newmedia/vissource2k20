@@ -12,13 +12,18 @@
 
 namespace VIS2\Core;
 
-use \osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\BaseVarTrait;
+use osWFrame\Core\Filter;
+use osWFrame\Core\Session;
+use osWFrame\Core\Settings;
 
 class User {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
-	use osWFrame\BaseVarTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
+	use BaseVarTrait;
 	use BaseToolTrait;
 
 	/**
@@ -93,7 +98,7 @@ class User {
 	 * @return bool
 	 */
 	public static function validateEmail(string $email):bool {
-		return osWFrame\Filter::verifyEmailIDNAPattern($email);
+		return Filter::verifyEmailIDNAPattern($email);
 	}
 
 	/**
@@ -142,7 +147,7 @@ class User {
 	 * @return $this
 	 */
 	public function setLoginSessionToken(string $user_token):self {
-		osWFrame\Session::setStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token', $user_token);
+		Session::setStringVar(Settings::getStringVar('vis2_path').'_user_token', $user_token);
 
 		return $this;
 	}
@@ -151,7 +156,7 @@ class User {
 	 * @return bool
 	 */
 	public function isLoginSessionToken():bool {
-		if (osWFrame\Session::getStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token')!==null) {
+		if (Session::getStringVar(Settings::getStringVar('vis2_path').'_user_token')!==null) {
 			return true;
 		}
 
@@ -163,7 +168,7 @@ class User {
 	 */
 	public function getLoginSessionToken():string {
 		if ($this->isLoginSessionToken()===true) {
-			return osWFrame\Session::getStringVar(osWFrame\Settings::getStringVar('vis2_path').'_user_token');
+			return Session::getStringVar(Settings::getStringVar('vis2_path').'_user_token');
 		}
 
 		return '';
@@ -291,8 +296,8 @@ class User {
 	 */
 	public function loadTools():bool {
 		$this->tools=[];
-		$this->tools[\osWFrame\Core\Settings::getStringVar('vis2_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis2_login_module')];
-		$this->tools[\osWFrame\Core\Settings::getStringVar('vis2_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=>\osWFrame\Core\Settings::getStringVar('vis2_chtool_module')];
+		$this->tools[Settings::getStringVar('vis2_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=>Settings::getStringVar('vis2_login_module')];
+		$this->tools[Settings::getStringVar('vis2_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=>Settings::getStringVar('vis2_chtool_module')];
 
 		$QselectTools=self::getConnection();
 		$QselectTools->prepare('SELECT * FROM :table_vis2_tool: AS t INNER JOIN :table_vis2_user_tool: AS u ON (u.tool_id=t.tool_id) WHERE t.tool_ispublic=:tool_ispublic: AND u.user_id=:user_id: ORDER BY t.tool_name ASC');
@@ -346,8 +351,8 @@ class User {
 		foreach ($this->tools as $tool_details) {
 			$tools[$tool_details['tool_name_intern']]=$tool_details['tool_name'];
 		}
-		unset($tools[\osWFrame\Core\Settings::getStringVar('vis2_login_module')]);
-		unset($tools[\osWFrame\Core\Settings::getStringVar('vis2_chtool_module')]);
+		unset($tools[Settings::getStringVar('vis2_login_module')]);
+		unset($tools[Settings::getStringVar('vis2_chtool_module')]);
 
 		return $tools;
 	}

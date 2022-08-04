@@ -12,13 +12,18 @@
 
 namespace VIS2\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\BaseVarTrait;
+use osWFrame\Core\Network;
+use osWFrame\Core\Session;
+use osWFrame\Core\SessionMessageStack;
 
 class Mandant {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
-	use osWFrame\BaseVarTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
+	use BaseVarTrait;
 	use BaseToolTrait;
 
 	/**
@@ -88,7 +93,7 @@ class Mandant {
 	 *
 	 * @return $this
 	 */
-	private function loadMandanten():self {
+	protected function loadMandanten():self {
 		$this->mandanten=[];
 
 		$QselectMandanten=self::getConnection();
@@ -125,7 +130,7 @@ class Mandant {
 	 * @return bool
 	 */
 	public function setId(int $mandant_id):bool {
-		return osWFrame\Session::setIntVar('vis2_mandante_id_'.$this->getToolId(), $mandant_id);
+		return Session::setIntVar('vis2_mandante_id_'.$this->getToolId(), $mandant_id);
 	}
 
 	/**
@@ -133,7 +138,7 @@ class Mandant {
 	 * @return int
 	 */
 	public function getId():int {
-		return intval(osWFrame\Session::getIntVar('vis2_mandante_id_'.$this->getToolId()));
+		return intval(Session::getIntVar('vis2_mandante_id_'.$this->getToolId()));
 	}
 
 	/**
@@ -159,8 +164,8 @@ class Mandant {
 			if ($message=='') {
 				$message='Bitte einen Mandanten auswählen';
 			}
-			osWFrame\SessionMessageStack::addMessage('session', 'warning', ['msg'=>$message]);
-			osWFrame\Network::directHeader($link);
+			SessionMessageStack::addMessage('session', 'warning', ['msg'=>$message]);
+			Network::directHeader($link);
 		}
 	}
 

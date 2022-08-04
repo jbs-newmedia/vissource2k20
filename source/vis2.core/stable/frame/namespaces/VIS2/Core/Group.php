@@ -12,12 +12,13 @@
 
 namespace VIS2\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
 
 class Group {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 	use BaseUserTrait;
 	use BaseToolTrait;
 

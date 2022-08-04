@@ -12,11 +12,11 @@
 
 namespace VIS\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseStaticTrait;
 
 class Badge {
 
-	use osWFrame\BaseStaticTrait;
+	use BaseStaticTrait;
 
 	/**
 	 * Major-Version der Klasse.

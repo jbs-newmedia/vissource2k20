@@ -12,12 +12,14 @@
 
 namespace VIS\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\Settings;
 
 class Group {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 	use BaseUserTrait;
 	use BaseToolTrait;
 
@@ -88,7 +90,7 @@ class Group {
 	public function loadGroups():self {
 		$this->groups=[];
 
-		$QloadGroupData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadGroupData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QloadGroupData->prepare('SELECT * FROM :table_vis_user_group: AS ug INNER JOIN :table_vis_group: AS g ON (g.group_id=ug.group_id) WHERE g.group_status=:group_status: AND ug.tool_id=:tool_id: AND ug.user_id=:user_id:');
 		$QloadGroupData->bindTable(':table_vis_user_group:', 'vis_user_group');
 		$QloadGroupData->bindTable(':table_vis_group:', 'vis_group');

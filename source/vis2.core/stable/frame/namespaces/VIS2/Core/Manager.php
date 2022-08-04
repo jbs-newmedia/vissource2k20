@@ -12,12 +12,13 @@
 
 namespace VIS2\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
 
 class Manager {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 
 	/**
 	 * Major-Version der Klasse.
@@ -758,7 +759,7 @@ class Manager {
 	 * @param int $tool_id
 	 * @return array|null
 	 */
-	private static function createNavigationRealRecursive(int $parent_id, int $level, int $max_level, int $tool_id):?array {
+	protected static function createNavigationRealRecursive(int $parent_id, int $level, int $max_level, int $tool_id):?array {
 		$data=[];
 		if (isset(self::$navigation_tree[$tool_id][$parent_id])) {
 			foreach (self::$navigation_tree[$tool_id][$parent_id] as $category_id=>$category) {

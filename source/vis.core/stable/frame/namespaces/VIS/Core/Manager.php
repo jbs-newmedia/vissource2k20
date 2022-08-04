@@ -12,12 +12,14 @@
 
 namespace VIS\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\Settings;
 
 class Manager {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 
 	/**
 	 * Major-Version der Klasse.
@@ -128,7 +130,7 @@ class Manager {
 	public static function getUserCountByEMail(string $email, bool $cached=true):int {
 		$cachename=__FUNCTION__.'#'.md5($email);
 		if ((!isset(self::$datacache[$cachename]))||($cached!==true)) {
-			$QselectUserCount=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectUserCount=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectUserCount->prepare('SELECT user_id FROM :table_vis_user: WHERE user_email=:user_email:');
 			$QselectUserCount->bindTable(':table_vis_user:', 'vis_user');
 			$QselectUserCount->bindString(':user_email:', $email);
@@ -150,7 +152,7 @@ class Manager {
 	public static function getUserDetailsByEMail(string $email, bool $cached=true):?array {
 		$cachename=__FUNCTION__.'#'.md5($email);
 		if ((!isset(self::$datacache[$cachename]))||($cached!==true)) {
-			$QselectUserCount=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectUserCount=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectUserCount->prepare('SELECT * FROM :table_vis_user: WHERE user_email=:user_email:');
 			$QselectUserCount->bindTable(':table_vis_user:', 'vis_user');
 			$QselectUserCount->bindString(':user_email:', $email);
@@ -188,7 +190,7 @@ class Manager {
 	 */
 	public static function getTools():array {
 		if (self::$tools==[]) {
-			$QselectUsers=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectUsers=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectUsers->prepare('SELECT * FROM :table_vis_tool: WHERE 1 ORDER BY tool_name ASC');
 			$QselectUsers->bindTable(':table_vis_tool:', 'vis_tool');
 			foreach ($QselectUsers->query() as $tool) {
@@ -207,7 +209,7 @@ class Manager {
 	public static function getToolDetails(int $tool_id, bool $force=false):array {
 		if ((!isset(self::$tool_details[$tool_id]))||($force===true)) {
 			self::$tool_details[$tool_id]=[];
-			$QgetToolDetails=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QgetToolDetails=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QgetToolDetails->prepare('SELECT * FROM :table_vis_tool: WHERE tool_id=:tool_id:');
 			$QgetToolDetails->bindTable(':table_vis_tool:', 'vis_tool');
 			$QgetToolDetails->bindInt(':tool_id:', $tool_id);
@@ -227,7 +229,7 @@ class Manager {
 	 */
 	public static function getUsers():array {
 		if (self::$users==[]) {
-			$QselectUsers=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectUsers=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectUsers->prepare('SELECT * FROM :table_vis_user: WHERE 1 ORDER BY user_lastname ASC, user_firstname ASC');
 			$QselectUsers->bindTable(':table_vis_user:', 'vis_user');
 			foreach ($QselectUsers->query() as $user) {
@@ -245,7 +247,7 @@ class Manager {
 	 */
 	public static function getGroups():array {
 		if (self::$groups==[]) {
-			$QselectUsers=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectUsers=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectUsers->prepare('SELECT * FROM :table_vis_group: WHERE 1 ORDER BY group_name ASC');
 			$QselectUsers->bindTable(':table_vis_group:', 'vis_group');
 			foreach ($QselectUsers->query() as $group) {
@@ -269,7 +271,7 @@ class Manager {
 		}
 		if ((!isset(self::$groupsbytoolid[$tool_id]))||($force===true)) {
 			self::$groupsbytoolid[$tool_id]=[];
-			$QselectUsers=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectUsers=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectUsers->prepare('SELECT * FROM :table_vis_group: WHERE tool_id=:tool_id: ORDER BY group_name ASC');
 			$QselectUsers->bindTable(':table_vis_group:', 'vis_group');
 			$QselectUsers->bindInt(':tool_id:', $tool_id);
@@ -295,7 +297,7 @@ class Manager {
 		}
 		if ((!isset(self::$mandantebytoolid[$tool_id]))||($force===true)) {
 			self::$mandantebytoolid[$tool_id]=[];
-			$QselectMandanten=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectMandanten=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectMandanten->prepare('SELECT * FROM :table_vis_mandant: WHERE tool_id=:tool_id: ORDER BY mandant_name ASC');
 			$QselectMandanten->bindTable(':table_vis_mandant:', 'vis_mandant');
 			$QselectMandanten->bindInt(':tool_id:', $tool_id);
@@ -324,7 +326,7 @@ class Manager {
 		}
 		if ((!isset(self::$pagesbytoolid[$tool_id]))||($force===true)) {
 			self::$pagesbytoolid[$tool_id]=[];
-			$QselectPages=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QselectPages=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QselectPages->prepare('SELECT * FROM :table_vis_page: WHERE tool_id=:tool_id: AND page_ispublic=:page_ispublic: ORDER BY page_name ASC, page_name_intern ASC');
 			$QselectPages->bindTable(':table_vis_page:', 'vis_page');
 			$QselectPages->bindInt(':tool_id:', $tool_id);
@@ -350,7 +352,7 @@ class Manager {
 		}
 		if ((!isset(self::$permissiontext[$tool_id]))||($force===true)) {
 			self::$permissiontext[$tool_id]=[];
-			$Qselect=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$Qselect=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$Qselect->prepare('SELECT * FROM :table_vis_permission: WHERE tool_id=:tool_id: AND permission_ispublic=:permission_ispublic:');
 			$Qselect->bindTable(':table_vis_permission:', 'vis_permission');
 			$Qselect->bindInt(':tool_id:', $tool_id);
@@ -391,7 +393,7 @@ class Manager {
 	 */
 	public static function loadGroupPermission(int $group_id):array {
 		$ar_group_permission=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QloadData->prepare('SELECT * FROM :table_vis_group_permission: WHERE group_id=:group_id:');
 		$QloadData->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 		$QloadData->bindInt(':group_id:', $group_id);
@@ -409,7 +411,7 @@ class Manager {
 	 */
 	public static function loadUserGroupByGroupId(int $group_id, int $tool_id):array {
 		$ar_tool_user=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QloadData->prepare('SELECT * FROM :table_vis_user_group: WHERE group_id=:group_id: AND tool_id=:tool_id:');
 		$QloadData->bindTable(':table_vis_user_group:', 'vis_user_group');
 		$QloadData->bindInt(':group_id:', $group_id);
@@ -428,7 +430,7 @@ class Manager {
 	 */
 	public static function loadUserGroupByUserId(int $user_id, int $tool_id):array {
 		$ar_tool_group=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		if ($tool_id==0) {
 			$QloadData->prepare('SELECT * FROM :table_vis_user_group: WHERE user_id=:user_id:');
 		} else {
@@ -451,7 +453,7 @@ class Manager {
 	 */
 	public static function loadUserMandantenByMandantenId(int $mandant_id, int $tool_id):array {
 		$ar_tool_mandant=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QloadData->prepare('SELECT * FROM :table_vis_user_mandant: WHERE mandant_id=:mandant_id: AND tool_id=:tool_id:');
 		$QloadData->bindTable(':table_vis_user_mandant:', 'vis_user_mandant');
 		$QloadData->bindInt(':mandant_id:', $mandant_id);
@@ -470,7 +472,7 @@ class Manager {
 	 */
 	public static function loadUserMandantenByUserId(int $user_id, int $tool_id):array {
 		$ar_tool_mandant=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		if ($tool_id==0) {
 			$QloadData->prepare('SELECT * FROM :table_vis_user_mandant: WHERE user_id=:user_id:');
 		} else {
@@ -493,7 +495,7 @@ class Manager {
 	 */
 	public static function loadPagePermission(int $page_id, int $tool_id):array {
 		$ar_page_permission=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QloadData->prepare('SELECT * FROM :table_vis_page_permission: WHERE page_id=:page_id: AND tool_id=:tool_id:');
 		$QloadData->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QloadData->bindInt(':page_id:', $page_id);
@@ -514,7 +516,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function addPagePermission(int $page_id, int $tool_id, string $permission_flag, int $vis_time, int $vis_user_id):bool {
-		$QinsertData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QinsertData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QinsertData->prepare('INSERT INTO :table_vis_page_permission: (page_id, tool_id, permission_flag, page_permission_create_time, page_permission_create_user_id, page_permission_update_time, page_permission_update_user_id) VALUES (:page_id:, :tool_id:, :permission_flag:, :page_permission_create_time:, :page_permission_create_user_id:, :page_permission_update_time:, :page_permission_update_user_id:)');
 		$QinsertData->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QinsertData->bindInt(':page_id:', $page_id);
@@ -536,7 +538,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function delPagePermission(int $page_id, int $tool_id, string $permission_flag):bool {
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_page_permission: WHERE page_id=:page_id: AND tool_id=:tool_id: AND permission_flag=:permission_flag:');
 		$QdeleteData->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QdeleteData->bindInt(':page_id:', $page_id);
@@ -555,7 +557,7 @@ class Manager {
 		/**
 		 * vis_navigation
 		 */
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_navigation: WHERE page_id=:page_id: AND tool_id=:tool_id:');
 		$QdeleteData->bindTable(':table_vis_navigation:', 'vis_navigation');
 		$QdeleteData->bindInt(':page_id:', $page_id);
@@ -565,7 +567,7 @@ class Manager {
 		/**
 		 * vis_page
 		 */
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_page: WHERE page_id=:page_id:');
 		$QdeleteData->bindTable(':table_vis_page:', 'vis_page');
 		$QdeleteData->bindInt(':page_id:', $page_id);
@@ -574,7 +576,7 @@ class Manager {
 		/**
 		 * vis_page_permission
 		 */
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_page_permission: WHERE page_id=:page_id:');
 		$QdeleteData->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QdeleteData->bindInt(':page_id:', $page_id);
@@ -589,7 +591,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function delPermissionFlagByToolId(string $permission_flag, int $tool_id):bool {
-		$QgetData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QgetData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QgetData->prepare('SELECT group_id FROM :table_vis_group: WHERE tool_id=:tool_id:');
 		$QgetData->bindTable(':table_vis_group:', 'vis_group');
 		$QgetData->bindInt(':tool_id:', $tool_id);
@@ -597,7 +599,7 @@ class Manager {
 			/**
 			 * vis_group_permission
 			 */
-			$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QdeleteData->prepare('DELETE FROM :table_vis_group_permission: WHERE permission_flag=:permission_flag: AND group_id=:group_id:');
 			$QdeleteData->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 			$QdeleteData->bindString(':permission_flag:', $permission_flag);
@@ -608,7 +610,7 @@ class Manager {
 		/**
 		 * vis_page_permission
 		 */
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_page_permission: WHERE permission_flag=:permission_flag: AND tool_id=:tool_id:');
 		$QdeleteData->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QdeleteData->bindString(':permission_flag:', $permission_flag);
@@ -618,7 +620,7 @@ class Manager {
 		/**
 		 * vis_permission
 		 */
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_permission: WHERE permission_flag=:permission_flag: AND tool_id=:tool_id:');
 		$QdeleteData->bindTable(':table_vis_permission:', 'vis_permission');
 		$QdeleteData->bindString(':permission_flag:', $permission_flag);
@@ -639,14 +641,14 @@ class Manager {
 
 	public static function delGroupById(int $group_id):bool {
 		// vis_group_permission
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_group_permission: WHERE group_id=:group_id:');
 		$QdeleteData->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 		$QdeleteData->bindInt(':group_id:', $group_id);
 		$QdeleteData->execute();
 
 		// vis_user_group
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_group: WHERE group_id=:group_id:');
 		$QdeleteData->bindTable(':table_vis_user_group:', 'vis_user_group');
 		$QdeleteData->bindInt(':group_id:', $group_id);
@@ -709,7 +711,7 @@ class Manager {
 		self::$navigation_unsorted[$tool_id]=[];
 		self::$navigation_name2id[$tool_id]=[];
 
-		$Qselect=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$Qselect=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$Qselect->prepare('SELECT *, n.tool_id, n.page_id FROM :table_vis_navigation: AS n LEFT JOIN :table_vis_page: AS p on (p.tool_id=n.tool_id AND p.page_id=n.page_id) WHERE n.tool_id=:tool_id: ORDER BY n.navigation_parent_id ASC, n.navigation_sortorder ASC, n.navigation_title ASC');
 		$Qselect->bindTable(':table_vis_navigation:', 'vis_navigation');
 		$Qselect->bindTable(':table_vis_page:', 'vis_page');
@@ -724,7 +726,7 @@ class Manager {
 			self::$navigation_name2id[$tool_id][$navigation_element['page_name_intern']]=$navigation_element['navigation_id'];
 		}
 
-		$QselectPagePermissions=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QselectPagePermissions=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QselectPagePermissions->prepare('SELECT * FROM :table_vis_page_permission: WHERE tool_id=:tool_id:');
 		$QselectPagePermissions->bindTable(':table_vis_page_permission:', 'vis_page_permission');
 		$QselectPagePermissions->bindInt(':tool_id:', $tool_id);
@@ -758,7 +760,7 @@ class Manager {
 	 * @param int $tool_id
 	 * @return array|null
 	 */
-	private static function createNavigationRealRecursive(int $parent_id, int $level, int $max_level, int $tool_id):?array {
+	protected static function createNavigationRealRecursive(int $parent_id, int $level, int $max_level, int $tool_id):?array {
 		$data=[];
 		if (isset(self::$navigation_tree[$tool_id][$parent_id])) {
 			foreach (self::$navigation_tree[$tool_id][$parent_id] as $category_id=>$category) {
@@ -789,7 +791,7 @@ class Manager {
 
 	public static function loadUserTool(int $user_id, int $tool_id):array {
 		$ar_user_tool=[];
-		$QloadData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QloadData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		if ($tool_id==0) {
 			$QloadData->prepare('SELECT * FROM :table_vis_user_tool: WHERE user_id=:user_id:');
 		} else {
@@ -815,7 +817,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function addUserTool(int $user_id, int $tool_id, int $create_time, int $create_user_id):bool {
-		$QinsertData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QinsertData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QinsertData->prepare('INSERT INTO :table_vis_user_tool: (user_id, tool_id, user_tool_create_time, user_tool_create_user_id, user_tool_update_time, user_tool_update_user_id) VALUES (:user_id:, :tool_id:, :user_tool_create_time:, :user_tool_create_user_id:, :user_tool_update_time:, :user_tool_update_user_id:)');
 		$QinsertData->bindTable(':table_vis_user_tool:', 'vis_user_tool');
 		$QinsertData->bindInt(':user_id:', $user_id);
@@ -837,7 +839,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function delUserTool(int $user_id, int $tool_id):bool {
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_tool: WHERE user_id=:user_id: AND tool_id=:tool_id:');
 		$QdeleteData->bindTable(':table_vis_user_tool:', 'vis_user_tool');
 		$QdeleteData->bindInt(':user_id:', $user_id);
@@ -858,7 +860,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function addUserGroup(int $user_id, int $group_id, int $tool_id, int $create_time, int $create_user_id):bool {
-		$QinsertData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QinsertData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QinsertData->prepare('INSERT INTO :table_vis_user_group: (group_id, tool_id, user_id, user_group_create_time, user_group_create_user_id, user_group_update_time, user_group_update_user_id) VALUES (:group_id:, :tool_id:, :user_id:, :user_group_create_time:, :user_group_create_user_id:, :user_group_update_time:, :user_group_update_user_id:)');
 		$QinsertData->bindTable(':table_vis_user_group:', 'vis_user_group');
 		$QinsertData->bindInt(':user_id:', $user_id);
@@ -882,7 +884,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function delUserGroup(int $user_id, int $group_id, int $tool_id):bool {
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_group: WHERE user_id=:user_id: AND tool_id=:tool_id: AND group_id=:group_id:');
 		$QdeleteData->bindTable(':table_vis_user_group:', 'vis_user_group');
 		$QdeleteData->bindInt(':user_id:', $user_id);
@@ -904,7 +906,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function addUserMandant(int $user_id, int $mandant_id, int $tool_id, int $create_time, int $create_user_id):bool {
-		$QinsertData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QinsertData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QinsertData->prepare('INSERT INTO :table_vis_user_mandant: (mandant_id, tool_id, user_id, user_mandant_create_time, user_mandant_create_user_id, user_mandant_update_time, user_mandant_update_user_id) VALUES (:mandant_id:, :tool_id:, :user_id:, :user_mandant_create_time:, :user_mandant_create_user_id:, :user_mandant_update_time:, :user_mandant_update_user_id:)');
 		$QinsertData->bindTable(':table_vis_user_mandant:', 'vis_user_mandant');
 		$QinsertData->bindInt(':user_id:', $user_id);
@@ -928,7 +930,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function delUserMandant(int $user_id, int $mandant_id, int $tool_id):bool {
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_mandant: WHERE user_id=:user_id: AND tool_id=:tool_id: AND mandant_id=:mandant_id:');
 		$QdeleteData->bindTable(':table_vis_user_mandant:', 'vis_user_mandant');
 		$QdeleteData->bindInt(':user_id:', $user_id);
@@ -950,7 +952,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function addGroupPermission(int $group_id, string $permission_page, string $permission_flag, int $create_time, int $create_user_id):bool {
-		$QinsertData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QinsertData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QinsertData->prepare('INSERT INTO :table_vis_group_permission: (group_id, permission_page, permission_flag, group_permission_create_time, group_permission_create_user_id, group_permission_update_time, group_permission_update_user_id) VALUES (:group_id:, :permission_page:, :permission_flag:, :group_permission_create_time:, :group_permission_create_user_id:, :group_permission_update_time:, :group_permission_update_user_id:)');
 		$QinsertData->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 		$QinsertData->bindInt(':group_id:', $group_id);
@@ -974,7 +976,7 @@ class Manager {
 	 * @return bool
 	 */
 	public static function delGroupPermission(int $group_id, string $permission_page, string $permission_flag):bool {
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_group_permission: WHERE group_id=:group_id: AND permission_page=:permission_page: AND permission_flag=:permission_flag:');
 		$QdeleteData->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 		$QdeleteData->bindInt(':group_id:', $group_id);
@@ -986,37 +988,37 @@ class Manager {
 	}
 
 	public static function delUserById(int $user_id):bool {
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_protect: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis_protect:', 'vis_protect');
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->execute();
 
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis_user:', 'vis_user');
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->execute();
 
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_group: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis_user_group:', 'vis_user_group');
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->execute();
 
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_mandant: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis_user_mandant:', 'vis_user_mandant');
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->execute();
 
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_pref: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis_user_pref:', 'vis_user_pref');
 		$QdeleteData->bindInt(':user_id:', $user_id);
 		$QdeleteData->execute();
 
-		$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QdeleteData->prepare('DELETE FROM :table_vis_user_tool: WHERE user_id=:user_id:');
 		$QdeleteData->bindTable(':table_vis_user_tool:', 'vis_user_tool');
 		$QdeleteData->bindInt(':user_id:', $user_id);
@@ -1026,13 +1028,13 @@ class Manager {
 	}
 
 	public static function delTool(int $tool_id) {
-		$QgetData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+		$QgetData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 		$QgetData->prepare('SELECT group_id FROM :table_vis_group: WHERE tool_id=:tool_id:');
 		$QgetData->bindTable(':table_vis_group:', 'vis_group');
 		$QgetData->bindInt(':tool_id:', $tool_id);
 		foreach ($QgetData->query() as $group) {
 			// vis_group_permission
-			$QdeleteData=self::getConnection(osWFrame\Settings::getStringVar('vis_database_alias'));
+			$QdeleteData=self::getConnection(Settings::getStringVar('vis_database_alias'));
 			$QdeleteData->prepare('DELETE FROM :table_vis_group_permission: WHERE group_id=:group_id:');
 			$QdeleteData->bindTable(':table_vis_group_permission:', 'vis_group_permission');
 			$QdeleteData->bindInt(':group_id:', $group->getInt['group_id']);

@@ -12,15 +12,18 @@
 
 namespace VIS2\Manager;
 
-use osWFrame\Core as osWFrame;
-use VIS2\Core as VIS2;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\BaseTemplateBridgeTrait;
+use osWFrame\Core\BaseVarTrait;
+use osWFrame\Core\Template;
 
 class Main {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
-	use osWFrame\BaseVarTrait;
-	use osWFrame\BaseTemplateBridgeTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
+	use BaseVarTrait;
+	use BaseTemplateBridgeTrait;
 
 	/**
 	 * Major-Version der Klasse.
@@ -44,12 +47,11 @@ class Main {
 	private const CLASS_EXTRA_VERSION='';
 
 	/**
-	 *
-	 * @param object $osW_Template
-	 * @return bool
+	 * @param Template $osW_Template
+	 * @return void
 	 */
-	public function setEnvironment(object $osW_Template):bool {
-		$this->setTemplate($Template);
+	public function setEnvironment(Template $osW_Template):void {
+		$this->setTemplate($osW_Template);
 	}
 
 }

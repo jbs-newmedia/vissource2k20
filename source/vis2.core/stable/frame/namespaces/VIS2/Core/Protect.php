@@ -12,12 +12,14 @@
 
 namespace VIS2\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+use osWFrame\Core\Settings;
 
 class Protect {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 
 	/**
 	 * Major-Version der Klasse.
@@ -94,22 +96,22 @@ class Protect {
 			return false;
 		}
 
-		if ($attempts<osWFrame\Settings::getIntVar('vis2_protect_attempts')) {
+		if ($attempts<Settings::getIntVar('vis2_protect_attempts')) {
 			return false;
 		}
 
-		if ($attempts>=osWFrame\Settings::getIntVar('vis2_protect_attempts_max')) {
+		if ($attempts>=Settings::getIntVar('vis2_protect_attempts_max')) {
 			return true;
 		}
 
-		$attempts=bcdiv($attempts, osWFrame\Settings::getIntVar('vis2_protect_attempts'));
-		$time=osWFrame\Settings::getIntVar('vis2_protect_time')*pow(2, $attempts-1);
+		$attempts=bcdiv($attempts, Settings::getIntVar('vis2_protect_attempts'));
+		$time=Settings::getIntVar('vis2_protect_time')*pow(2, $attempts-1);
 
 		$QgetData=self::getConnection();
 		$QgetData->prepare('SELECT protect_create_time FROM :table_vis2_protect: WHERE user_id=:user_id: ORDER BY protect_id ASC LIMIT :start:, 1');
 		$QgetData->bindTable(':table_vis2_protect:', 'vis2_protect');
 		$QgetData->bindInt(':user_id:', $user_id);
-		$QgetData->bindInt(':start:', ($attempts*osWFrame\Settings::getIntVar('vis2_protect_attempts'))-1);
+		$QgetData->bindInt(':start:', ($attempts*Settings::getIntVar('vis2_protect_attempts'))-1);
 		$QgetData->execute();
 		$QgetData->fetch();
 		if (($QgetData->getInt('protect_create_time')+$time)>time()) {
@@ -133,18 +135,18 @@ class Protect {
 		$QgetData->fetch();
 		$attempts=$QgetData->getInt('counter');
 
-		if ($attempts>=osWFrame\Settings::getIntVar('vis2_protect_attempts_max')) {
+		if ($attempts>=Settings::getIntVar('vis2_protect_attempts_max')) {
 			return 0;
 		}
 
-		$attempts=bcdiv($attempts, osWFrame\Settings::getIntVar('vis2_protect_attempts'));
-		$time=osWFrame\Settings::getIntVar('vis2_protect_time')*pow(2, $attempts-1);
+		$attempts=bcdiv($attempts, Settings::getIntVar('vis2_protect_attempts'));
+		$time=Settings::getIntVar('vis2_protect_time')*pow(2, $attempts-1);
 
 		$QgetData=self::getConnection();
 		$QgetData->prepare('SELECT protect_create_time FROM :table_vis2_protect: WHERE user_id=:user_id: ORDER BY protect_id ASC LIMIT :start:, 1');
 		$QgetData->bindTable(':table_vis2_protect:', 'vis2_protect');
 		$QgetData->bindInt(':user_id:', $user_id);
-		$QgetData->bindInt(':start:', ($attempts*osWFrame\Settings::getIntVar('vis2_protect_attempts'))-1);
+		$QgetData->bindInt(':start:', ($attempts*Settings::getIntVar('vis2_protect_attempts'))-1);
 		$QgetData->execute();
 		$QgetData->fetch();
 

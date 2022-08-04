@@ -12,12 +12,13 @@
 
 namespace VIS2\Core;
 
-use osWFrame\Core as osWFrame;
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
 
 class Navigation {
 
-	use osWFrame\BaseStaticTrait;
-	use osWFrame\BaseConnectionTrait;
+	use BaseStaticTrait;
+	use BaseConnectionTrait;
 	use BaseToolTrait;
 
 	/**
@@ -77,9 +78,9 @@ class Navigation {
 	protected array $navigation_data=[];
 
 	/**
-	 * @var object|null
+	 * @var Permission|null
 	 */
-	protected ?object $VIS2_Permission=null;
+	protected ?Permission $VIS2_Permission=null;
 
 	/**
 	 * Navigation constructor.
@@ -91,10 +92,10 @@ class Navigation {
 	}
 
 	/**
-	 * @param object $Permission
+	 * @param Permission $Permission
 	 * @return $this
 	 */
-	public function setPermission(object $Permission):self {
+	public function setPermission(Permission $Permission):self {
 		$this->VIS2_Permission=$Permission;
 
 		return $this;
@@ -280,7 +281,7 @@ class Navigation {
 	/**
 	 * @return $this
 	 */
-	private function createNavigationPath():self {
+	protected function createNavigationPath():self {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -307,7 +308,7 @@ class Navigation {
 	 * @param int $member_id
 	 * @return string
 	 */
-	private function getNavigationPath(int $member_id):string {
+	protected function getNavigationPath(int $member_id):string {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -369,7 +370,7 @@ class Navigation {
 	 * @param int $max_level
 	 * @return array
 	 */
-	private function createNavigationRecursive($parent_id, int $level=0, int $max_level=0):array {
+	protected function createNavigationRecursive($parent_id, int $level=0, int $max_level=0):array {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -418,7 +419,7 @@ class Navigation {
 	 * @param array $navigation_element
 	 * @return array
 	 */
-	private function checkNavigationPermissionRecursive(array $navigation_element):array {
+	protected function checkNavigationPermissionRecursive(array $navigation_element):array {
 		if (($navigation_element['info']['page_name_intern']!='')&&($this->getPermission()->checkPermission($navigation_element['info']['page_name_intern'], 'link')===true)) {
 			$navigation_element['info']['permission_link']=true;
 		}
@@ -496,7 +497,7 @@ class Navigation {
 	 * @param $key
 	 * @return \Closure
 	 */
-	private function buildSorter($key) {
+	protected function buildSorter($key) {
 		return function($a, $b) use ($key) {
 			return strnatcmp($a[$key], $b[$key]);
 		};
