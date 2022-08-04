@@ -11,7 +11,7 @@
  */
 
 if ($profile_run=='init') {
-	$navigation_links[100]=['navigation_id'=>100, 'module'=>$osW_DDM4->getDirectModule(), 'parameter'=>'vistool='.$VIS_Main->getTool().'&vispage='.$VIS_Navigation->getPage(), 'text'=>'Passwort ändern',];
+	$navigation_links[100]=['navigation_id'=>100, 'module'=>$osW_DDM4->getDirectModule(), 'parameter'=>'vistool='.$VIS_Main->getTool().'&vispage='.$VIS_Navigation->getPage(), 'text'=>'Passwort ändern'];
 } else {
 	$osW_DDM4->setGroupOption('engine', 'vis_formular');
 	$osW_DDM4->setGroupOption('table', 'vis_user', 'database');
