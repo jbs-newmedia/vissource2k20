@@ -65,7 +65,7 @@ CREATE TABLE :table: (
 	user_mobile varchar(32) NOT NULL DEFAULT \'\',
 	user_password varchar(256) NOT NULL DEFAULT \'\',
 	user_status tinyint(1) unsigned NOT NULL DEFAULT 0,
-	user_token varchar(32) DEFAULT NULL DEFAULT \'\',
+	user_token varchar(32) NOT NULL DEFAULT \'\',
 	user_create_time int(11) unsigned NOT NULL DEFAULT 0,
 	user_create_user_id int(11) unsigned NOT NULL DEFAULT 0,
 	user_update_time int(11) unsigned NOT NULL DEFAULT 0,
@@ -100,15 +100,31 @@ CREATE TABLE :table: (
 /*
  * update table
  */
-/*
 if (($av_tbl<=1)&&($ab_tbl<1)) {
-	$av_tbl=1;
-	$ab_tbl=1;
 	$__datatable_do=true;
 
-	... code ...
+	$QupdateData=new \osWFrame\Core\Database();
+	$QupdateData->prepare('
+ALTER TABLE :table:
+	ADD user_token_custom varchar(32) NOT NULL DEFAULT \'\' AFTER user_token,
+    ADD user_token_api varchar(32) NOT NULL DEFAULT \'\' AFTER user_token_custom,
+    ADD user_image varchar(128) NOT NULL DEFAULT \'\' AFTER user_email,
+    ADD user_avatar varchar(128) NOT NULL DEFAULT \'\' AFTER user_image,
+	ADD INDEX user_token_custom (user_token_custom),
+    ADD INDEX user_token_api (user_token_api),
+    CHANGE user_token user_token varchar(32) COLLATE \'utf8mb4_general_ci\' NOT NULL DEFAULT \'\' AFTER user_status;
+');
+	$QupdateData->bindRaw(':table:', $this->getJSONStringValue('database_prefix').$__datatable_table);
+	$QupdateData->execute();
+	if ($QupdateData->hasError()===true) {
+		$tables_error[]='table:'.$__datatable_table.', patch:'.$av_tbl.'.'.$ab_tbl;
+		$db_error[]=$QupdateData->getErrorMessage();
+		$__datatable_do=false;
+	} else {
+		$av_tbl=1;
+		$ab_tbl=1;
+	}
 }
-*/
 
 if ($__datatable_do===true) {
 	$QwriteData=new \osWFrame\Core\Database();
