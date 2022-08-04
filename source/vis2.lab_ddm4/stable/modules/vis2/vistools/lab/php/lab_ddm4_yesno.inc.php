@@ -114,6 +114,7 @@ switch ($ddm_navigation_id) {
 		$ddm4_elements['data']['yesno_example']['options']['text_no']='deaktiviert';
 		$ddm4_elements['data']['yesno_example']['options']['notice']='Andere Texte';
 		break;
+	case 3:
 		/*
 		 * Data: YesNo
 		 */
