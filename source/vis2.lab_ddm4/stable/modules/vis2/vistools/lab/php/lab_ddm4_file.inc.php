@@ -41,7 +41,7 @@ $ddm4_object['database']['order_case']['user_update_user_id']=\VIS2\Core\Manager
 /*
  * DDM4-Objekt erstellen
  */
-$osW_DDM4=new osWFrame\Core\DDM4($osW_Template, 'vis2_lab_ddm4_text', $ddm4_object);
+$osW_DDM4=new \osWFrame\Core\DDM4($osW_Template, 'vis2_lab_ddm4_text', $ddm4_object);
 
 /*
  * Datenelemente anlegen
