@@ -38,6 +38,9 @@ if (isset($parameters['vistool'])) {
 if (isset($parameters['vispage'])) {
 	unset($parameters['vispage']);
 }
+if ((isset($parameters[\osWFrame\Core\Settings::getStringVar('session_name')]))&&($add_session!==true)) {
+	unset($parameters[\osWFrame\Core\Settings::getStringVar('session_name')]);
+}
 
 $base_uri.='?';
 foreach ($parameters as $key=>$value) {
