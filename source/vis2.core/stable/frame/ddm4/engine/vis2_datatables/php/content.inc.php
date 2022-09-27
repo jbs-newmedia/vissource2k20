@@ -632,11 +632,15 @@ if ((\osWFrame\Core\Settings::getAction()=='delete')||(\osWFrame\Core\Settings::
 			if ((isset($element_details['enabled']))&&($element_details['enabled']===true)) {
 				if ((isset($element_details['name']))&&($element_details['name']!='')) {
 					$this->setDeleteElementStorage($element, $result[$element_details['name']]);
+				} elseif (!isset($element_details['name'])) {
+					if ((isset($element_details['options']))&&(isset($element_details['options']['default_value']))) {
+						$this->setDeleteElementStorage($element, $element_details['options']['default_value']);
+					}
 				}
 				if ((isset($element_details['name_array']))&&($element_details['name_array']!=[])) {
 					foreach ($element_details['name_array'] as $_name) {
 						if ($element_details['options']['prefix']!='') {
-							$this->setDeleteElementStorage($element.'_'.$element_details['options']['prefix'].$_name, $result[$element_details['options']['prefix'].$_name]);
+							$this->setDeleteElementStorage($element_details['options']['prefix'].$_name, $result[$element_details['options']['prefix'].$_name]);
 						} else {
 							$this->setDeleteElementStorage($element.'_'.$_name, $result[$_name]);
 						}
