@@ -10,6 +10,8 @@
  * @license MIT License
  */
 
+\osWFrame\Core\Settings::setStringVar('frame_current_module', \osWFrame\Core\Settings::getStringVar('frame_default_module'));
+
 $osW_Template=new \osWFrame\Core\Template();
 
 $osW_jQuery3=new \osWFrame\Core\jQuery3($osW_Template);
@@ -50,8 +52,6 @@ $osW_Template->addVoidTag('meta', ['name'=>'viewport', 'content'=>'width=device-
 
 $osW_FavIcon=new \osWFrame\Core\FavIcon('modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_favicon_name'), $osW_Template);
 $osW_FavIcon->setIcons2Template();
-
-\osWFrame\Core\Settings::setStringVar('frame_current_module', \osWFrame\Core\Settings::getStringVar('frame_default_module'));
 
 $file=\osWFrame\Core\Settings::getStringVar('settings_abspath').'modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.'content.inc.php';
 if (file_exists($file)) {
