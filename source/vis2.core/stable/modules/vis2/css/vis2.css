@@ -23,10 +23,6 @@
     cursor: pointer;
 }
 
-.custom-select.dropdown-toggle::after {
-    display: none;
-}
-
 .dropdown-flex-100 .dropdown-toggle {
     display: flex;
     justify-content: space-between;
