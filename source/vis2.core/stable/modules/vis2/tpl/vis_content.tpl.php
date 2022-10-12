@@ -25,7 +25,7 @@
 
 				<?php endif ?>
 			</div>
-			<div class="navbar-brand-text text-primary ms-2"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
+			<div class="navbar-brand-text text-primary ms-2 fs-5"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
 		</a>
 
 		<button id="sidebarToggleTopLeft" class="btn btn-link d-none d-md-block rounded-circle me-2">
@@ -80,7 +80,7 @@
 
 					<?php endif ?>
 				</div>
-				<div class="navbar-brand-text text-primary ms-2"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
+				<div class="navbar-brand-text text-primary ms-2 fs-5"><?php if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null): ?><?php echo \osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title') ?><?php else: ?><?php echo $VIS2_Main->getToolName(); ?><?php endif ?></div>
 			</a>
 
 			<div id="jbsadmin-sidebar-nav" class="pt-3">

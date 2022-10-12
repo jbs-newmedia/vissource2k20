@@ -27,10 +27,10 @@ function submitDDM4(del) {
 	if (del===true) {
 		$("input[name=ddm4_search_delete]").val(1);
 	}
-	$("form").submit();
+	$("form#form_search").submit();
 }
 function resetDDM4() {
-	$("form").trigger("reset");
+	$("form#form_search").trigger("reset");
 	$(".selectpicker").selectpicker("render");
 }
 ');
@@ -50,10 +50,10 @@ function resetDDM4() {
 if (\osWFrame\Core\Settings::getAction()=='add') {
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4() {
-	$("form").submit();
+	$("form#form_add").submit();
 }
 function resetDDM4() {
-	$("form").trigger("reset");
+	$("form#form_add").trigger("reset");
 	$(".selectpicker").selectpicker("render");
 }
 ');
@@ -72,10 +72,10 @@ function resetDDM4() {
 if (\osWFrame\Core\Settings::getAction()=='edit') {
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4() {
-	$("form").submit();
+	$("form#form_edit").submit();
 }
 function resetDDM4() {
-	$("form").trigger("reset");
+	$("form#form_edit").trigger("reset");
 	$(".selectpicker").selectpicker("render");
 }
 
@@ -116,10 +116,10 @@ $(function() {
 if (\osWFrame\Core\Settings::getAction()=='delete') {
 	$this->getTemplate()->addJSCodeHead('
 function submitDDM4() {
-	$("form").submit();
+	$("form#form_delete").submit();
 }
 function resetDDM4() {
-	$("form").trigger("reset");
+	$("form#form_delete").trigger("reset");
 	$(".selectpicker").selectpicker("render");
 }
 ');
@@ -175,24 +175,23 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 
 	?>
 
-	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ddm4modal_dialog_<?php echo $this->getName() ?>">
-		<div class="modal-dialog">
+	<div class="modal fade overflow-hidden pe-0 pb-4" id="ddm4modal_dialog_<?php echo $this->getName() ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-				<div class="modal-header" style="justify-content: none; ">
-					<h5 class="modal-title float-left" style="float:left !important;"></h5>
-					<span class="float-right">
-				<button type="button" class="float-right close" data-bs-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-window-close" aria-hidden="true"></i></button>
-				<button type="button" class="float-right close resize" onclick="resizeDDM4Dialog()" aria-label="<?php echo $this->getGroupMessage('form_maximize') ?>"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
-					</span>
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+					<div class="justify-content-end">
+						<a type="button" class="resize" onclick="resizeDDM4Modal()" aria-label="<?php echo $this->getGroupMessage('form_maximize') ?>"><i class="fa fa-2x fa-fw fa-window-maximize text-muted" aria-hidden="true"></i></a>
+						<a type="button" data-bs-dismiss="modal" data-bs-dismiss="modal" aria-label="<?php echo $this->getGroupMessage('form_close') ?>"><i class="fa fa-2x fa-fw fa-window-close text-muted" aria-hidden="true"></i></a>
+					</div>
 				</div>
-				<div class="modal-body"><p></p></div>
+				<div class="modal-body" style="overflow:hidden; overflow-y: hidden;"><p></p></div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
+					<button name="ddm4_button_close" type="button" class="btn btn-secondary ddm4_btn_close" data-bs-dismiss="modal"><?php echo $this->getGroupMessage('form_close') ?></button>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 
 	<div class="modal fade overflow-hidden pe-0 pb-4" id="ddm4_controller_<?php echo $this->getName() ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
