@@ -21,7 +21,7 @@
 
 				<?php else: ?>
 
-					<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
+					<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'path'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_path'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
 
 				<?php endif ?>
 			</div>
@@ -69,14 +69,14 @@
 			<div class="bg-primary bg-gradient-dark-25-gradient-dark" style="width:14rem; position: fixed; float:left; height: 100%; background-attachment: fixed; z-index: -1;"></div>
 
 			<a class="navbar-brand d-flex align-items-center bg-white position-fixed" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
-				<div class="navbar-brand-icon">
+				<div class="navbar-brand-icon text-center">
 					<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), PATHINFO_EXTENSION)=='svg'): ?>
 
 						<img style="height:<?php echo \osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height') ?>px" src="<?php echo $VIS2_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name')) ?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title') ?>"/>
 
 					<?php else: ?>
 
-						<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
+						<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_name'), ['module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_module'), 'path'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_path'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_navi_title'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_navi_height')]) ?>
 
 					<?php endif ?>
 				</div>
