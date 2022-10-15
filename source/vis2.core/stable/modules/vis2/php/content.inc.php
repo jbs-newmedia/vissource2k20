@@ -83,7 +83,13 @@ $osW_Template->setVar('VIS2_Navigation', $VIS2_Navigation);
 $VIS2_BreadCrumb=new \osWFrame\Core\BreadCrumb();
 
 $VIS2_BreadCrumb->add('VIS', \osWFrame\Core\Settings::getStringVar('frame_current_module'));
-$VIS2_BreadCrumb->add($VIS2_Main->getToolName(), \osWFrame\Core\Settings::getStringVar('frame_current_module'), 'vistool='.$VIS2_Main->getTool());
+if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!==null) {
+	if (\osWFrame\Core\Settings::getStringVar('vis2_tool_'.$VIS2_Main->getTool().'_title')!='') {
+		$VIS2_BreadCrumb->add($VIS2_Main->getToolName(), \osWFrame\Core\Settings::getStringVar('frame_current_module'), 'vistool='.$VIS2_Main->getTool());
+	}
+} else {
+	$VIS2_BreadCrumb->add($VIS2_Main->getToolName(), \osWFrame\Core\Settings::getStringVar('frame_current_module'), 'vistool='.$VIS2_Main->getTool());
+}
 
 /**
  * Inhalt VIS-Tool verarbeiten
