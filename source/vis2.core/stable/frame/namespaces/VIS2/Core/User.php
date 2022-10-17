@@ -34,7 +34,7 @@ class User {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=2;
+	private const CLASS_MINOR_VERSION=3;
 
 	/**
 	 * Release-Version der Klasse.
@@ -60,7 +60,27 @@ class User {
 	/**
 	 * @var array|null
 	 */
+	protected ?array $tools_select=null;
+
+	/**
+	 * @var array|null
+	 */
+	protected ?array $groups=null;
+
+	/**
+	 * @var array|null
+	 */
+	protected ?array $groups_select=null;
+
+	/**
+	 * @var array|null
+	 */
 	protected ?array $mandanten=null;
+
+	/**
+	 * @var array|null
+	 */
+	protected ?array $mandanten_select=null;
 
 	/**
 	 * User constructor.
@@ -292,12 +312,14 @@ class User {
 	}
 
 	/**
-	 * @return bool
+	 * @return $this
 	 */
-	public function loadTools():bool {
+	public function loadTools():self {
 		$this->tools=[];
 		$this->tools[Settings::getStringVar('vis2_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=>Settings::getStringVar('vis2_login_module')];
 		$this->tools[Settings::getStringVar('vis2_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=>Settings::getStringVar('vis2_chtool_module')];
+
+		$this->tools_select=[];
 
 		$QselectTools=self::getConnection();
 		$QselectTools->prepare('SELECT * FROM :table_vis2_tool: AS t INNER JOIN :table_vis2_user_tool: AS u ON (u.tool_id=t.tool_id) WHERE t.tool_ispublic=:tool_ispublic: AND u.user_id=:user_id: ORDER BY t.tool_name ASC');
@@ -307,9 +329,10 @@ class User {
 		$QselectTools->bindInt(':user_id:', $this->getId());
 		foreach ($QselectTools->query() as $tool_details) {
 			$this->tools[$tool_details['tool_name_intern']]=['tool_id'=>$tool_details['tool_id'], 'tool_name'=>$tool_details['tool_name'], 'tool_name_intern'=>$tool_details['tool_name_intern']];
+			$this->tools_select[$tool_details['tool_name_intern']]=$tool_details['tool_name'];
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
@@ -342,26 +365,145 @@ class User {
 	/**
 	 * @return array
 	 */
+	public function getToolsSelect():array {
+		return $this->getToolsSelectArray();
+	}
+
+	/**
+	 * @return array
+	 */
 	public function getToolsSelectArray():array {
+		if ($this->tools_select===null) {
+			$this->loadTools();
+		}
+
+		return $this->tools_select;
+	}
+
+	/**
+	 * @param string $tool_name_intern
+	 * @return bool
+	 */
+	public function hasTool(string $tool_name_intern):bool {
 		if ($this->tools===null) {
 			$this->loadTools();
 		}
 
-		$tools=[];
-		foreach ($this->tools as $tool_details) {
-			$tools[$tool_details['tool_name_intern']]=$tool_details['tool_name'];
+		if (isset($this->tools[$tool_name_intern])) {
+			return true;
 		}
-		unset($tools[Settings::getStringVar('vis2_login_module')]);
-		unset($tools[Settings::getStringVar('vis2_chtool_module')]);
 
-		return $tools;
+		return false;
 	}
 
 	/**
+	 * @param int $tool_id
 	 * @return bool
 	 */
-	public function loadMandanten():bool {
+	public function hasToolId(int $tool_id):bool {
+		if ($this->tools===null) {
+			$this->loadTools();
+		}
+
+		foreach ($this->tools as $tool) {
+			if ($tool['tool_id']==$tool_id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function loadGroups():self {
+		$this->groups=[];
+		$this->groups_select=[];
+
+		$QselectGroups=self::getConnection();
+		$QselectGroups->prepare('SELECT * FROM :table_vis2_group: AS g INNER JOIN :table_vis2_user_group: AS u ON (u.group_id=g.group_id) WHERE g.group_ispublic=:group_ispublic: AND u.user_id=:user_id: ORDER BY g.group_name ASC');
+		$QselectGroups->bindTable(':table_vis2_group:', 'vis2_group');
+		$QselectGroups->bindTable(':table_vis2_user_group:', 'vis2_user_group');
+		$QselectGroups->bindInt(':group_ispublic:', 1);
+		$QselectGroups->bindInt(':user_id:', $this->getId());
+		foreach ($QselectGroups->query() as $group_details) {
+			$this->groups[$group_details['group_name_intern']]=['group_id'=>$group_details['group_id'], 'group_name'=>$group_details['group_name'], 'group_name_intern'=>$group_details['group_name_intern']];
+			$this->groups_select[$group_details['group_name_intern']]=$group_details['group_name'];
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getGroups():array {
+		if ($this->groups===null) {
+			$this->loadGroups();
+		}
+
+		return $this->groups;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getGroupsSelect():array {
+		return $this->getGroupsSelectArray();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getGroupsSelectArray():array {
+		if ($this->groups_select===null) {
+			$this->loadGroups();
+		}
+
+		return $this->groups_select;
+	}
+
+	/**
+	 * @param string $group_name_intern
+	 * @return bool
+	 */
+	public function hasGroup(string $group_name_intern):bool {
+		if ($this->groups===null) {
+			$this->loadGroups();
+		}
+
+		if (isset($this->groups[$group_name_intern])) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param int $group_id
+	 * @return bool
+	 */
+	public function hasGroupId(int $group_id):bool {
+		if ($this->groups===null) {
+			$this->loadGroups();
+		}
+
+		foreach ($this->groups as $group) {
+			if ($group['group_id']==$group_id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function loadMandanten():self {
 		$this->mandanten=[];
+		$this->mandanten_select=[];
 
 		$QselectMandanten=self::getConnection();
 		$QselectMandanten->prepare('SELECT *, m.mandant_id as mandant_id FROM :table_vis2_mandant: AS m INNER JOIN :table_vis2_user_mandant: AS u ON (u.mandant_id=m.mandant_id OR u.mandant_id=0) WHERE m.mandant_ispublic=:mandant_ispublic: AND u.user_id=:user_id: AND u.tool_id=:tool_id: ORDER BY m.mandant_name ASC');
@@ -372,9 +514,10 @@ class User {
 		$QselectMandanten->bindInt(':tool_id:', $this->getToolId());
 		foreach ($QselectMandanten->query() as $mandant_details) {
 			$this->mandanten[$mandant_details['mandant_id']]=['mandant_id'=>$mandant_details['mandant_id'], 'mandant_name'=>$mandant_details['mandant_name']];
+			$this->mandanten_select[$mandanten_details['mandant_id']]=$mandanten_details['mandant_name'];
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
@@ -407,17 +550,35 @@ class User {
 	/**
 	 * @return array
 	 */
+	public function getMandantenSelect():array {
+		return $this->getMandantenSelectArray();
+	}
+
+	/**
+	 * @return array
+	 */
 	public function getMandantenSelectArray():array {
+		if ($this->mandanten_select===null) {
+			$this->loadMandanten();
+		}
+
+		return $this->mandanten_select;
+	}
+
+	/**
+	 * @param int $mandant_id
+	 * @return bool
+	 */
+	public function hasMandantId(int $mandant_id):bool {
 		if ($this->mandanten===null) {
 			$this->loadMandanten();
 		}
 
-		$mandanten=[];
-		foreach ($this->mandanten as $mandanten_details) {
-			$mandanten[$mandanten_details['mandant_id']]=$mandanten_details['mandant_name'];
+		if (isset($this->mandanten[$mandant_id])) {
+			return true;
 		}
 
-		return $mandanten;
+		return false;
 	}
 
 	/**
