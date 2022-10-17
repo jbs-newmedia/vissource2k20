@@ -87,14 +87,15 @@ CREATE TABLE :table: (
 /*
 if (($av_tbl==1)&&($ab_tbl==1)) {
 	$__datatable_do=true;
+	$av_tbl=1;
+	$ab_tbl=1;
 
 	... query ...
 	if ($QupdateData->hasError()===true) {
 		$tables_error[]='table:'.$__datatable_table.', patch:'.$av_tbl.'.'.$ab_tbl;
 		$db_error[]=$QupdateData->getErrorMessage();
-	} else {
 		$av_tbl=1;
-		$ab_tbl=1;
+		$ab_tbl=0;
 	}
 }
 */
