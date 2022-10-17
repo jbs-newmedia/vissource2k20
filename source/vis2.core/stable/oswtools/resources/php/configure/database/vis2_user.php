@@ -46,8 +46,6 @@ if (count($avb_tbl)==1) {
  * create table
  */
 if (($av_tbl==0)&&($ab_tbl==0)) {
-	$av_tbl=1;
-	$ab_tbl=0;
 	$__datatable_create=true;
 
 	$QwriteData=new \osWFrame\Core\Database();
@@ -94,11 +92,14 @@ CREATE TABLE :table: (
 	if ($QwriteData->hasError()===true) {
 		$tables_error[]='table:'.$__datatable_table.', patch:'.$av_tbl.'.'.$ab_tbl;
 		$db_error[]=$QwriteData->getErrorMessage();
+	} else {
+		$av_tbl=1;
+		$ab_tbl=0;
 	}
 }
 
 /*
- * update table
+ * update table DBV-1.1
  */
 if (($av_tbl<=1)&&($ab_tbl<1)) {
 	$__datatable_do=true;
@@ -107,12 +108,12 @@ if (($av_tbl<=1)&&($ab_tbl<1)) {
 	$QupdateData->prepare('
 ALTER TABLE :table:
 	ADD user_token_custom varchar(32) NOT NULL DEFAULT \'\' AFTER user_token,
-    ADD user_token_api varchar(32) NOT NULL DEFAULT \'\' AFTER user_token_custom,
-    ADD user_image varchar(128) NOT NULL DEFAULT \'\' AFTER user_email,
-    ADD user_avatar varchar(128) NOT NULL DEFAULT \'\' AFTER user_image,
+	ADD user_token_api varchar(32) NOT NULL DEFAULT \'\' AFTER user_token_custom,
+	ADD user_image varchar(128) NOT NULL DEFAULT \'\' AFTER user_email,
+	ADD user_avatar varchar(128) NOT NULL DEFAULT \'\' AFTER user_image,
 	ADD INDEX user_token_custom (user_token_custom),
-    ADD INDEX user_token_api (user_token_api),
-    CHANGE user_token user_token varchar(32) COLLATE \'utf8mb4_general_ci\' NOT NULL DEFAULT \'\' AFTER user_status;
+	ADD INDEX user_token_api (user_token_api),
+	CHANGE user_token user_token varchar(32) COLLATE \'utf8mb4_general_ci\' NOT NULL DEFAULT \'\' AFTER user_status;
 ');
 	$QupdateData->bindRaw(':table:', $this->getJSONStringValue('database_prefix').$__datatable_table);
 	$QupdateData->execute();
@@ -126,6 +127,9 @@ ALTER TABLE :table:
 	}
 }
 
+/*
+ * update version
+ */
 if ($__datatable_do===true) {
 	$QwriteData=new \osWFrame\Core\Database();
 	$QwriteData->prepare('ALTER TABLE :table: COMMENT=:version:;');
