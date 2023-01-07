@@ -39,7 +39,7 @@ class User {
 	/**
 	 * Release-Version der Klasse.
 	 */
-	private const CLASS_RELEASE_VERSION=0;
+	private const CLASS_RELEASE_VERSION=1;
 
 	/**
 	 * Extra-Version der Klasse.
@@ -514,7 +514,7 @@ class User {
 		$QselectMandanten->bindInt(':tool_id:', $this->getToolId());
 		foreach ($QselectMandanten->query() as $mandant_details) {
 			$this->mandanten[$mandant_details['mandant_id']]=['mandant_id'=>$mandant_details['mandant_id'], 'mandant_name'=>$mandant_details['mandant_name']];
-			$this->mandanten_select[$mandanten_details['mandant_id']]=$mandanten_details['mandant_name'];
+			$this->mandanten_select[$mandant_details['mandant_id']]=$mandant_details['mandant_name'];
 		}
 
 		return $this;
