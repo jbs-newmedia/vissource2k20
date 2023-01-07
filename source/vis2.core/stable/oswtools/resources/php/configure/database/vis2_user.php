@@ -123,7 +123,6 @@ ALTER TABLE :table:
 	if ($QupdateData->hasError()===true) {
 		$tables_error[]='table:'.$__datatable_table.', patch:'.$av_tbl.'.'.$ab_tbl;
 		$db_error[]=$QupdateData->getErrorMessage();
-		$__datatable_do=false;
 		$av_tbl=1;
 		$ab_tbl=0;
 	}
