@@ -1017,7 +1017,7 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 			"pagingType": \'full_numbers\',
 			"iDisplayLength": '.$count.',
 			"ajax": {
-				"url": \''.$this->getTemplate()->buildhrefLink($this->getDirectModule(), $this->getDirectParameters()).'\',
+				"url": \''.$this->getTemplate()->buildhrefLink($this->getDirectModule(), $this->getDirectParameters(), false).'\',
 				"data": {
 					"action":\''.$ajax.'\',
 					'.$value.'
