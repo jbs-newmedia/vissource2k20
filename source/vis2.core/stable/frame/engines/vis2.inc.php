@@ -29,8 +29,8 @@ if ((\osWFrame\Core\Settings::getStringVar('vis2_theme_font')!==null)&&(\osWFram
 }
 $osW_Bootstrap5->load();
 
-$osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
-$osW_FontAwesome5->load();
+$osW_FontAwesome6=new \osWFrame\Core\FontAwesome6($osW_Template);
+$osW_FontAwesome6->load();
 
 $osW_jQuery3->loadPlugin('easing');
 
