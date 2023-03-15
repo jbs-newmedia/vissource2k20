@@ -98,16 +98,18 @@
 
 								<?php if (count($navigation_element['links'])>0): ?>
 
-								<li class="nav-item nav-divider w-100"></li>
+									<li class="nav-item nav-divider w-100"></li>
 
-								<li class="nav-item w-100<?php if ($navigation_element['info']['navigation_active']==true): ?> active<?php endif ?>">
+									<li class="nav-item w-100<?php if ($navigation_element['info']['navigation_active']==true): ?> active<?php endif ?>">
 
-										<a href="#navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" class="nav-link" data-bs-toggle="collapse">
-											<span><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?></span></a>
-										<div class="collapse nav flex-column<?php if ($navigation_element['info']['navigation_active']==true): ?> show<?php endif ?>" id="navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" data-bs-parent="#jbsadmin-sidebar-navigation">
-											<div class="nav-sub p-2 mb-2">
+									<a href="#navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" class="nav-link" data-bs-toggle="collapse">
+										<span><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?></span></a>
+									<div class="collapse nav flex-column<?php if ($navigation_element['info']['navigation_active']==true): ?> show<?php endif ?>" id="navi_vis2_<?php echo $navigation_element['info']['navigation_id'] ?>" data-bs-parent="#jbsadmin-sidebar-navigation">
+										<div class="nav-sub p-2 mb-2">
 
-												<?php foreach ($navigation_element['links'] as $navigation_element): ?>
+											<?php foreach ($navigation_element['links'] as $navigation_element): ?>
+
+												<?php if ($navigation_element['info']['permission_link']==true): ?>
 
 													<?php if ($navigation_element['info']['permission_view']==true): ?>
 														<a class="collapse-item<?php if ($navigation_element['info']['navigation_active']===true): ?> active<?php endif ?>" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage='.$navigation_element['info']['page_name_intern']) ?>">
@@ -123,11 +125,13 @@
 														</a>
 													<?php endif ?>
 
-												<?php endforeach ?>
+												<?php endif ?>
 
-											</div>
+											<?php endforeach ?>
+
 										</div>
-									<?php endif ?>
+									</div>
+								<?php endif ?>
 								</li>
 							<?php endif ?>
 

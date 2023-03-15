@@ -48,6 +48,11 @@ class Navigation {
 	protected string $page='';
 
 	/**
+	 * @var string
+	 */
+	protected string $file='';
+
+	/**
 	 * @var int
 	 */
 	protected $current_navigation_id=0;
@@ -162,6 +167,20 @@ class Navigation {
 	 */
 	public function getPage():string {
 		return $this->page;
+	}
+
+	/**
+	 * @param string $file
+	 */
+	public function setFile(string $file):void {
+		$this->file=$file;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFile():string {
+		return $this->file;
 	}
 
 	/*

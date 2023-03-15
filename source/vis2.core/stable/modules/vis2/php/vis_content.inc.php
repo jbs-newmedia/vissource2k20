@@ -50,13 +50,23 @@ if (file_exists($file)) {
 	require_once $file;
 }
 
-$VIS2_Navigation->setPage(\osWFrame\Core\Settings::catchStringGetValue('vispage'));
+if ($VIS2_Navigation->getPage()=='') {
+	$VIS2_Navigation->setPage(\osWFrame\Core\Settings::catchStringGetValue('vispage'));
+}
 
-$file=\osWFrame\Core\Settings::getStringVar('settings_abspath').'modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'vistools'.DIRECTORY_SEPARATOR.$VIS2_Main->getTool().DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.$VIS2_Navigation->getPage().'.inc.php';
+if ($VIS2_Navigation->getFile()=='') {
+	$file=\osWFrame\Core\Settings::getStringVar('settings_abspath').'modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'vistools'.DIRECTORY_SEPARATOR.$VIS2_Main->getTool().DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.$VIS2_Navigation->getPage().'.inc.php';
+} else {
+	$file=\osWFrame\Core\Settings::getStringVar('settings_abspath').'modules'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'vistools'.DIRECTORY_SEPARATOR.$VIS2_Main->getTool().DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.$VIS2_Navigation->getFile().'.inc.php';
+}
 if ((file_exists($file))&&($VIS2_Permission->checkPermission($VIS2_Navigation->getPage(), 'view')===true)) {
 	include $file;
 	$VIS2_BreadCrumb->add($VIS2_Navigation->getNavigationTitle(), \osWFrame\Core\Settings::getStringVar('frame_current_module'), 'vistool='.$VIS2_Main->getTool().'&vispage='.$VIS2_Navigation->getPage());
-	$osW_Template->setVarFromFile('vis2content', $VIS2_Navigation->getPage(), \osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'vistools'.DIRECTORY_SEPARATOR.$VIS2_Main->getTool());
+	if ($VIS2_Navigation->getFile()=='') {
+		$osW_Template->setVarFromFile('vis2content', $VIS2_Navigation->getPage(), \osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'vistools'.DIRECTORY_SEPARATOR.$VIS2_Main->getTool());
+	} else {
+		$osW_Template->setVarFromFile('vis2content', $VIS2_Navigation->getFile(), \osWFrame\Core\Settings::getStringVar('frame_current_module').DIRECTORY_SEPARATOR.'vistools'.DIRECTORY_SEPARATOR.$VIS2_Main->getTool());
+	}
 } else {
 	$VIS2_Navigation->setPage($VIS2_Navigation->getDefaultPage());
 	$VIS2_BreadCrumb->add($VIS2_Navigation->getNavigationTitle(), \osWFrame\Core\Settings::getStringVar('frame_current_module'), 'vistool='.$VIS2_Main->getTool().'&vispage='.$VIS2_Navigation->getPage());
