@@ -12,13 +12,13 @@
 
 if (\osWFrame\Core\Settings::getAction()=='dosend') {
 	$this->setDoSendElementStorage($this->getSendElementOption($element, 'prefix').'create_time', $this->getSendElementOption($element, 'time'));
-	$this->addSendElement($this->getSendElementOption($element, 'prefix').'create_time', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'create_time',]);
+	$this->addSendElement($this->getSendElementOption($element, 'prefix').'create_time', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'create_time']);
 	$this->setDoSendElementStorage($this->getSendElementOption($element, 'prefix').'create_user_id', $this->getSendElementOption($element, 'user_id'));
-	$this->addSendElement($this->getSendElementOption($element, 'prefix').'create_user_id', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'create_user_id',]);
+	$this->addSendElement($this->getSendElementOption($element, 'prefix').'create_user_id', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'create_user_id']);
 	$this->setDoSendElementStorage($this->getSendElementOption($element, 'prefix').'update_time', $this->getSendElementOption($element, 'time'));
-	$this->addSendElement($this->getSendElementOption($element, 'prefix').'update_time', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'update_time',]);
+	$this->addSendElement($this->getSendElementOption($element, 'prefix').'update_time', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'update_time']);
 	$this->setDoSendElementStorage($this->getSendElementOption($element, 'prefix').'update_user_id', $this->getSendElementOption($element, 'user_id'));
-	$this->addSendElement($this->getSendElementOption($element, 'prefix').'update_user_id', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'update_user_id',]);
+	$this->addSendElement($this->getSendElementOption($element, 'prefix').'update_user_id', ['module'=>'hidden', 'name'=>$this->getSendElementOption($element, 'prefix').'update_user_id']);
 }
 
 $this->incCounter('form_elements');
