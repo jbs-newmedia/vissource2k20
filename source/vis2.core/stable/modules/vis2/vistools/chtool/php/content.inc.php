@@ -19,6 +19,13 @@ if (count($toolsdata)===1) {
 	osWFrame\Core\Network::directHeader(\osWFrame\Core\Navigation::buildUrl(\osWFrame\Core\Settings::getStringVar('frame_default_module'), 'vistool='.$VIS2_Main->getTool()));
 }
 
+if (osWFrame\Core\Settings::getStringVar('vis2_login_tool')!='') {
+	$vis2_login_tool=osWFrame\Core\Settings::getStringVar('vis2_login_tool');
+	$VIS2_Main->setTool($vis2_login_tool);
+	osWFrame\Core\Cookie::setCookie('vis2_login_tool', $vis2_login_tool, osWFrame\Core\Settings::getIntVar('vis2_login_cookie_lifetime'));
+	osWFrame\Core\Network::directHeader(\osWFrame\Core\Navigation::buildUrl(\osWFrame\Core\Settings::getStringVar('frame_default_module'), 'vistool='.$VIS2_Main->getTool()));
+}
+
 if (\osWFrame\Core\Settings::getAction()=='dochange') {
 	$vis2_login_tool=\osWFrame\Core\Settings::catchStringPostValue('vis2_login_tool');
 	if ($vis2_login_tool=='') {
