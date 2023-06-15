@@ -20,8 +20,8 @@
       "release": "stable"
     },
     {
-      "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap5_datatables",
+      "serverlist": "vendor",
+      "package": "vendorlib.bootstrap_datatables_latest",
       "release": "stable"
     },
     {
@@ -30,13 +30,13 @@
       "release": "stable"
     },
     {
-      "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap5_jbsadmin5",
+      "serverlist": "vendor",
+      "package": "vendorlib.bootstrap_jbsadmin_latest",
       "release": "stable"
     },
     {
-      "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap5_select",
+      "serverlist": "vendor",
+      "package": "vendorlib.bootstrap_select_latest",
       "release": "stable"
     },
     {
@@ -80,13 +80,13 @@
       "release": "stable"
     },
     {
-      "serverlist": "oswframe2k20",
-      "package": "oswframe.jquery3_datatables",
+      "serverlist": "vendor",
+      "package": "vendorlib.jquery_datatables_latest",
       "release": "stable"
     },
     {
-      "serverlist": "oswframe2k20",
-      "package": "oswframe.jquery3_easing",
+      "serverlist": "vendor",
+      "package": "vendorlib.jquery_easing_latest",
       "release": "stable"
     }
   ]

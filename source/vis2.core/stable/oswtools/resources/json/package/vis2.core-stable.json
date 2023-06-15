@@ -35,8 +35,8 @@
       "release": "stable"
     },
     {
-      "serverlist": "oswframe2k20",
-      "package": "oswframe.bootstrap5_select",
+      "serverlist": "vendor",
+      "package": "vendorlib.bootstrap_select_latest",
       "release": "stable"
     },
     {
