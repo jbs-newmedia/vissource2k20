@@ -8,6 +8,10 @@
  * @package VIS2
  * @link https://oswframe.com
  * @license MIT License
+ *
+ * @var $VIS2_User \VIS2\Core\User
+ * @var $VIS2_Main \VIS2\Core\Main
+ *
  */
 
 if (\osWFrame\Core\Settings::getAction()=='dologin') {
@@ -48,7 +52,7 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 	if ($osW_Template->Form()->hasErrorMessages()===true) {
 		osWFrame\Core\Settings::setAction('');
 	} else {
-		if ($VIS2_User->createLogin()===true) {
+		if ($VIS2_User->createLogin(\osWFrame\Core\Session::getId(),  \osWFrame\Core\Settings::catchBoolPostValue('vis2_login_remember'))===true) {
 			osWFrame\Core\SessionMessageStack::addMessage('session', 'success', ['msg'=>'Sie wurden erfolgreich eingeloggt.']);
 
 			\VIS2\Core\Protect::clearEntries($VIS2_User->getId());
@@ -68,6 +72,7 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 						$VIS2_Main->setTool(\osWFrame\Core\Settings::getStringVar('vis2_chtool_module'));
 					}
 				}
+
 				osWFrame\Core\Network::directHeader(\osWFrame\Core\Navigation::buildUrl(\osWFrame\Core\Settings::getStringVar('frame_default_module'), 'vistool='.$VIS2_Main->getTool()));
 			}
 		} else {

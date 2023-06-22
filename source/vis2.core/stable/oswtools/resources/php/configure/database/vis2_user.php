@@ -129,6 +129,31 @@ ALTER TABLE :table:
 }
 
 /*
+ * update table DBV-1.2
+ */
+if (($av_tbl==1)&&($ab_tbl==1)) {
+	$__datatable_do=true;
+	$av_tbl=1;
+	$ab_tbl=2;
+
+	$QupdateData=new \osWFrame\Core\Database();
+	$QupdateData->prepare('
+ALTER TABLE :table:
+	DROP user_token,
+	DROP user_token_custom,
+	DROP user_token_api;;
+');
+	$QupdateData->bindRaw(':table:', $this->getJSONStringValue('database_prefix').$__datatable_table);
+	$QupdateData->execute();
+	if ($QupdateData->hasError()===true) {
+		$tables_error[]='table:'.$__datatable_table.', patch:'.$av_tbl.'.'.$ab_tbl;
+		$db_error[]=$QupdateData->getErrorMessage();
+		$av_tbl=1;
+		$ab_tbl=1;
+	}
+}
+
+/*
  * update version
  */
 if ($__datatable_do===true) {

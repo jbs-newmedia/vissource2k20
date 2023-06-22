@@ -37,12 +37,12 @@ class Main {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=3;
+	private const CLASS_MINOR_VERSION=4;
 
 	/**
 	 * Release-Version der Klasse.
 	 */
-	private const CLASS_RELEASE_VERSION=1;
+	private const CLASS_RELEASE_VERSION=0;
 
 	/**
 	 * Extra-Version der Klasse.
@@ -174,7 +174,8 @@ class Main {
 	 */
 	public function loadTools():self {
 		$this->tools==[];
-		$this->tools[Settings::getStringVar('vis2_login_module')]='Logon';
+		$this->tools[Settings::getStringVar('vis2_login_module')]='Login';
+		$this->tools[Settings::getStringVar('vis2_logout_module')]='Logout';
 		$this->tools[Settings::getStringVar('vis2_chtool_module')]='ChTool';
 
 		$QselectTools=self::getConnection();
@@ -211,9 +212,12 @@ class Main {
 	public function loadToolDetails():bool {
 		$this->clearVars();
 
-		if (in_array($this->getTool(), [Settings::getStringVar('vis2_login_module'), Settings::getStringVar('vis2_chtool_module')])) {
+		if (in_array($this->getTool(), [Settings::getStringVar('vis2_login_module'), Settings::getStringVar('vis2_logout_module'), Settings::getStringVar('vis2_chtool_module')])) {
 			if ($this->getTool()==Settings::getStringVar('vis2_login_module')) {
 				$this->vars=['tool_id'=>0, 'tool_name_intern'=>Settings::getStringVar('vis2_login_module'), 'tool_name'=>'Anmelden', 'tool_description'=>'Anmelden', 'tool_ispublic'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
+			}
+			if ($this->getTool()==Settings::getStringVar('vis2_logout_module')) {
+				$this->vars=['tool_id'=>0, 'tool_name_intern'=>Settings::getStringVar('vis2_logout_module'), 'tool_name'=>'Abmelden', 'tool_description'=>'Abmelden', 'tool_ispublic'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];
 			}
 			if ($this->getTool()==Settings::getStringVar('vis2_chtool_module')) {
 				$this->vars=['tool_id'=>0, 'tool_name_intern'=>Settings::getStringVar('vis2_chtool_module'), 'tool_name'=>'Programm wählen', 'tool_description'=>'Programm wählen', 'tool_ispublic'=>1, 'tool_hide_logon'=>0, 'tool_hide_navigation'=>0, 'tool_use_mandant'=>0, 'tool_use_mandantswitch'=>0, 'tool_create_time'=>0, 'tool_create_user_id'=>0, 'tool_update_time'=>0, 'tool_update_user_id'=>0];

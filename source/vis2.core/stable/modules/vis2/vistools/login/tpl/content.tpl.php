@@ -43,6 +43,14 @@
 						<?php echo $this->Form()->drawPasswordField('vis2_login_password', '', ['input_class'=>'form-control', 'input_errorclass'=>'is-invalid']) ?>
 						<div class="invalid-feedback"><?php echo $this->Form()->getErrorMessage('vis2_login_password') ?></div>
 					</div>
+					<?php if ((\osWFrame\Core\Settings::getBoolVar('vis2_protect_login_remember')===true)&&(\osWFrame\Core\Cookie::isCookiesEnabled()===true)): ?>
+					<div class="form-group mt-3">
+						<div class="form-check mb-3 mb-md-0 ms-2">
+							<?php echo $this->Form()->drawCheckboxField('vis2_login_remember', '1', '0', ['input_class'=>'form-check-input me-1']) ?>
+							<label class="form-check-label" for="vis2_login_remember"> Login merken </label>
+						</div>
+					</div>
+					<?php endif ?>
 				</div>
 				<div class="card-footer d-grid gap-2">
 					<?php echo $this->Form()->drawSubmit('btn_login', 'Absenden', ['input_class'=>'btn btn-primary']) ?>

@@ -34,7 +34,7 @@ $osW_FontAwesome6->load();
 
 $osW_jQuery3->loadPlugin('easing');
 
-$osW_Bootstrap5->loadPlugin('jbsadmin5');
+$osW_Bootstrap5->loadPlugin('jbsadmin');
 $osW_Bootstrap5->loadPlugin('select');
 $osW_Bootstrap5->loadPlugin('datatables');
 $osW_Bootstrap5->loadPlugin('datatables_responsive');

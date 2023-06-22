@@ -15,9 +15,12 @@ namespace VIS2\Core;
 use osWFrame\Core\BaseConnectionTrait;
 use osWFrame\Core\BaseStaticTrait;
 use osWFrame\Core\BaseVarTrait;
+use osWFrame\Core\Cookie;
 use osWFrame\Core\Filter;
+use osWFrame\Core\Misc;
 use osWFrame\Core\Session;
 use osWFrame\Core\Settings;
+use osWFrame\Core\StringFunctions;
 
 class User {
 
@@ -34,12 +37,12 @@ class User {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=3;
+	private const CLASS_MINOR_VERSION=4;
 
 	/**
 	 * Release-Version der Klasse.
 	 */
-	private const CLASS_RELEASE_VERSION=1;
+	private const CLASS_RELEASE_VERSION=0;
 
 	/**
 	 * Extra-Version der Klasse.
@@ -144,18 +147,35 @@ class User {
 	/**
 	 * @return bool
 	 */
-	public function createLogin():bool {
+	public function createLogin(string $session_id, bool $store_login=false):bool {
 		if ($this->getId()!==null) {
-			$user_token=md5($this->getEMail().microtime().uniqid(microtime()));
+			if ((Settings::getBoolVar('vis2_protect_login_remember')!==true)||(Cookie::isCookiesEnabled()!==true)) {
+				$store_login=false;
+			}
 
-			$QupdateData=self::getConnection();
-			$QupdateData->prepare('UPDATE :table_vis2_user: SET user_token=:user_token: WHERE user_id=:user_id:');
-			$QupdateData->bindTable(':table_vis2_user:', 'vis2_user');
-			$QupdateData->bindString(':user_token:', $user_token);
-			$QupdateData->bindInt(':user_id:', $this->getId());
-			$QupdateData->execute();
+			$token_value=md5($this->getEMail().microtime().uniqid(microtime()).Settings::getStringVar('settings_protection_salt'));
 
-			$this->setLoginSessionToken($user_token);
+			$QinsertData=self::getConnection();
+			$QinsertData->prepare('INSERT :table_vis2_user_token: (user_id, session_id, token_value, token_type, token_name, token_description, token_permanent, token_create_time, token_create_user_id, token_update_time, token_update_user_id) VALUES (:user_id:, :session_id:, :token_value:, :token_type:, :token_name:, :token_description:, :token_permanent:, :token_create_time:, :token_create_user_id:, :token_update_time:, :token_update_user_id:)');
+			$QinsertData->bindTable(':table_vis2_user_token:', 'vis2_user_token');
+			$QinsertData->bindInt(':user_id:', $this->getId());
+			$QinsertData->bindString(':session_id:', $session_id);
+			$QinsertData->bindString(':token_value:', $token_value);
+			$QinsertData->bindString(':token_type:', 'logon');
+			$QinsertData->bindString(':token_name:', 'Logon '. (new \DateTimeImmutable())->format('Y-m-d H:i:s'));
+			$QinsertData->bindString(':token_description:', StringFunctions::truncateString(Misc::getUserAgent(), 100));
+			$QinsertData->bindInt(':token_permanent:', ($store_login===true)?1:0);
+			$QinsertData->bindInt(':token_create_time:', time());
+			$QinsertData->bindInt(':token_create_user_id:', $this->getId());
+			$QinsertData->bindInt(':token_update_time:', time());
+			$QinsertData->bindInt(':token_update_user_id:', $this->getId());
+			$QinsertData->execute();
+
+			if ($store_login===true) {
+				$this->setLoginCookieToken($token_value.'.'.$this->getId());
+			}
+
+			$this->setLoginSessionToken($token_value.'.'.$this->getId());
 
 			return true;
 		}
@@ -164,10 +184,69 @@ class User {
 	}
 
 	/**
+	 * @param string $user_token
+	 * @return bool
+	 */
+	public function createLoginByToken(string $user_token=''):bool {
+		if ($user_token=='') {
+			$user_token=$this->getLoginCookieToken();
+		}
+
+		$user_id=intval(substr($user_token, 33));
+		$token_value=substr($user_token, 0, 32);
+
+		$QgetData=self::getConnection();
+		$QgetData->prepare('SELECT * FROM :table_vis2_user_token: AS ut LEFT JOIN :table_vis2_user: AS u ON (u.user_id=ut.user_id) WHERE ut.token_value=:user_token: AND ut.user_id=:user_id:');
+		$QgetData->bindTable(':table_vis2_user_token:', 'vis2_user_token');
+		$QgetData->bindTable(':table_vis2_user:', 'vis2_user');
+		$QgetData->bindString(':user_token:', $token_value);
+		$QgetData->bindInt(':user_id:', $user_id);
+		if ($QgetData->exec()==1) {
+			$this->vars=$QgetData->fetch();
+			$this->vars['token_value']=$token_value;
+
+			if ($this->getIntVar('user_status')!==1) {
+				return false;
+			}
+
+			$this->setLoginSessionToken($token_value.'.'.$this->getId());
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $user_token
 	 * @return $this
 	 */
 	public function setLoginSessionToken(string $user_token):self {
-		Session::setStringVar(Settings::getStringVar('vis2_path').'_user_token', $user_token);
+		if ($user_token!='') {
+			Session::setStringVar(Settings::getStringVar('vis2_path').'_user_token', $user_token);
+		} else {
+			Session::removeVar(Settings::getStringVar('vis2_path').'_user_token');
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string $user_token
+	 * @return $this
+	 */
+	public function setLoginCookieToken(string $user_token):self {
+		$cookie_domain='';
+		if (strlen(Settings::getStringVar('project_subdomain'))>0) {
+			$cookie_domain.=Settings::getStringVar('project_subdomain').'.';
+		}
+		$cookie_domain.=Settings::getStringVar('project_domain');
+
+		if ($user_token!='') {
+			Cookie::setCookie(Settings::getStringVar('vis2_path').'_user_token', $user_token, (time()+(60*60*24*365)), '/', $cookie_domain, Settings::getBoolVar('session_secure'), Settings::getBoolVar('session_httponly'));
+		} else {
+			Cookie::deleteCookie(Settings::getStringVar('vis2_path').'_user_token', '/', $cookie_domain);
+		}
 
 		return $this;
 	}
@@ -177,6 +256,17 @@ class User {
 	 */
 	public function isLoginSessionToken():bool {
 		if (Session::getStringVar(Settings::getStringVar('vis2_path').'_user_token')!==null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isLoginCookieToken():bool {
+		if ((Settings::catchStringCookieValue(Settings::getStringVar('vis2_path').'_user_token')!='')&&(Settings::getBoolVar('vis2_protect_login_remember')===true)) {
 			return true;
 		}
 
@@ -195,6 +285,17 @@ class User {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getLoginCookieToken():string {
+		if ($this->isLoginCookieToken()===true) {
+			return Settings::catchStringCookieValue(Settings::getStringVar('vis2_path').'_user_token');
+		}
+
+		return '';
+	}
+
+	/**
 	 * @param string $user_token
 	 * @return bool
 	 */
@@ -203,7 +304,12 @@ class User {
 			$user_token=$this->getLoginSessionToken();
 		}
 
-		if (strlen($user_token)==32) {
+		$token=explode('.', $user_token);
+		if (!isset($token[1])) {
+			return false;
+		}
+
+		if (strlen($token[0])==32) {
 			if ($this->loadUserDetailsByToken($user_token)===true) {
 				self::setLoggedIn(true);
 
@@ -227,16 +333,20 @@ class User {
 	 */
 	public function doLogout():bool {
 		if ($this->getId()!==null) {
-			$user_token='';
+			$QdelData=self::getConnection();
+			$QdelData->prepare('DELETE FROM :table_vis2_user_token: WHERE token_value=:token_value: AND user_id=:user_id:');
+			$QdelData->bindTable(':table_vis2_user_token:', 'vis2_user_token');
+			$QdelData->bindString(':token_value:', $this->getStringVar('token_value'));
+			$QdelData->bindInt(':user_id:', $this->getId());
+			$QdelData->execute();
 
-			$QupdateData=self::getConnection();
-			$QupdateData->prepare('UPDATE :table_vis2_user: SET user_token=:user_token: WHERE user_id=:user_id:');
-			$QupdateData->bindTable(':table_vis2_user:', 'vis2_user');
-			$QupdateData->bindString(':user_token:', $user_token);
-			$QupdateData->bindInt(':user_id:', $this->getId());
-			$QupdateData->execute();
+			if ($this->isLoginSessionToken()===true) {
+				$this->setLoginSessionToken('');
+			}
 
-			$this->setLoginSessionToken('');
+			if ($this->isLoginCookieToken()===true) {
+				$this->setLoginCookieToken('');
+			}
 
 			return true;
 		}
@@ -286,17 +396,32 @@ class User {
 
 	/**
 	 * @param string $user_token
+	 * @param int $user_id
 	 * @return bool
 	 */
 	public function loadUserDetailsByToken(string $user_token):bool {
 		$this->clearVars();
 
+		$user_id=intval(substr($user_token, 33));
+		$token_value=substr($user_token, 0, 32);
+
 		$QselectUserDetails=self::getConnection();
-		$QselectUserDetails->prepare('SELECT * FROM :table_vis2_user: WHERE user_token=:user_token:');
+		$QselectUserDetails->prepare('SELECT * FROM :table_vis2_user_token: AS ut LEFT JOIN :table_vis2_user: AS u ON (u.user_id=ut.user_id) WHERE ut.token_value=:token_value: AND ut.user_id=:user_id:');
+		$QselectUserDetails->bindTable(':table_vis2_user_token:', 'vis2_user_token');
 		$QselectUserDetails->bindTable(':table_vis2_user:', 'vis2_user');
-		$QselectUserDetails->bindString(':user_token:', $user_token);
+		$QselectUserDetails->bindString(':token_value:', $token_value);
+		$QselectUserDetails->bindInt(':user_id:', $user_id);
 		if ($QselectUserDetails->exec()==1) {
 			$this->vars=$QselectUserDetails->fetch();
+
+			$QupdateToken=self::getConnection();
+			$QupdateToken->prepare('UPDATE :table_vis2_user_token: SET token_update_time=:token_update_time:, token_update_user_id=:token_update_user_id: WHERE token_value=:token_value: AND user_id=:user_id:');
+			$QupdateToken->bindTable(':table_vis2_user_token:', 'vis2_user_token');
+			$QupdateToken->bindInt(':token_update_time:', time());
+			$QupdateToken->bindInt(':token_update_user_id:', $user_id);
+			$QupdateToken->bindString(':token_value:', $token_value);
+			$QupdateToken->bindInt(':user_id:', $user_id);
+			$QupdateToken->exec();
 
 			return true;
 		}
@@ -317,6 +442,7 @@ class User {
 	public function loadTools():self {
 		$this->tools=[];
 		$this->tools[Settings::getStringVar('vis2_login_module')]=['tool_id'=>0, 'tool_name'=>'Anmelden', 'tool_name_intern'=>Settings::getStringVar('vis2_login_module')];
+		$this->tools[Settings::getStringVar('vis2_logout_module')]=['tool_id'=>0, 'tool_name'=>'Abmelden', 'tool_name_intern'=>Settings::getStringVar('vis2_logout_module')];
 		$this->tools[Settings::getStringVar('vis2_chtool_module')]=['tool_id'=>0, 'tool_name'=>'Programm wählen', 'tool_name_intern'=>Settings::getStringVar('vis2_chtool_module')];
 
 		$this->tools_select=[];

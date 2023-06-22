@@ -19,7 +19,8 @@
       "vis2_logo_navi_module": "vis2",
       "vis2_logo_navi_title": "osWFrame VIS",
       "vis2_logo_navi_height": 48,
-      "vis2_login_module": "logon",
+      "vis2_login_module": "login",
+      "vis2_logout_module": "logout",
       "vis2_chtool_module": "chtool",
       "vis2_login_cookie_lifetime": 365,
       "vis2_user_password_length_min": 8,
@@ -30,6 +31,7 @@
       "vis2_protect_attempts": 5,
       "vis2_protect_attempts_max": 25,
       "vis2_protect_time": 300,
+      "vis2_protect_login_remember": true,
       "vis2_theme": "",
       "vis2_theme_color": "",
       "vis2_theme_font": ""
