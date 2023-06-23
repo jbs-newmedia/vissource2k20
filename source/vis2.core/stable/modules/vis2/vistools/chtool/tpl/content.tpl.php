@@ -36,7 +36,7 @@
 					<div class="form-group">
 						<label for="vis2_login_email" class="form-control-label mb-1">Benutzer:</label>
 						<div class="form-control"><?php echo \osWFrame\Core\HTML::outputString($VIS2_User->getName()) ?>
-							<span style="float: right;"><a href="<?php echo $this->buildhrefLink('current', 'vistool=logout') ?>">ändern</a></span>
+							<span style="float: right;"><a href="<?php echo $this->buildhrefLink('current', 'vistool='.\osWFrame\Core\Settings::getStringVar('vis2_logout_module')) ?>">ändern</a></span>
 						</div>
 					</div>
 					<div class="form-group mt-3">
