@@ -22,9 +22,9 @@
 
 	<?php $ar_tool_user=$this->getDeleteElementStorage($element); ?>
 
-	<?php if ($this->getDeleteElementOption($element, 'manager')===true):?>
+	<?php if ($this->getDeleteElementOption($element, 'manager')===true): ?>
 
-		<?php foreach (\VIS2\Core\Manager::getTools() as $tool_id=>$tool_name):?>
+		<?php foreach (\VIS2\Core\Manager::getTools() as $tool_id=>$tool_name): ?>
 
 			<div class="custom-checkbox">
 				<?php if (isset($ar_tool_user[$tool_id])&&($ar_tool_user[$tool_id]==1)): ?>
@@ -42,7 +42,7 @@
 				<?php endif ?>
 			</div>
 
-		<?php endforeach?>
+		<?php endforeach ?>
 
 	<?php else: ?>
 

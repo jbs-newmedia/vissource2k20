@@ -57,8 +57,7 @@ if ($VIS2_User->isLoggedIn()===true) {
 		$request_uri=preg_replace('/oswsid=([a-z0-9]+)(&?)/', '', $request_uri);
 	}
 
-	if (((!stristr($request_uri, \osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/'))&&(strlen($request_uri)>strlen(\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/')))&&
-	((!stristr($request_uri, \osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_logout_module').'/'))&&(strlen($request_uri)>strlen(\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_logout_module').'/')))){
+	if (((!stristr($request_uri, \osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/'))&&(strlen($request_uri)>strlen(\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_login_module').'/')))&&((!stristr($request_uri, \osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_logout_module').'/'))&&(strlen($request_uri)>strlen(\osWFrame\Core\Settings::getStringVar('vis2_path').'/'.\osWFrame\Core\Settings::getStringVar('vis2_logout_module').'/')))) {
 		$vis2_login_link=\osWFrame\Core\Settings::catchStringSessionValue(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', '');
 		if (strlen($vis2_login_link)==0) {
 			\osWFrame\Core\Session::setStringVar(\osWFrame\Core\Settings::getStringVar('vis2_path').'_login_link', $request_uri);

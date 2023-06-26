@@ -24,13 +24,11 @@
 	<?php $users=\VIS2\Core\Manager::getUsers(); ?>
 
 	<?php $i=0;
-	foreach ($users as $user_id=>$user_name):$i++; ?>
-		<?php if ((isset($ar_tool_user[$user_id]))&&($ar_tool_user[$user_id]==1)): ?>
+	foreach ($users as $user_id=>$user_name):$i++; ?><?php if ((isset($ar_tool_user[$user_id]))&&($ar_tool_user[$user_id]==1)): ?>
 		<div class="custom-checkbox">
 			<?php if ((isset($ar_tool_user[$user_id]))&&($ar_tool_user[$user_id]==1)): ?><?php echo $this->getGroupMessage('log_char_true').' '.\osWFrame\Core\HTML::outputString($user_name) ?><?php else: ?><?php echo $this->getGroupMessage('log_char_false').' '.\osWFrame\Core\HTML::outputString($user_name) ?><?php endif ?><?php echo $this->getTemplate()->Form()->drawHiddenField('page_'.$navigation_element['info']['page_name_intern'].'_'.$flag, 0) ?>
 		</div>
-		<?php endif?>
-	<?php endforeach ?>
+	<?php endif ?><?php endforeach ?>
 
 	<?php /* error */ ?>
 	<?php if ($this->getTemplate()->Form()->getErrorMessage($element)): ?>

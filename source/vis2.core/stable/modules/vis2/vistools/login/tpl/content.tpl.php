@@ -16,11 +16,9 @@
 
 	<div class="row justify-content-center mt-5 mb-3">
 		<div class="col text-muted justify-content-center text-center">
-			<?php if (pathinfo( \osWFrame\Core\Settings::getStringVar('vis2_logo_login_name') , PATHINFO_EXTENSION)=='svg'):?>
-				<img style="width: <?php echo \osWFrame\Core\Settings::getIntVar('vis2_logo_login_longest');?>%" src="<?php echo $VIS2_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_login_name'))?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_login_title')?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_login_title')?>"/>
-			<?php else:?>
-				<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_login_name'), ['parameter'=>'class="img-fluid"', 'module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_login_module'), 'path'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_path'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_login_title'), 'longest'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_login_longest'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_login_height'), 'width'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_login_width')]) ?>
-			<?php endif?>
+			<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis2_logo_login_name'), PATHINFO_EXTENSION)=='svg'): ?>
+				<img style="width: <?php echo \osWFrame\Core\Settings::getIntVar('vis2_logo_login_longest'); ?>%" src="<?php echo $VIS2_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis2_logo_login_name')) ?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_login_title') ?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis2_logo_login_title') ?>"/>
+			<?php else: ?><?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis2_logo_login_name'), ['parameter'=>'class="img-fluid"', 'module'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_login_module'), 'path'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_path'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis2_logo_login_title'), 'longest'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_login_longest'), 'height'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_login_height'), 'width'=>\osWFrame\Core\Settings::getIntVar('vis2_logo_login_width')]) ?><?php endif ?>
 			<?php if (\osWFrame\Core\Settings::getStringVar('vis2_logon_message')!=''): ?>
 				<h1 class="mt-5 "><?php echo \osWFrame\Core\Settings::getStringVar('vis2_logon_message') ?></h1>
 			<?php endif ?>
@@ -44,12 +42,12 @@
 						<div class="invalid-feedback"><?php echo $this->Form()->getErrorMessage('vis2_login_password') ?></div>
 					</div>
 					<?php if ((\osWFrame\Core\Settings::getBoolVar('vis2_protect_login_remember')===true)&&(\osWFrame\Core\Cookie::isCookiesEnabled()===true)): ?>
-					<div class="form-group mt-3">
-						<div class="form-check mb-3 mb-md-0 ms-2">
-							<?php echo $this->Form()->drawCheckboxField('vis2_login_remember', '1', '0', ['input_class'=>'form-check-input me-1']) ?>
-							<label class="form-check-label" for="vis2_login_remember"> Login merken </label>
+						<div class="form-group mt-3">
+							<div class="form-check mb-3 mb-md-0 ms-2">
+								<?php echo $this->Form()->drawCheckboxField('vis2_login_remember', '1', '0', ['input_class'=>'form-check-input me-1']) ?>
+								<label class="form-check-label" for="vis2_login_remember"> Login merken </label>
+							</div>
 						</div>
-					</div>
 					<?php endif ?>
 				</div>
 				<div class="card-footer d-grid gap-2">

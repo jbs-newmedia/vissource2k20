@@ -1,1 +1,15 @@
-{"\/oswtools":"","\/oswtools\/resources":"","\/oswtools\/resources\/json":"","\/oswtools\/resources\/json\/package":"","\/oswtools\/resources\/json\/package\/vistools.serverlist-stable.json":"c91594c656c8811569c11120cfdf152797d48fac","\/oswtools\/resources\/json\/changelog":"","\/oswtools\/resources\/json\/changelog\/vistools.serverlist-stable.json":"97d170e1550eee4afc0af065b78cda302a97674c","\/oswtools\/resources\/json\/serverlist":"","\/oswtools\/resources\/json\/serverlist\/vis2k20.json":"090b1d3fe50fb6f44f32a9b6669275fec76c7e65","\/oswtools\/resources\/json\/filelist":"","\/oswtools\/resources\/json\/filelist\/vistools.serverlist-stable.json":"f5a701f3d4c61f1cd77289b39990069da006a61c","\/oswtools\/resources\/json\/packagelist":"","\/oswtools\/resources\/json\/packagelist\/vis2k20.json":"bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f"}
+{
+  "\/oswtools": "",
+  "\/oswtools\/resources": "",
+  "\/oswtools\/resources\/json": "",
+  "\/oswtools\/resources\/json\/package": "",
+  "\/oswtools\/resources\/json\/package\/vistools.serverlist-stable.json": "c91594c656c8811569c11120cfdf152797d48fac",
+  "\/oswtools\/resources\/json\/changelog": "",
+  "\/oswtools\/resources\/json\/changelog\/vistools.serverlist-stable.json": "97d170e1550eee4afc0af065b78cda302a97674c",
+  "\/oswtools\/resources\/json\/serverlist": "",
+  "\/oswtools\/resources\/json\/serverlist\/vis2k20.json": "090b1d3fe50fb6f44f32a9b6669275fec76c7e65",
+  "\/oswtools\/resources\/json\/filelist": "",
+  "\/oswtools\/resources\/json\/filelist\/vistools.serverlist-stable.json": "f5a701f3d4c61f1cd77289b39990069da006a61c",
+  "\/oswtools\/resources\/json\/packagelist": "",
+  "\/oswtools\/resources\/json\/packagelist\/vis2k20.json": "bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f"
+}

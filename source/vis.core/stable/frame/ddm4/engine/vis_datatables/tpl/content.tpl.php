@@ -137,7 +137,6 @@ function resetDDM4() {
 # data
 if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 
-
 	if (\osWFrame\Core\Settings::getAction()!='') {
 		$this->name.='_'.\osWFrame\Core\Settings::getAction();
 		echo '<div class="page-wrapper-modal px-2 py-1">';
@@ -192,7 +191,6 @@ if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 			</div>
 		</div>
 	</div>
-
 
 
 	<div class="modal fade overflow-hidden pe-0 pb-4" id="ddm4_controller_<?php echo $this->getName() ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

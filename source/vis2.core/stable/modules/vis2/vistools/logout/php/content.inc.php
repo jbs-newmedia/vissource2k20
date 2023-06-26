@@ -15,7 +15,6 @@
  *
  */
 
-
 use osWFrame\Core\Cookie;
 use osWFrame\Core\Settings;
 

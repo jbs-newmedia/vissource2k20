@@ -10,8 +10,7 @@
  * @license MIT License
  */
 
-?>
-<?php if ($ddm_navigation_id!=0): ?>
+?><?php if ($ddm_navigation_id!=0): ?>
 
 	<?php echo $osW_DDM4->runDDMTPL(); ?>
 

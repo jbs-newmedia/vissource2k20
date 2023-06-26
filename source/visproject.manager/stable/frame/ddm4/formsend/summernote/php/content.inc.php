@@ -30,7 +30,6 @@ $(function () {
 });
 ');
 
-
 $this->incCounter('form_elements');
 $this->incCounter('form_elements_required');
 

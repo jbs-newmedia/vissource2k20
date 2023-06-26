@@ -31,7 +31,7 @@ if ($this->getFinishElementOption($element, 'group')!='') {
 }
 
 if ($this->getFinishElementOption($element, 'manager')===true) {
-	foreach (\VIS\Core\Manager::getTools() as $tool_id=>$tool_name){
+	foreach (\VIS\Core\Manager::getTools() as $tool_id=>$tool_name) {
 		if ((!isset($ar_tool_user[$tool_id]))||($ar_tool_user[$tool_id]!==$ar_tool_user_do[$tool_id])) {
 			if ((isset($ar_tool_user_do[$tool_id]))&&($ar_tool_user_do[$tool_id]==1)) {
 				\VIS\Core\Manager::addUserTool($this->getIndexElementStorage(), $tool_id, $vis_time, $vis_user_id);

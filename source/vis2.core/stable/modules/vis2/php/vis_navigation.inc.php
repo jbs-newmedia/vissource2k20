@@ -522,7 +522,6 @@ if (in_array($ddm_navigation_id, [3])) {
 	$ddm4_elements['data']['navigation_parent_id']['_edit']['validation']['filter']=[];
 	$ddm4_elements['data']['navigation_parent_id']['_edit']['validation']['filter']['vis2_navigation_check_parent_id']=[];
 
-
 	/*
 	 * Data: Titel
 	 */

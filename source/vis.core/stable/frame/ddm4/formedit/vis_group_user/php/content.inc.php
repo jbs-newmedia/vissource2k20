@@ -29,7 +29,7 @@ if (\osWFrame\Core\Settings::getAction()=='doedit') {
 
 $users=\VIS\Core\Manager::getUsers();
 
-if(count($users)>intval($this->getEditElementOption($element, 'search_mod_counter'))) {
+if (count($users)>intval($this->getEditElementOption($element, 'search_mod_counter'))) {
 
 	$this->getTemplate()->addJSCodeHead('
 function ddm4_function_'.$element.'() {
@@ -46,8 +46,7 @@ function ddm4_function_'.$element.'() {
 $(function () {
 	$("#'.$element.'_search").attr("autocomplete","off");
 	ddm4_function_'.$element.'();
-});'
-);
+});');
 
 }
 

@@ -16,11 +16,9 @@
 
 	<div class="row justify-content-center mt-5 mb-3">
 		<div class="col text-muted justify-content-center text-center">
-			<?php if (pathinfo( \osWFrame\Core\Settings::getStringVar('vis_logo_login_name') , PATHINFO_EXTENSION)=='svg'):?>
-				<img style="width: <?php echo \osWFrame\Core\Settings::getIntVar('vis_logo_login_longest');?>%" src="<?php echo $VIS_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis_logo_login_name'))?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis_logo_login_title')?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis_logo_login_title')?>"/>
-			<?php else:?>
-				<?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis_logo_login_name'), ['parameter'=>'class="img-responsive center-block"', 'module'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_title'), 'longest'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_longest'), 'height'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_height'), 'width'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_width')]) ?>
-			<?php endif?>
+			<?php if (pathinfo(\osWFrame\Core\Settings::getStringVar('vis_logo_login_name'), PATHINFO_EXTENSION)=='svg'): ?>
+				<img style="width: <?php echo \osWFrame\Core\Settings::getIntVar('vis_logo_login_longest'); ?>%" src="<?php echo $VIS_Main->getResourceLink('img'.DIRECTORY_SEPARATOR.\osWFrame\Core\Settings::getStringVar('vis_logo_login_name')) ?>" title="<?php echo \osWFrame\Core\Settings::getStringVar('vis_logo_login_title') ?>" alt="<?php echo \osWFrame\Core\Settings::getStringVar('vis_logo_login_title') ?>"/>
+			<?php else: ?><?php echo $this->getOptimizedImage(\osWFrame\Core\Settings::getStringVar('vis_logo_login_name'), ['parameter'=>'class="img-responsive center-block"', 'module'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_module'), 'title'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_title'), 'longest'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_longest'), 'height'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_height'), 'width'=>\osWFrame\Core\Settings::getStringVar('vis_logo_login_width')]) ?><?php endif ?>
 			<?php if (\osWFrame\Core\Settings::getStringVar('vis_logon_message')!=''): ?>
 				<h1 class="mt-5 "><?php echo \osWFrame\Core\Settings::getStringVar('vis_logon_message') ?></h1>
 			<?php endif ?>

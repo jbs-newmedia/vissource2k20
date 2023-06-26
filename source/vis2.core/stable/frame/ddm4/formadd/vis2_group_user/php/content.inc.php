@@ -29,9 +29,9 @@ if (\osWFrame\Core\Settings::getAction()=='doadd') {
 
 $users=\VIS2\Core\Manager::getUsers();
 
-if(count($users)>intval($this->getAddElementOption($element, 'search_mod_counter'))) {
+if (count($users)>intval($this->getAddElementOption($element, 'search_mod_counter'))) {
 
-$this->getTemplate()->addJSCodeHead('
+	$this->getTemplate()->addJSCodeHead('
 function ddm4_function_'.$element.'() {
 	$(".ddm_element_'.$element.' .form-check").each(function() {
 		search=$("#'.$element.'_search").val().toLowerCase();
@@ -46,8 +46,7 @@ function ddm4_function_'.$element.'() {
 $(function () {
 	$("#'.$element.'_search").attr("autocomplete","off");
 	ddm4_function_'.$element.'();
-});'
-);
+});');
 
 }
 

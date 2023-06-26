@@ -52,7 +52,7 @@ if (\osWFrame\Core\Settings::getAction()=='dologin') {
 	if ($osW_Template->Form()->hasErrorMessages()===true) {
 		osWFrame\Core\Settings::setAction('');
 	} else {
-		if ($VIS2_User->createLogin(\osWFrame\Core\Session::getId(),  \osWFrame\Core\Settings::catchBoolPostValue('vis2_login_remember'))===true) {
+		if ($VIS2_User->createLogin(\osWFrame\Core\Session::getId(), \osWFrame\Core\Settings::catchBoolPostValue('vis2_login_remember'))===true) {
 			osWFrame\Core\SessionMessageStack::addMessage('session', 'success', ['msg'=>'Sie wurden erfolgreich eingeloggt.']);
 
 			\VIS2\Core\Protect::clearEntries($VIS2_User->getId());

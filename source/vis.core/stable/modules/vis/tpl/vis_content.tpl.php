@@ -98,36 +98,36 @@
 
 								<?php if (count($navigation_element['links'])>0): ?>
 
-								<li class="nav-item nav-divider w-100"></li>
+									<li class="nav-item nav-divider w-100"></li>
 
-								<li class="nav-item w-100<?php if ($navigation_element['info']['navigation_active']==true): ?> active<?php endif ?>">
+									<li class="nav-item w-100<?php if ($navigation_element['info']['navigation_active']==true): ?> active<?php endif ?>">
 
-										<a href="#navi_vis_<?php echo $navigation_element['info']['navigation_id'] ?>" class="nav-link" data-bs-toggle="collapse">
-											<span><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?></span></a>
-										<div class="collapse nav flex-column<?php if ($navigation_element['info']['navigation_active']==true): ?> show<?php endif ?>" id="navi_vis_<?php echo $navigation_element['info']['navigation_id'] ?>" data-bs-parent="#jbsadmin-sidebar-navigation">
-											<div class="nav-sub p-2 mb-2">
+									<a href="#navi_vis_<?php echo $navigation_element['info']['navigation_id'] ?>" class="nav-link" data-bs-toggle="collapse">
+										<span><?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?></span></a>
+									<div class="collapse nav flex-column<?php if ($navigation_element['info']['navigation_active']==true): ?> show<?php endif ?>" id="navi_vis_<?php echo $navigation_element['info']['navigation_id'] ?>" data-bs-parent="#jbsadmin-sidebar-navigation">
+										<div class="nav-sub p-2 mb-2">
 
-												<?php foreach ($navigation_element['links'] as $navigation_element): ?>
+											<?php foreach ($navigation_element['links'] as $navigation_element): ?>
 
-													<?php if ($navigation_element['info']['permission_view']==true): ?>
-														<a class="collapse-item<?php if ($navigation_element['info']['navigation_active']===true): ?> active<?php endif ?>" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS_Main->getTool().'&vispage='.$navigation_element['info']['page_name_intern']) ?>">
-													<?php endif ?>
+												<?php if ($navigation_element['info']['permission_view']==true): ?>
+													<a class="collapse-item<?php if ($navigation_element['info']['navigation_active']===true): ?> active<?php endif ?>" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS_Main->getTool().'&vispage='.$navigation_element['info']['page_name_intern']) ?>">
+												<?php endif ?>
 
-													<?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?>
+												<?php echo \osWFrame\Core\HTML::outputString($navigation_element['info']['navigation_title']) ?>
 
-													<?php if (($navigation_element['info']['page_name_intern']!==null)&&(\VIS\Core\Badge::get($navigation_element['info']['page_name_intern'])!==null)): ?>
-														<span class="vis_navigation_badge" title="<?php echo VIS\Core\Badge::get($navigation_element['info']['page_name_intern'], null) ?>"><?php echo VIS\Core\Badge::get($navigation_element['info']['page_name_intern']) ?></span>
-													<?php endif ?>
+												<?php if (($navigation_element['info']['page_name_intern']!==null)&&(\VIS\Core\Badge::get($navigation_element['info']['page_name_intern'])!==null)): ?>
+													<span class="vis_navigation_badge" title="<?php echo VIS\Core\Badge::get($navigation_element['info']['page_name_intern'], null) ?>"><?php echo VIS\Core\Badge::get($navigation_element['info']['page_name_intern']) ?></span>
+												<?php endif ?>
 
-													<?php if ($navigation_element['info']['permission_view']==true): ?>
-														</a>
-													<?php endif ?>
+												<?php if ($navigation_element['info']['permission_view']==true): ?>
+													</a>
+												<?php endif ?>
 
-												<?php endforeach ?>
+											<?php endforeach ?>
 
-											</div>
 										</div>
-									<?php endif ?>
+									</div>
+								<?php endif ?>
 								</li>
 							<?php endif ?>
 

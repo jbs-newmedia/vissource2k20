@@ -23,9 +23,9 @@
 
 		<?php $ar_tool_user=$this->getAddElementStorage($element); ?>
 
-		<?php if ($this->getAddElementOption($element, 'manager')===true):?>
+		<?php if ($this->getAddElementOption($element, 'manager')===true): ?>
 
-			<?php foreach (\VIS\Core\Manager::getTools() as $tool_id=>$tool_name):?>
+			<?php foreach (\VIS\Core\Manager::getTools() as $tool_id=>$tool_name): ?>
 
 				<div class="custom-checkbox">
 					<?php if (isset($ar_tool_user[$tool_id])&&($ar_tool_user[$tool_id]==1)): ?>
@@ -43,7 +43,7 @@
 					<?php endif ?>
 				</div>
 
-			<?php endforeach?>
+			<?php endforeach ?>
 
 		<?php else: ?>
 
@@ -63,7 +63,7 @@
 				<?php endif ?>
 			</div>
 
-		<?php endif?>
+		<?php endif ?>
 
 	<?php else: ?>
 
@@ -71,25 +71,25 @@
 
 		<?php $ar_tool_user=$this->getAddElementStorage($element); ?>
 
-		<?php if ($this->getAddElementOption($element, 'manager')===true):?>
+		<?php if ($this->getAddElementOption($element, 'manager')===true): ?>
 
-			<?php foreach (\VIS\Core\Manager::getTools() as $tool_id=>$tool_name):?>
+			<?php foreach (\VIS\Core\Manager::getTools() as $tool_id=>$tool_name): ?>
 
 				<div class="form-check">
 					<?php echo $this->getTemplate()->Form()->drawCheckBoxField($element.'_'.$tool_id, '1', ((isset($ar_tool_user[$tool_id])&&($ar_tool_user[$tool_id]==1))?1:0), ['input_parameter'=>'title="'.\osWFrame\Core\HTML::outputString($tool_name).'"', 'input_class'=>'form-check-input']) ?>
 					<label class="form-check-label<?php if ($this->getTemplate()->Form()->getErrorMessage($element)): ?> text-danger<?php endif ?>" for="<?php echo $element.'_'.$tool_id ?>0"><?php echo \osWFrame\Core\HTML::outputString($tool_name) ?></label>
 				</div>
 
-			<?php endforeach?>
+			<?php endforeach ?>
 
-		<?php else:?>
+		<?php else: ?>
 
 			<div class="form-check">
 				<?php echo $this->getTemplate()->Form()->drawCheckBoxField($element.'_'.$this->getAddElementOption($element, 'tool_id'), '1', ((isset($ar_tool_user[$this->getAddElementOption($element, 'tool_id')])&&($ar_tool_user[$this->getAddElementOption($element, 'tool_id')]==1))?1:0), ['input_parameter'=>'title="'.\osWFrame\Core\HTML::outputString($this->getAddElementOption($element, 'tool_name')).'"', 'input_class'=>'form-check-input']) ?>
 				<label class="form-check-label<?php if ($this->getTemplate()->Form()->getErrorMessage($element)): ?> text-danger<?php endif ?>" for="<?php echo $element.'_'.$this->getAddElementOption($element, 'tool_id') ?>0"><?php echo \osWFrame\Core\HTML::outputString($this->getAddElementOption($element, 'tool_name')) ?></label>
 			</div>
 
-		<?php endif?>
+		<?php endif ?>
 
 	<?php endif ?>
 

@@ -112,7 +112,7 @@ if ($this->getGroupOption('enable_log')===true) {
 						\osWFrame\Core\DDM4_Log::addValue($group, $element_name, $this->getEditElementValue($element_name, 'module'), $value_old, $value_new, $this->getEditElementStorage($this->getFinishElementOption($element, 'createupdatestatus_prefix').'update_user_id'), $this->getEditElementStorage($this->getFinishElementOption($element, 'createupdatestatus_prefix').'update_time'), $this->getDoEditElementStorage($this->getFinishElementOption($element, 'createupdatestatus_prefix').'update_user_id'), $this->getDoEditElementStorage($this->getFinishElementOption($element, 'createupdatestatus_prefix').'update_time'));
 					}
 				} else {
-					\osWFrame\Core\DDM4_Log::addValue($group, $element_name, $this->getEditElementValue($element_name, 'module'),$value_old, $value_new);
+					\osWFrame\Core\DDM4_Log::addValue($group, $element_name, $this->getEditElementValue($element_name, 'module'), $value_old, $value_new);
 				}
 			}
 		}

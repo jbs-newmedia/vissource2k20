@@ -29,8 +29,7 @@ if (!function_exists('vis_manager_group_permission')) {
 
 				<?php foreach ($navigation_element['links'] as $_navigation_element): ?>
 
-					<?php vis_manager_group_permission($object, $element, $_navigation_element, $ar_permission, $ro) ?>
-				<?php endforeach ?>
+					<?php vis_manager_group_permission($object, $element, $_navigation_element, $ar_permission, $ro) ?><?php endforeach ?>
 
 			<?php endif ?>
 		</div>

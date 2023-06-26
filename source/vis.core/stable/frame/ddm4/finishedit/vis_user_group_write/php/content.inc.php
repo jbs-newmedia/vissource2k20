@@ -40,7 +40,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 			foreach ($ar_tool_user_do[$tool_id] as $group_id=>$flag) {
 				if (((!isset($ar_tool_user[$tool_id]))||(!isset($ar_tool_user[$tool_id][$group_id])))||($ar_tool_user[$tool_id][$group_id]!==$flag)) {
 					if ($flag==1) {
-						\VIS\Core\Manager::addUserGroup($this->getIndexElementStorage(),  $group_id, $tool_id,$vis_time, $vis_user_id);
+						\VIS\Core\Manager::addUserGroup($this->getIndexElementStorage(), $group_id, $tool_id, $vis_time, $vis_user_id);
 						if ($this->getGroupOption('enable_log')===true) {
 							if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
 								if (!in_array($element_current, [$this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id', $this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'])) {
@@ -62,7 +62,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 							\osWFrame\Core\DDM4_Log::writeValues($group_more, 'group_id', $group_id, $this->getGroupOption('connection_log', 'database'));
 						}
 					} elseif (((isset($ar_tool_user[$tool_id]))&&(isset($ar_tool_user[$tool_id][$group_id])))&&($flag==0)) {
-						\VIS\Core\Manager::delUserGroup($this->getIndexElementStorage(),  $group_id, $tool_id);
+						\VIS\Core\Manager::delUserGroup($this->getIndexElementStorage(), $group_id, $tool_id);
 						if ($this->getGroupOption('enable_log')===true) {
 							if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
 								if (!in_array($element_current, [$this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id', $this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'])) {
@@ -94,7 +94,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 		foreach ($ar_tool_user_do[$this->getFinishElementOption($element, 'tool_id')] as $group_id=>$flag) {
 			if (((!isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')]))||(!isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')][$group_id])))||($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')][$group_id]!==$flag)) {
 				if ($flag==1) {
-					\VIS\Core\Manager::addUserGroup($this->getIndexElementStorage(),  $group_id, $this->getFinishElementOption($element, 'tool_id'),$vis_time, $vis_user_id);
+					\VIS\Core\Manager::addUserGroup($this->getIndexElementStorage(), $group_id, $this->getFinishElementOption($element, 'tool_id'), $vis_time, $vis_user_id);
 					if ($this->getGroupOption('enable_log')===true) {
 						if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
 							if (!in_array($element_current, [$this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id', $this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'])) {
@@ -116,7 +116,7 @@ if ($this->getFinishElementOption($element, 'manager')===true) {
 						\osWFrame\Core\DDM4_Log::writeValues($group_more, 'group_id', $group_id, $this->getGroupOption('connection_log', 'database'));
 					}
 				} elseif (((isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')]))&&(isset($ar_tool_user[$this->getFinishElementOption($element, 'tool_id')][$group_id])))&&($flag==0)) {
-					\VIS\Core\Manager::delUserGroup($this->getIndexElementStorage(),  $group_id, $this->getFinishElementOption($element, 'tool_id'));
+					\VIS\Core\Manager::delUserGroup($this->getIndexElementStorage(), $group_id, $this->getFinishElementOption($element, 'tool_id'));
 					if ($this->getGroupOption('enable_log')===true) {
 						if ($this->getFinishElementOption($element_storage, 'createupdatestatus_prefix')!='') {
 							if (!in_array($element_current, [$this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_user_id', $this->getFinishElementOption($element_storage, 'createupdatestatus_prefix').'update_time'])) {

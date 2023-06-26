@@ -75,7 +75,8 @@ CREATE TABLE :table: (
 	if ($QwriteData->hasError()===true) {
 		$tables_error[]='table:'.$__datatable_table.', patch:'.$av_tbl.'.'.$ab_tbl;
 		$db_error[]=$QwriteData->getErrorMessage();
-	}}
+	}
+}
 
 /*
  * update table

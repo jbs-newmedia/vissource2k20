@@ -373,6 +373,7 @@ class User {
 		foreach ($QselectMandanten->query() as $mandant_details) {
 			$this->mandanten[$mandant_details['mandant_id']]=['mandant_id'=>$mandant_details['mandant_id'], 'mandant_name'=>$mandant_details['mandant_name']];
 		}
+
 		return true;
 	}
 

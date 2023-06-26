@@ -22,9 +22,9 @@
 		<?php if (($this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'create_time')=='')||($this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'create_time')=='0')): ?>
 			<div class="form-control readonly">---</div>
 		<?php else: ?><?php if ($this->getEditElementOption($element, 'month_asname')===true): ?>
-			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime(str_replace('%m.', ' %B ', $this->getEditElementOption($element, 'date_format')), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'create_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime(str_replace('%m.', ' %B ', $this->getEditElementOption($element, 'date_format')), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'create_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php else: ?>
-			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime($this->getEditElementOption($element, 'date_format'), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'create_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime($this->getEditElementOption($element, 'date_format'), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'create_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php endif ?><?php endif ?>
 	</div>
 <?php endif ?>
@@ -46,9 +46,9 @@
 		<?php if (($this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time')=='')||($this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time')=='0')): ?>
 			<div class="form-control readonly">---</div>
 		<?php else: ?><?php if ($this->getEditElementOption($element, 'month_asname')===true): ?>
-			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime(str_replace('%m.', ' %B ', $this->getEditElementOption($element, 'date_format')), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime(str_replace('%m.', ' %B ', $this->getEditElementOption($element, 'date_format')), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php else: ?>
-			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime($this->getEditElementOption($element, 'date_format'), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time')) ?> <?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
+			<div class="form-control readonly"><?php echo \osWFrame\Core\DateTime::strftime($this->getEditElementOption($element, 'date_format'), $this->getEditElementStorage($this->getEditElementOption($element, 'prefix').'update_time')) ?><?php echo \osWFrame\Core\HTML::outputString($this->getGroupMessage('text_clock')) ?></div>
 		<?php endif ?><?php endif ?>
 	</div>
 <?php endif ?>

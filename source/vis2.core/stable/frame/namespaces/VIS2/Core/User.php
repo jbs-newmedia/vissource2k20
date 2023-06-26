@@ -162,7 +162,7 @@ class User {
 			$QinsertData->bindString(':session_id:', $session_id);
 			$QinsertData->bindString(':token_value:', $token_value);
 			$QinsertData->bindString(':token_type:', 'logon');
-			$QinsertData->bindString(':token_name:', 'Logon '. (new \DateTimeImmutable())->format('Y-m-d H:i:s'));
+			$QinsertData->bindString(':token_name:', 'Logon '.(new \DateTimeImmutable())->format('Y-m-d H:i:s'));
 			$QinsertData->bindString(':token_description:', StringFunctions::truncateString(Misc::getUserAgent(), 100));
 			$QinsertData->bindInt(':token_permanent:', ($store_login===true)?1:0);
 			$QinsertData->bindInt(':token_create_time:', time());

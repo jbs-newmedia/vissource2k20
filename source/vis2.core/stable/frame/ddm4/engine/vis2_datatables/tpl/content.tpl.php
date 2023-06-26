@@ -137,7 +137,6 @@ function resetDDM4() {
 # data
 if (in_array(\osWFrame\Core\Settings::getAction(), ['', 'log'])) {
 
-
 	if (\osWFrame\Core\Settings::getAction()!='') {
 		$this->name.='_'.\osWFrame\Core\Settings::getAction();
 		echo '<div class="page-wrapper-modal px-2 py-1">';
