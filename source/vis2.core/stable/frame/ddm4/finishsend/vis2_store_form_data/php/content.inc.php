@@ -27,11 +27,45 @@ if ($mode=='insert') {
 		}
 	}
 
+	// build selector
+	$ddm_search_case_array_keys='';
+	$ddm_search_case_array_values='';
+	$ddm_selector_array=$this->getGroupOption('selector', 'database');
+	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+		$ar_keys=[];
+		$ar_values=[];
+		foreach ($ddm_selector_array as $key=>$value) {
+			$ar_keys[]=$key;
+			if (is_int($value)==true) {
+				$ar_values[]=$value;
+			} else {
+				$ar_values[]='\''.$value.'\'';
+			}
+		}
+		if ($ar_values!=[]) {
+			$ddm_search_case_array_keys=', '.implode(', ', $ar_keys);
+		}
+		if ($ar_values!=[]) {
+			$ddm_search_case_array_values=', '.implode(', ', $ar_values);
+		}
+	}
+
+	if ($this->getGroupOption('index', 'database')!='') {
+		$ddm_search_case_array_keys.=','.$this->getGroupOption('index', 'database');
+		if ($this->getGroupOption('db_index_type', 'database')=='string') {
+			$ddm_search_case_array_values.=', \''.$this->getIndexElementStorage().'\'';
+		} else {
+			$ddm_search_case_array_values.=', '.intval($this->getIndexElementStorage());
+		}
+	}
+
 	$QsaveData=self::getConnection($this->getGroupOption('connection', 'database'));
-	$QsaveData->prepare('INSERT INTO :table: (:vars_name:) VALUES (:vars_value:)');
+	$QsaveData->prepare('INSERT INTO :table: (:vars_name: :ddm_search_case_array_keys:) VALUES (:vars_value: :ddm_search_case_array_values:)');
 	$QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$QsaveData->bindRaw(':vars_name:', implode(', ', $vars_key));
 	$QsaveData->bindRaw(':vars_value:', ':'.implode(':, :', $vars_value).':');
+	$QsaveData->bindRaw(':ddm_search_case_array_keys:', $ddm_search_case_array_keys);
+	$QsaveData->bindRaw(':ddm_search_case_array_values:', $ddm_search_case_array_values);
 	foreach ($this->getSendElements() as $element=>$element_details) {
 		if ((isset($element_details['name']))&&($element_details['name']!='')) {
 			switch ($this->getSendElementValidation($element, 'module')) {
@@ -55,6 +89,7 @@ if ($mode=='insert') {
 		}
 	}
 	$QsaveData->execute();
+
 	$this->setIndexElementStorage($QsaveData->lastInsertId());
 	\osWFrame\Core\SessionMessageStack::addMessage('session', 'success', ['msg'=>$this->getGroupMessage('send_success_title')]);
 }
@@ -67,8 +102,23 @@ if ($mode=='update') {
 		}
 	}
 
+	// build selector
+	$ddm_search_case_array='';
+	$ddm_selector_array=$this->getGroupOption('selector', 'database');
+	if (($ddm_selector_array!='')&&($ddm_selector_array!=[])) {
+		$ar_values=[];
+		foreach ($ddm_selector_array as $key=>$value) {
+			if (is_int($value)==true) {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'='.$value;
+			} else {
+				$ar_values[]=$this->getGroupOption('alias', 'database').'.'.$key.'=\''.$value.'\'';
+			}
+		}
+		$ddm_search_case_array='AND ('.implode(' AND ', $ar_values).')';
+	}
+
 	$QsaveData=self::getConnection($this->getGroupOption('connection', 'database'));
-	$QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index:');
+	$QsaveData->prepare('UPDATE :table: AS :alias: SET :vars: WHERE :name_index:=:value_index: :search_filter:');
 	$QsaveData->bindTable(':table:', $this->getGroupOption('table', 'database'));
 	$QsaveData->bindRaw(':alias:', $this->getGroupOption('alias', 'database'));
 	$QsaveData->bindRaw(':vars:', $this->getGroupOption('alias', 'database').'.'.implode(',  '.$this->getGroupOption('alias', 'database').'.', $vars));
@@ -78,6 +128,7 @@ if ($mode=='update') {
 	} else {
 		$QsaveData->bindInt(':value_index:', intval($this->getIndexElementStorage()));
 	}
+	$QsaveData->bindRaw(':search_filter:', $ddm_search_case_array);
 
 	foreach ($this->getSendElements() as $element_name=>$element_details) {
 		if ((isset($element_details['name']))&&($element_details['name']!='')) {
