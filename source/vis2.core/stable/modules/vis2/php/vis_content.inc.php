@@ -74,6 +74,6 @@ if ((file_exists($file))&&($VIS2_Permission->checkPermission($VIS2_Navigation->g
 }
 
 $VIS2_Main->addTemplateJSCode('head', 'var session_timeout=\''.\osWFrame\Core\Session::getSessionLifetime().'\';');
-$VIS2_Main->addTemplateJSCode('head', 'var session_logout=\''.\osWFrame\Core\Navigation::buildUrl('current', 'vistool='.\osWFrame\Core\Settings::getStringVar('vis2_login_module')).'\';');
+$VIS2_Main->addTemplateJSCode('head', 'var session_logout=\''.\osWFrame\Core\Navigation::buildUrl('current', 'vistool='.\osWFrame\Core\Settings::getStringVar('vis2_logout_module')).'\';');
 
 ?>
