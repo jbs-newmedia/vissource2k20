@@ -10,7 +10,18 @@
  * @license MIT License
  */
 
-?><?php if (\osWFrame\Core\Settings::catchValue('modal', '', 'pg')=='1'): ?><?php echo $vis2content ?><?php else: ?>
+?>
+
+	<div class="vis2-loader-wrapper">
+		<div class="vis2-loader border border-5 border-0 border-top border-primary"></div>
+		<div class="vis2-loader-section bg-light"></div>
+	</div>
+
+<?php if (\osWFrame\Core\Settings::catchValue('modal', '', 'pg')=='1'): ?>
+
+	<?php echo $vis2content ?>
+
+<?php else: ?>
 	<nav id="jbsadmin-navbar" class="navbar navbar-expand navbar-light bg-white mb-4 fixed-top shadow">
 
 		<a class="navbar-brand d-flex align-items-center" href="<?php echo $this->buildHrefLink('current', 'vistool='.$VIS2_Main->getTool().'&vispage=vis_dashboard') ?>">
@@ -209,5 +220,5 @@
 
 	</div>
 
-	<a class="scroll-to-top rounded" href="#jbsadmin-body"> <i class="fas fa-angle-up"></i> </a>
+	<a class="scroll-to-top" id="scrollToTop"> <i class="fas fa-angle-up"></i> </a>
 <?php endif ?>
