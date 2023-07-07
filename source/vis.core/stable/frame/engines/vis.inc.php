@@ -32,8 +32,6 @@ $osW_Bootstrap5->load();
 $osW_FontAwesome5=new \osWFrame\Core\FontAwesome5($osW_Template);
 $osW_FontAwesome5->load();
 
-$osW_jQuery3->loadPlugin('easing');
-
 $osW_Bootstrap5->loadPlugin('jbsadmin');
 $osW_Bootstrap5->loadPlugin('select');
 $osW_Bootstrap5->loadPlugin('datatables');

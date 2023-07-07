@@ -83,11 +83,6 @@
       "serverlist": "vendor",
       "package": "vendorlib.jquery_datatables_latest",
       "release": "stable"
-    },
-    {
-      "serverlist": "vendor",
-      "package": "vendorlib.jquery_easing_latest",
-      "release": "stable"
     }
   ]
 }
