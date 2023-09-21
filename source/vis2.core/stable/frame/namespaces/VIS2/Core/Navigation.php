@@ -29,7 +29,7 @@ class Navigation {
 	/**
 	 * Minor-Version der Klasse.
 	 */
-	private const CLASS_MINOR_VERSION=1;
+	private const CLASS_MINOR_VERSION=2;
 
 	/**
 	 * Release-Version der Klasse.
@@ -300,7 +300,7 @@ class Navigation {
 	/**
 	 * @return $this
 	 */
-	protected function createNavigationPath():self {
+	public function createNavigationPath():self {
 		if ($this->isLoaded()!==true) {
 			$this->loadNavigationTree();
 		}
@@ -334,7 +334,7 @@ class Navigation {
 
 		$link_path=[];
 		$link_path[]=$member_id;
-		if (isset($this->navigation_unsorted[$member_id])) {
+		if ((isset($this->navigation_unsorted[$member_id]))&&(isset($this->navigation_unsorted[$member_id]['navigation_parent_id']))) {
 			while (($this->navigation_unsorted[$member_id]['navigation_parent_id']!=0)) {
 				$member_id=$this->navigation_unsorted[$member_id]['navigation_parent_id'];
 				$link_path[]=$member_id;
@@ -458,9 +458,10 @@ class Navigation {
 
 	/**
 	 * @param array $data
-	 * @return $this
+	 * @param $create_navigationpath
+	 * @return bool
 	 */
-	public function addNavigationElement(array $data):self {
+	public function addNavigationElement(array $data, $create_navigationpath=true):bool {
 		$required_fields=['page_name', 'page_description', 'permission', 'navigation_parent_id', 'navigation_id'];
 
 		foreach ($required_fields as $required_field) {
@@ -507,9 +508,11 @@ class Navigation {
 			}
 		}
 
-		$this->createNavigationPath();
+		if ($create_navigationpath===true) {
+			$this->createNavigationPath();
+		}
 
-		return $this;
+		return true;
 	}
 
 	/**
