@@ -1,0 +1,140 @@
+<?php declare(strict_types=0);
+
+/**
+ * This file is part of the VIS2 package
+ *
+ * @author    Juergen Schwind
+ * @copyright Copyright (c) JBS New Media GmbH - Juergen Schwind (https://jbs-newmedia.com)
+ * @package   VIS2
+ * @link      https://oswframe.com
+ * @license   MIT License
+ */
+
+namespace VIS2\Core;
+
+use osWFrame\Core\BaseConnectionTrait;
+use osWFrame\Core\BaseStaticTrait;
+
+class Permission
+{
+    use BaseStaticTrait;
+    use BaseConnectionTrait;
+    use BaseUserTrait;
+    use BaseToolTrait;
+
+    /**
+     * Major-Version der Klasse.
+     */
+    private const CLASS_MAJOR_VERSION = 2;
+
+    /**
+     * Minor-Version der Klasse.
+     */
+    private const CLASS_MINOR_VERSION = 0;
+
+    /**
+     * Release-Version der Klasse.
+     */
+    private const CLASS_RELEASE_VERSION = 0;
+
+    /**
+     * Extra-Version der Klasse.
+     * Zum Beispiel alpha, beta, rc1, rc2 ...
+     */
+    private const CLASS_EXTRA_VERSION = '';
+
+    protected ?array $permission = null;
+
+    public function __construct(
+        int $tool_id = 0,
+        int $user_id = 0
+    ) {
+        if ($tool_id > 0) {
+            $this->setToolId($tool_id);
+        }
+        if ($user_id > 0) {
+            $this->setUserId($user_id);
+        }
+    }
+
+    public function isLoaded(): bool
+    {
+        if ($this->permission === null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkPermission(string $page, string $flag): bool
+    {
+        if ($this->isLoaded() !== true) {
+            $this->loadPermission();
+        }
+        if ((isset($this->permission[$page])) && (isset($this->permission[$page][$flag])) && ($this->permission[$page][$flag] === true)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getPermission(): array
+    {
+        if ($this->isLoaded() !== true) {
+            $this->loadPermission();
+        }
+
+        return $this->permission;
+    }
+
+    /**
+     * @return $this
+     */
+    public function loadPermission(): self
+    {
+        $this->permission = [];
+        $VIS2_Groups = new Group($this->getToolId(), $this->getUserId());
+
+        foreach ($VIS2_Groups->getGroups() as $group_id => $group_details) {
+            $QloadGroupPermission = self::getConnection();
+            $QloadGroupPermission->prepare(
+                'SELECT * FROM :table_vis2_group_permission: AS gp INNER JOIN :table_vis2_page: AS p ON (p.page_name_intern=gp.permission_page) INNER JOIN :table_vis2_page_permission: AS pp ON (pp.permission_flag=gp.permission_flag AND pp.page_id=p.page_id) INNER JOIN :table_vis2_permission: AS pe ON (pe.permission_flag=pp.permission_flag) WHERE pe.permission_ispublic=:permission_ispublic: AND gp.group_id=:group_id:'
+            );
+            $QloadGroupPermission->bindTable(':table_vis2_group_permission:', 'vis2_group_permission');
+            $QloadGroupPermission->bindTable(':table_vis2_page:', 'vis2_page');
+            $QloadGroupPermission->bindTable(':table_vis2_page_permission:', 'vis2_page_permission');
+            $QloadGroupPermission->bindTable(':table_vis2_permission:', 'vis2_permission');
+            $QloadGroupPermission->bindInt(':permission_ispublic:', 1);
+            $QloadGroupPermission->bindInt(':group_id:', $group_id);
+            foreach ($QloadGroupPermission->query() as $grouppermission) {
+                $this->permission[$grouppermission['permission_page']][$grouppermission['permission_flag']] = true;
+            }
+        }
+
+        $this->permission['vis_api']['view'] = true;
+        $this->permission['vis_dashboard']['view'] = true;
+        $this->permission['vis_dashboard']['link'] = true;
+        $this->permission['vis_profile']['view'] = true;
+        $this->permission['vis_profile']['link'] = true;
+        $this->permission['vis_settings']['view'] = true;
+        $this->permission['vis_settings']['link'] = true;
+        $this->permission['vis_logout']['view'] = true;
+        $this->permission['vis_logout']['link'] = true;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function addPermission(string $permission_page, string $permission_flag, bool $status = true): self
+    {
+        if ($this->isLoaded() !== true) {
+            $this->loadPermission();
+        }
+
+        $this->permission[$permission_page][$permission_flag] = $status;
+
+        return $this;
+    }
+}
