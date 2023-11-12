@@ -19,7 +19,9 @@ use VIS2\Lab\Main;
 
 $VIS2_Lab_Main = new Main($osW_Template);
 
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar(
+    'settings_abspath'
+) . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'vis_content.inc.php';
 $file_core = Settings::getStringVar(

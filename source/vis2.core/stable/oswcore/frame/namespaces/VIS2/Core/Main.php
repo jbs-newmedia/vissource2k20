@@ -89,7 +89,7 @@ class Main
             );
 
             Resource::copyResourcePath(
-                'modules' . \DIRECTORY_SEPARATOR . 'vis2' . \DIRECTORY_SEPARATOR,
+                'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . 'vis2' . \DIRECTORY_SEPARATOR,
                 $dir . \DIRECTORY_SEPARATOR . $version . \DIRECTORY_SEPARATOR,
                 $files
             );
@@ -126,7 +126,7 @@ class Main
                 [$file]
             );
             Resource::copyResourcePath(
-                'modules' . \DIRECTORY_SEPARATOR . 'vis2' . \DIRECTORY_SEPARATOR,
+                'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . 'vis2' . \DIRECTORY_SEPARATOR,
                 $dir . \DIRECTORY_SEPARATOR . $version . \DIRECTORY_SEPARATOR,
                 [$file]
             );

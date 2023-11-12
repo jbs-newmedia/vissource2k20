@@ -183,7 +183,7 @@ if (in_array(Settings::getAction(), ['', 'log'], true)) {
             if (isset($options['module'])) {
                 $file = Settings::getStringVar(
                     'settings_abspath'
-                ) . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'view' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'content.tpl.php';
+                ) . 'oswproject' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'view' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'content.tpl.php';
                 $file_core = Settings::getStringVar(
                     'settings_abspath'
                 ) . 'oswcore' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'view' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'content.tpl.php';
@@ -201,7 +201,7 @@ if (in_array(Settings::getAction(), ['', 'log'], true)) {
             if (isset($options['module'])) {
                 $file = Settings::getStringVar(
                     'settings_abspath'
-                ) . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'view' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'content.tpl.php';
+                ) . 'oswproject' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'view' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'content.tpl.php';
                 $file_core = Settings::getStringVar(
                     'settings_abspath'
                 ) . 'oswcore' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'view' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'content.tpl.php';

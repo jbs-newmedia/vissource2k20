@@ -43,6 +43,7 @@ $osW_FontAwesome6 = new FontAwesome6($osW_Template);
 $osW_FontAwesome6->load();
 
 $osW_Bootstrap5->loadPlugin('jbsadmin');
+$osW_Bootstrap5->loadPlugin('avalynx');
 $osW_Bootstrap5->loadPlugin('select');
 $osW_Bootstrap5->loadPlugin('datatables');
 $osW_Bootstrap5->loadPlugin('datatables_responsive');
@@ -92,7 +93,7 @@ if (Settings::getStringVar('vis2_logo_favicon_name_path') !== null) {
     $osW_FavIcon->setIcons2Template();
 }
 
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'content.inc.php';
 $file_core = Settings::getStringVar(
