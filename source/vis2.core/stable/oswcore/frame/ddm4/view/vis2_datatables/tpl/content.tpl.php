@@ -105,7 +105,7 @@ use osWFrame\Core\Settings;
         <tr class="ddm_element_<?php echo $this->getViewElementValue($element, 'id') ?>">
             <?php
             foreach ($this->getListElements() as $element => $options) {
-                $file = \osWFrame\Core\Settings::getStringVar('settings_abspath') . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'list' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'header.tpl.php';
+                $file = \osWFrame\Core\Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'list' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'header.tpl.php';
                 $file_core = \osWFrame\Core\Settings::getStringVar('settings_abspath') . 'oswcore' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'list' . \DIRECTORY_SEPARATOR . $options['module'] . \DIRECTORY_SEPARATOR . 'tpl' . \DIRECTORY_SEPARATOR . 'header.tpl.php';
                 if (file_exists($file)) {
                     include $file;

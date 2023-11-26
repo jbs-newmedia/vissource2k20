@@ -26,7 +26,7 @@ use VIS2\Core\Main;
 use VIS2\Core\Navigation;
 use VIS2\Core\User;
 
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'content_header_config.inc.php';
 $file_core = Settings::getStringVar(
@@ -136,7 +136,7 @@ if (Settings::getStringVar('vis2_tool_' . $VIS2_Main->getTool() . '_title') !== 
 /**
  * Inhalt VIS-Tool verarbeiten
  */
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'vistools' . \DIRECTORY_SEPARATOR . $VIS2_Main->getTool(
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'content.inc.php';
@@ -166,7 +166,7 @@ $osW_Template->setVarFromFile('content', 'content', Settings::getStringVar('fram
 /*
  * Hook Footer.
  */
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'content_footer_pre.inc.php';
 $file_core = Settings::getStringVar(

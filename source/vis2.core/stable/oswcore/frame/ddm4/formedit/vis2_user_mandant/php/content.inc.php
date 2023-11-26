@@ -54,7 +54,7 @@ if (Settings::getAction() === 'doedit') {
                     $element,
                     'tool_id'
                 ) . '_' . $mandant_id]
-            )) && ($_POST[$element . '_' . $this->getEditElementOption($element, 'tool_id') . '_' . $mandant_id] === 1)
+            )) && ($_POST[$element . '_' . $this->getEditElementOption($element, 'tool_id') . '_' . $mandant_id] === '1')
             ) {
                 $ar_user_mandant[$this->getEditElementOption($element, 'tool_id')][$mandant_id] = 1;
             } else {

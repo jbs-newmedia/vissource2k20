@@ -54,7 +54,7 @@ $VIS2_Navigation->setPermission($VIS2_Permission);
 /*
  * Hook Header.
  */
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'content_header.inc.php';
 $file_core = Settings::getStringVar(
@@ -71,7 +71,7 @@ if (file_exists($file)) {
 /*
  * Hook Header für Tools.
  */
-$file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+$file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
     'frame_current_module'
 ) . \DIRECTORY_SEPARATOR . 'vistools' . \DIRECTORY_SEPARATOR . $VIS2_Main->getTool(
 ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'content_header.inc.php';
@@ -92,7 +92,7 @@ if ($VIS2_Navigation->getPage() === '') {
 }
 
 if ($VIS2_Navigation->getFile() === '') {
-    $file = Settings::getStringVar('settings_abspath') . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
+    $file = Settings::getStringVar('settings_abspath') . 'oswproject' . \DIRECTORY_SEPARATOR . 'modules' . \DIRECTORY_SEPARATOR . Settings::getStringVar(
         'frame_current_module'
     ) . \DIRECTORY_SEPARATOR . 'vistools' . \DIRECTORY_SEPARATOR . $VIS2_Main->getTool(
     ) . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . $VIS2_Navigation->getPage() . '.inc.php';

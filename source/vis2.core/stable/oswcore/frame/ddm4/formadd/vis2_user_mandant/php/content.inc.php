@@ -44,7 +44,7 @@ if (Settings::getAction() === 'doadd') {
                     $element,
                     'tool_id'
                 ) . '_' . $mandant_id]
-            )) && ($_POST[$element . '_' . $this->getAddElementOption($element, 'tool_id') . '_' . $mandant_id] === 1)
+            )) && ($_POST[$element . '_' . $this->getAddElementOption($element, 'tool_id') . '_' . $mandant_id] === '1')
             ) {
                 $ar_user_mandant[$this->getAddElementOption($element, 'tool_id')][$mandant_id] = 1;
             } else {

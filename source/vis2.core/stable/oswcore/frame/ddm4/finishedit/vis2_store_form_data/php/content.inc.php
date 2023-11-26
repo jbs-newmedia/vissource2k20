@@ -135,7 +135,7 @@ if ($this->getGroupOption('enable_log') === true) {
             if ($value_old !== $value_new) {
                 $file = Settings::getStringVar(
                     'settings_abspath'
-                ) . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'list' . \DIRECTORY_SEPARATOR . $element_details['module'] . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'log.inc.php';
+                ) . 'oswproject' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'list' . \DIRECTORY_SEPARATOR . $element_details['module'] . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'log.inc.php';
                 $file_core = Settings::getStringVar(
                     'settings_abspath'
                 ) . 'oswcore' . \DIRECTORY_SEPARATOR . 'frame' . \DIRECTORY_SEPARATOR . 'ddm4' . \DIRECTORY_SEPARATOR . 'list' . \DIRECTORY_SEPARATOR . $element_details['module'] . \DIRECTORY_SEPARATOR . 'php' . \DIRECTORY_SEPARATOR . 'log.inc.php';
